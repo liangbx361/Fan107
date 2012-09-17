@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_title_bar" >
+
+        <Button
+            android:id="@id/change_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5.0dip"
+            android:background="@drawable/universal_btn"
+            android:drawableLeft="@drawable/ico_btn_listmap"
+            android:gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:textSize="14.0sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@id/change_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5.0dip"
+            android:background="@drawable/universal_btn"
+            android:drawableLeft="@drawable/ico_btn_category"
+            android:gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:textSize="14.0sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/main_act_bottom_tab_today_gp"
+            android:textColor="@color/white"
+            android:textSize="20.0sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@id/title_bar_splict"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_title_bar_splict"
+        android:contentDescription="@string/app_name" />
+
+    <LinearLayout
+        android:id="@id/table_row"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/category_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="8.0dip"
+        android:paddingRight="8.0dip" >
+
+        <Button
+            android:id="@id/class_1"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/tab_left_a"
+            android:text="@string/commodity_act_order_btn_distance"
+            android:textColor="@color/font_color"
+            android:textSize="14.0sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@id/class_2"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/tab_middle_a"
+            android:text="@string/commodity_act_order_btn_popularity"
+            android:textColor="@color/font_color"
+            android:textSize="14.0sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@id/class_3"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/tab_right_a"
+            android:text="@string/commodity_act_order_btn_price"
+            android:textColor="@color/font_color"
+            android:textSize="14.0sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+
+
+        <ProgressBar
+            android:id="@id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateDrawable="@drawable/progressbar" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shadow"
+            android:contentDescription="@string/app_name" />
+    </FrameLayout>
+
+</LinearLayout>
