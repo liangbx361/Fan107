@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_title_bar" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="编辑配送地址"
+            android:textColor="@color/white"
+            android:textSize="20.0sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_title_bar_splict" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="8.0dip"
+        android:gravity="center_horizontal" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_corners_no_pressed"
+            android:clickable="false"
+            android:focusable="false"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1.0dip"
+                android:layout_marginRight="1.0dip"
+                android:layout_marginTop="1.0dip"
+                android:background="@drawable/bg_corners_top"
+                android:gravity="center_vertical"
+                android:padding="10.0dip" >
+
+                <TextView
+                    android:id="@id/name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="姓名"
+                    android:textColor="@color/title"
+                    android:textSize="18.0sp" />
+
+                <EditText
+                    android:id="@id/name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@id/name_tv"
+                    android:textColor="@color/content_color"
+                    android:textSize="18.0sp" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@id/splict_1"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/bg_corners_border" />
+
+            <RelativeLayout
+                android:id="@id/province_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1.0dip"
+                android:layout_marginRight="1.0dip"
+                android:background="@drawable/bg_corners_center"
+                android:gravity="center_vertical"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip"
+                android:paddingTop="8.0dip" >
+
+                <TextView
+                    android:id="@id/privance_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="省份"
+                    android:textColor="@color/title"
+                    android:textSize="18.0sp" />
+
+                <Spinner
+                    android:id="@id/privance_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@id/privance_tv"
+                    android:textColor="@color/content_color" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@id/splict_2"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/bg_corners_border" />
+
+            <RelativeLayout
+                android:id="@id/city_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1.0dip"
+                android:layout_marginRight="1.0dip"
+                android:background="@drawable/bg_corners_center"
+                android:gravity="center_vertical"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip"
+                android:paddingTop="8.0dip" >
+
+                <TextView
+                    android:id="@id/city_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="城市"
+                    android:textColor="@color/title"
+                    android:textSize="18.0sp" />
+
+                <Spinner
+                    android:id="@id/city_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@id/city_tv"
+                    android:textColor="@color/content_color" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@id/splict_3"
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/bg_corners_border" />
+
+            <RelativeLayout
+                android:id="@id/area_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1.0dip"
+                android:layout_marginRight="1.0dip"
+                android:background="@drawable/bg_corners_center"
+                android:gravity="center_vertical"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip"
+                android:paddingTop="8.0dip" >
+
+                <TextView
+                    android:id="@id/area_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="地区"
+                    android:textColor="@color/title"
+                    android:textSize="18.0sp" />
+
+                <Spinner
+                    android:id="@id/area_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@id/area_tv"
+                    android:textColor="@color/content_color" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/bg_corners_border" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1.0dip"
+                android:layout_marginRight="1.0dip"
+                android:background="@drawable/bg_corners_center"
+                android:gravity="center_vertical"
+                android:padding="10.0dip" >
+
+                <TextView
+                    android:id="@id/address_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="地址"
+                    android:textColor="@color/title"
+                    android:textSize="18.0sp" />
+
+                <EditText
+                    android:id="@id/address"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@id/address_tv"
+                    android:textColor="@color/content_color"
+                    android:textSize="18.0sp" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/bg_corners_border" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1.0dip"
+                android:layout_marginRight="1.0dip"
+                android:background="@drawable/bg_corners_center"
+                android:gravity="center_vertical"
+                android:padding="10.0dip" >
+
+                <TextView
+                    android:id="@id/code_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="邮编"
+                    android:textColor="@color/title"
+                    android:textSize="18.0sp" />
+
+                <EditText
+                    android:id="@id/code"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@id/code_tv"
+                    android:inputType="number"
+                    android:numeric="integer"
+                    android:textColor="@color/content_color"
+                    android:textSize="18.0sp" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/bg_corners_border" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1.0dip"
+                android:layout_marginRight="1.0dip"
+                android:background="@drawable/bg_corners_center"
+                android:gravity="center_vertical"
+                android:padding="10.0dip" >
+
+                <TextView
+                    android:id="@id/phone_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="电话"
+                    android:textColor="@color/title"
+                    android:textSize="18.0sp" />
+
+                <EditText
+                    android:id="@id/phone"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@id/phone_tv"
+                    android:inputType="number"
+                    android:numeric="integer"
+                    android:textColor="@color/content_color"
+                    android:textSize="18.0sp" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/bg_corners_border" />
+
+            <Button
+                android:id="@id/add"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="12.0dip"
+                android:layout_marginLeft="20.0dip"
+                android:layout_marginRight="20.0dip"
+                android:layout_marginTop="12.0dip"
+                android:background="@drawable/btn_bg"
+                android:gravity="center"
+                android:text="确   定"
+                android:textColor="@color/white"
+                android:textSize="18.0sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_title_bar" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="注册107饭网账户"
+            android:textColor="@color/white"
+            android:textSize="20.0sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@id/title_bar_splict"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_bar"
+        android:background="@drawable/bg_title_bar_splict" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8.0dip"
+        android:layout_marginLeft="8.0dip"
+        android:layout_marginRight="8.0dip"
+        android:layout_marginTop="15.0dip"
+        android:background="@drawable/bg_corners"
+        android:orientation="vertical"
+        android:padding="1.0dip" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_corners_top"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10.0dip" >
+
+            <ImageView
+                android:id="@id/username_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:gravity="center_vertical"
+                android:src="@drawable/account_icon" />
+
+            <EditText
+                android:id="@id/username"
+                android:layout_width="fill_parent"
+                android:layout_height="30.0dip"
+                android:layout_marginLeft="5.0dip"
+                android:background="#00000000"
+                android:gravity="center_vertical"
+                android:hint="用户名(4-20个字符)"
+                android:scrollHorizontally="true" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:background="@color/bg_corners_border" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_corners_center"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10.0dip" >
+
+            <ImageView
+                android:id="@id/username_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:gravity="center_vertical"
+                android:src="@drawable/youxiang" />
+
+            <EditText
+                android:id="@id/email"
+                android:layout_width="fill_parent"
+                android:layout_height="30.0dip"
+                android:layout_marginLeft="5.0dip"
+                android:background="#00000000"
+                android:gravity="center_vertical"
+                android:hint="邮箱"
+                android:scrollHorizontally="true" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:background="@color/bg_corners_border" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_corners_bottom"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10.0dip" >
+
+            <ImageView
+                android:id="@id/secret_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:gravity="center_vertical"
+                android:src="@drawable/mima" />
+
+            <EditText
+                android:id="@id/password"
+                android:layout_width="fill_parent"
+                android:layout_height="30.0dip"
+                android:layout_marginLeft="5.0dip"
+                android:background="#00000000"
+                android:gravity="center_vertical"
+                android:hint="密码(至少6位)  "
+                android:password="true"
+                android:scrollHorizontally="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/reg_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="10.0dip"
+        android:background="@drawable/btn_bg"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注 册"
+            android:textColor="@color/white"
+            android:textSize="18.0sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

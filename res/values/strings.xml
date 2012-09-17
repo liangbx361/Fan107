@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name"> 邀您吃饭  </string>
-    <string name="main_act_bottom_tab_today_gp">今日团购</string>
+    <string name="main_act_bottom_tab_today_gp">定餐</string>
     <string name="main_act_bottom_tab_ambitus_gp">周边团购</string>
     <string name="main_act_bottom_tab_search_gp">团购搜索</string>
     <string name="main_act_bottom_tab_my_lashou">我的拉手</string>
