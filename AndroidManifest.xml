@@ -31,6 +31,16 @@
             android:label="@string/app_name">            
         </activity>
         
+        <activity 
+            android:name=".activity.RecevoirAddressActivity"
+            android:label="@string/app_name">            
+        </activity>
+        
+        <activity 
+            android:name=".activity.AddressAddActivity"
+            android:label="@string/app_name">            
+        </activity>
+        
     </application>
 
 </manifest>

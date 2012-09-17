@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="编辑配送地址"
+            android:text="编辑送餐地址"
             android:textColor="@color/white"
             android:textSize="20.0sp" />
     </RelativeLayout>
@@ -217,37 +217,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="1.0dip"
                 android:background="@color/bg_corners_border" />
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1.0dip"
-                android:layout_marginRight="1.0dip"
-                android:background="@drawable/bg_corners_center"
-                android:gravity="center_vertical"
-                android:padding="10.0dip" >
-
-                <TextView
-                    android:id="@id/code_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="邮编"
-                    android:textColor="@color/title"
-                    android:textSize="18.0sp" />
-
-                <EditText
-                    android:id="@id/code"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/code_tv"
-                    android:inputType="number"
-                    android:numeric="integer"
-                    android:textColor="@color/content_color"
-                    android:textSize="18.0sp" />
-            </RelativeLayout>
 
             <ImageView
                 android:layout_width="fill_parent"

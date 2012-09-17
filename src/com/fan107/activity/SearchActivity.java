@@ -72,7 +72,9 @@ public class SearchActivity extends Activity implements OnClickListener {
 			break;
 			
 		case R.id.setAddress:
-			
+			Intent mIntent2 = new Intent();
+			mIntent2.setClass(this, RecevoirAddressActivity.class);
+			startActivity(mIntent2);
 			break;
 		}
 	}
