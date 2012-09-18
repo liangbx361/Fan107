@@ -74,73 +74,11 @@
                 android:layout_height="1.0dip"
                 android:background="@color/bg_corners_border" />
 
-            <RelativeLayout
-                android:id="@id/province_layout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1.0dip"
-                android:layout_marginRight="1.0dip"
-                android:background="@drawable/bg_corners_center"
-                android:gravity="center_vertical"
-                android:paddingLeft="10.0dip"
-                android:paddingRight="10.0dip"
-                android:paddingTop="8.0dip" >
-
-                <TextView
-                    android:id="@id/privance_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="省份"
-                    android:textColor="@color/title"
-                    android:textSize="18.0sp" />
-
-                <Spinner
-                    android:id="@id/privance_spinner"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/privance_tv"
-                    android:textColor="@color/content_color" />
-            </RelativeLayout>
-
             <ImageView
                 android:id="@id/splict_2"
                 android:layout_width="fill_parent"
                 android:layout_height="1.0dip"
                 android:background="@color/bg_corners_border" />
-
-            <RelativeLayout
-                android:id="@id/city_layout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1.0dip"
-                android:layout_marginRight="1.0dip"
-                android:background="@drawable/bg_corners_center"
-                android:gravity="center_vertical"
-                android:paddingLeft="10.0dip"
-                android:paddingRight="10.0dip"
-                android:paddingTop="8.0dip" >
-
-                <TextView
-                    android:id="@id/city_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="城市"
-                    android:textColor="@color/title"
-                    android:textSize="18.0sp" />
-
-                <Spinner
-                    android:id="@id/city_spinner"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/city_tv"
-                    android:textColor="@color/content_color" />
-            </RelativeLayout>
 
             <ImageView
                 android:id="@id/splict_3"
