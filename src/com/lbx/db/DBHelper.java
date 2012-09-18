@@ -9,10 +9,10 @@ import android.os.Environment;
 
 public class DBHelper extends SQLiteOpenHelper {
 	
-	// 数据库存放的路径
+	// 鏁版嵁搴撳瓨鏀剧殑璺緞
 	public static final String DB_NAME_PATH = "";
 	
-	// 数据库名称
+	// 鏁版嵁搴撳悕绉�
 	private static final String DB_NAME = "fan107.db";
 	public static final String RECEIVE_ADDRESS_TBL_NAME = "receive_address";
 	public static final String ERROR_TBL_NAME = "ERROR_WORD";
@@ -53,21 +53,17 @@ public class DBHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		mDatabase = db;
 		mDatabase.execSQL(SQL_CREATE_TABLE_WORD_TABLE);
-		mDatabase.execSQL(SQL_CREATE_TABLE_ERROR_WORD_TABLE);
-		mDatabase.execSQL(SQL_CREATE_HISTORY_WORD_TABLE);
 	}
 	
 	@Override
 	public void onOpen(SQLiteDatabase db) {
 		mDatabase = db;
 		mDatabase.execSQL(SQL_CREATE_TABLE_WORD_TABLE);
-		mDatabase.execSQL(SQL_CREATE_TABLE_ERROR_WORD_TABLE);
-		mDatabase.execSQL(SQL_CREATE_HISTORY_WORD_TABLE);
 	}
 
 	public void insert(ContentValues contentValues) {
 		mDatabase = getWritableDatabase();
-		mDatabase.insert(TBL_NAME, null, contentValues);
+		mDatabase.insert(SQL_CREATE_TABLE_WORD_TABLE, null, contentValues);
 	}
 
 	public void insertErrorWord(ContentValues contentValues) {
@@ -76,7 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * 往表中插入数据
+	 * 寰�〃涓彃鍏ユ暟鎹�
 	 * @param tableName
 	 * @param contentValues
 	 */
@@ -88,13 +84,13 @@ public class DBHelper extends SQLiteOpenHelper {
 	public Cursor query() {
 		mDatabase = getReadableDatabase();
 		Cursor c = mDatabase
-				.query(TBL_NAME, null, null, null, null, null, null);
+				.query(RECEIVE_ADDRESS_TBL_NAME, null, null, null, null, null, null);
 		return c;
 	}
 
 	public Cursor queryWord() {
 		mDatabase = getReadableDatabase();
-		Cursor c = mDatabase.query(TBL_NAME, new String[] { "word",
+		Cursor c = mDatabase.query(RECEIVE_ADDRESS_TBL_NAME, new String[] { "word",
 				"mean AS _id" }, null, null, null, null, "word asc");
 		return c;
 	}
@@ -103,7 +99,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	public Cursor queryWordRow(String word) {
 		word = word.replace("'", "''");
 		mDatabase = getReadableDatabase();
-		Cursor c = mDatabase.rawQuery("select * from " + TBL_NAME
+		Cursor c = mDatabase.rawQuery("select * from " + RECEIVE_ADDRESS_TBL_NAME
 				+ " where word = " + "'" + word + "'", null);
 		return c;
 	}
@@ -111,7 +107,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	public Cursor queryStr(String str) {
 		str = str.replace("'", "''");
 		mDatabase = getReadableDatabase();
-		Cursor c = mDatabase.rawQuery("select word AS _id from " + TBL_NAME + " where word like '" + str + "%' order by word limit 50" , null);
+		Cursor c = mDatabase.rawQuery("select word AS _id from " + RECEIVE_ADDRESS_TBL_NAME + " where word like '" + str + "%' order by word limit 50" , null);
 		
 		return c;
 	}
@@ -124,7 +120,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	public boolean existInDB(String tableName, String word) {
 		mDatabase = getReadableDatabase();
-		String newWord = word.replace("'", "''"); // 转义字符 '
+		String newWord = word.replace("'", "''"); // 杞箟瀛楃 '
 		Cursor c = mDatabase.query(tableName, null, "word='" + newWord + "'",
 				null, null, null, null);
 
@@ -140,7 +136,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 
 	/**
-	 * 删除指定表
+	 * 鍒犻櫎鎸囧畾琛�
 	 * 
 	 * @param tableName
 	 */
@@ -175,6 +171,6 @@ public class DBHelper extends SQLiteOpenHelper {
 	public void deleteNullWordContent() {
 		mDatabase = getWritableDatabase();
 		mDatabase.execSQL("delete from word_table where pron is null and voice is null and mean is null and examples is null");
-		mDatabase.execSQL("delete from word_table where word like '%�%'");
+		mDatabase.execSQL("delete from word_table where word like '%锟�'");
 	}
 }
