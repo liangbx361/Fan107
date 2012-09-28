@@ -1,3 +1,9 @@
+/**
+ * 采用DOM解析XML文件
+ * 使用方式
+ * AndroidXMLParser parser = new AndroidXMLParser(String url);
+   Element rootElement = parser.getRoot();
+ */
 package common.xmlParser.net;
 
 import java.io.StringReader;
@@ -9,22 +15,17 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
+import common.connection.net.HttpDownloader;
 
-import com.dict.net.DictRemoteConnection;
-import com.ostrichmyself.api.util.URLProcesser;
-import common.connection.net.IRemoteConnection;
 
-/**
- * android解析xml； 从应用的角度而言，只需要传入网址URI即可搞定
- * 
- * @author Administrator
- * 
- */
-public class AndroidXMLParser {
+public class DomXMLParser {
+	private Element root;
+	private Document document;
 
-	public AndroidXMLParser(String uri) {
+	public DomXMLParser(String uri) {
 		DocumentBuilder docBuilder = null;
 		try {
+			// 创建一个DOM工厂实例
 			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
 					.newInstance();
 			docBuilder = docBuilderFactory.newDocumentBuilder();
@@ -37,25 +38,34 @@ public class AndroidXMLParser {
 	}
 	
 	/**
-	 * 获得字符数据
+	 * 获取网络xml资源，并转化成InputSource类型
 	 * @param uri
 	 * @param encoding
-	 * @return
+	 * @return InputSource
 	 */
 	private InputSource getConnectionStringData(String uri, String encoding) {
 		InputSource inputSource = null;
 		try {
-			String sssString = URLProcesser.getStringFromURL(uri, "UTF-8");
-			StringReader sReader = new StringReader(sssString);
+			// 通过http获取网络的xml资源
+			HttpDownloader mHttpDownloader = new HttpDownloader();
+			String urlSource = mHttpDownloader.getHttpContent(uri, encoding);
+			
+			// 将String转化成InputSource
+			StringReader sReader = new StringReader(urlSource);
 			inputSource = new InputSource(sReader);
 			inputSource.setEncoding(encoding);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return inputSource;
 	}
 	
-	
+	/**
+	 * 得到解析好的节点元素
+	 * @return
+	 */
 	public Element getRoot() {
 		return root;
 	}
@@ -68,17 +78,5 @@ public class AndroidXMLParser {
 	{
 		
 	}
-	
-	private Element root;
-	private Document document;
-	
-	public static void main(String[] args) {
-		IRemoteConnection connection = new DictRemoteConnection();
-		AndroidXMLParser parser = new AndroidXMLParser(connection
-				.getConnectionURI("split"));
-		Element rootElement = parser.getRoot();
-		BaseParser contentParser = new BaseParser(rootElement);
-		System.out.println(contentParser.getWordStructure().getMeaning());
-	}
-	
+			
 }

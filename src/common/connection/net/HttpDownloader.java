@@ -31,8 +31,8 @@ public class HttpDownloader {
 					.openConnection();
 			
 			// 设置消息报头
-			urlConn.setRequestProperty("Authorization", "Basic " + encoding);
-			urlConn.setRequestProperty("User-Agent", "Mozilla/5.0");
+//			urlConn.setRequestProperty("Authorization", "Basic " + encoding);
+//			urlConn.setRequestProperty("User-Agent", "Mozilla/5.0");
 			
 			// 获取一个远程的输入流
 			InputStream content = (InputStream) urlConn.getInputStream();
