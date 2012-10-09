@@ -1,10 +1,19 @@
 package com.fan107.activity;
 
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.fan107.R;
+import com.fan107.config.UrlConfig;
+
+import common.connection.net.HttpClientUtil;
+import common.connection.net.HttpDownloader;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,6 +35,8 @@ public class SearchActivity extends Activity implements OnClickListener {
 
 		findView();
 		setListenter();
+		
+		getLogin();
 	}
 
 	private void findView() {
@@ -83,5 +94,15 @@ public class SearchActivity extends Activity implements OnClickListener {
 		orderDistanceButton.setBackgroundResource(R.drawable.tab_left_a);
 		orderPopularityButton.setBackgroundResource(R.drawable.tab_middle_a);
 		orderPriceButton.setBackgroundResource(R.drawable.tab_right_a);
+	}
+	
+	public void getLogin() {
+//		HttpDownloader mDownloader = new HttpDownloader();
+//		mDownloader.getHttpContent(UrlConfig.LOGIN_URL, "UTF-8");
+		
+		Map<String, String> param = new HashMap<String, String>();
+		param.put("username", "admin");
+		param.put("password", "admin");
+		HttpClientUtil.postRequest(UrlConfig.LOGIN_ACTION, param);
 	}
 }
