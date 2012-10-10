@@ -4,6 +4,10 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.fan107.R;
 import com.fan107.config.UrlConfig;
 
@@ -96,13 +100,18 @@ public class SearchActivity extends Activity implements OnClickListener {
 		orderPriceButton.setBackgroundResource(R.drawable.tab_right_a);
 	}
 	
-	public void getLogin() {
-//		HttpDownloader mDownloader = new HttpDownloader();
-//		mDownloader.getHttpContent(UrlConfig.LOGIN_URL, "UTF-8");
-		
+	public void getLogin() {		
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("username", "admin");
 		param.put("password", "admin");
-		HttpClientUtil.postRequest(UrlConfig.LOGIN_ACTION, param);
+		String result = HttpClientUtil.postRequest(UrlConfig.LOGIN_ACTION, param);
+		
+		try {
+			JSONObject jsonObjs = new JSONObject(result);
+			boolean state = jsonObjs.getBoolean("success");
+			System.out.println(state);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 }

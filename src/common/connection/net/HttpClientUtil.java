@@ -62,7 +62,9 @@ public class HttpClientUtil {
 	 * @throws Exception
 	 */
 	public static String postRequest(String url, Map<String, String> rawParams) {
+		String result = null;
 		httpClient = new DefaultHttpClient();
+		
 		try {
 			// 创建HttpPost对象。
 			HttpPost post = new HttpPost(url);
@@ -79,14 +81,13 @@ public class HttpClientUtil {
 			// 如果服务器成功地返回响应
 			if (httpResponse.getStatusLine().getStatusCode() == 200) {
 				// 获取服务器响应字符串
-				String result = EntityUtils.toString(httpResponse.getEntity());
-				return result;
+				result = EntityUtils.toString(httpResponse.getEntity());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			httpClient.getConnectionManager().shutdown();
 		}
-		return null;
+		return result;
 	}
 }
