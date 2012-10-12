@@ -313,4 +313,8 @@
     <string name="upomp_bypay_utils_inputenterpsw_hint">"  请输入确认密码"</string>
     <string name="upomp_bypay_splash_hint1">随时随地</string>
     <string name="upomp_bypay_splash_hint2">随心支付</string>
+    
+    <string name="user_account">帐户</string>
+    <string name="user_login">登录/注册</string>
+    <string name="user_loginout">登出</string>
 </resources>

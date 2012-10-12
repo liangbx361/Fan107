@@ -1301,4 +1301,5 @@
     <item type="id" name="login">false</item>
     <item type="id" name="setAddress">false</item>
     <item type="id" name="addressListView">false</item>
+    <item type="id" name="userAccount">false</item>
 </resources>

@@ -16,6 +16,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -87,7 +89,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
-
+	
 	public class ConntectionThread extends Thread {
 		private String userName;
 		private String password;
@@ -102,6 +104,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 			mHandler.sendMessage(mHandler.obtainMessage(DIALOG_SHOW));
 			boolean state = getLoginState(userName, password);
 			Boolean mBoolean = Boolean.valueOf(state);
+			
+			if(state) savaAccount();	// 保存用户名和密码
+				
 			mHandler.sendMessage(mHandler.obtainMessage(CHECK_STATE, mBoolean));
 
 			mProgressDialog.dismiss();
@@ -115,16 +120,30 @@ public class LoginActivity extends Activity implements OnClickListener {
 			param.put("password", password);
 			String result = HttpClientUtil.postRequest(UrlConfig.LOGIN_ACTION,
 					param);
-
-			try {
-				JSONObject jsonObjs = new JSONObject(result);
-				state = jsonObjs.getBoolean("success");
-				System.out.println(state);
-			} catch (JSONException e) {
-				e.printStackTrace();
+			
+			if (result != null || !(result.equals(""))) {
+				try {
+					JSONObject jsonObjs = new JSONObject(result);
+					state = jsonObjs.getBoolean("success");
+					System.out.println(state);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 			}
 
 			return state;
+		}
+		
+		/**
+		 * 保存帐户密码
+		 */
+		private void savaAccount() {
+			SharedPreferences initData = LoginActivity.this.getSharedPreferences("account", MODE_PRIVATE);
+			Editor mEditor = initData.edit();
+			mEditor.putString("userName", userName);
+			mEditor.putString("password", password);
+			mEditor.putBoolean("loginState", true); // 登录状态
+			mEditor.commit();
 		}
 
 	}
@@ -138,6 +157,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 				boolean state = ((Boolean) msg.obj).booleanValue();
 				if (state) {
 					showToast(LoginActivity.this, "登录成功");
+					// 跳转到用户帐户页面
+					Intent mIntent = new Intent(LoginActivity.this, UserAccountActivity.class);
+					startActivity(mIntent);
 				} else {
 					showToast(LoginActivity.this, "登录失败");
 				}
@@ -168,9 +190,4 @@ public class LoginActivity extends Activity implements OnClickListener {
 		mToast.show();
 	}
 
-	private void checkNet() {
-		if (!NetWorkCheck.checkNetWorkStatus(this)) {
-			showToast(this, "无网络连接, 请检查网络设置");
-		}
-	}
 }

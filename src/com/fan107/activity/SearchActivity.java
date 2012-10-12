@@ -39,8 +39,6 @@ public class SearchActivity extends Activity implements OnClickListener {
 
 		findView();
 		setListenter();
-		
-		getLogin();
 	}
 
 	private void findView() {
@@ -48,7 +46,7 @@ public class SearchActivity extends Activity implements OnClickListener {
 		orderPopularityButton = (Button) findViewById(R.id.class_2);
 		orderPriceButton = (Button) findViewById(R.id.class_3);
 		
-		loginButton = (Button) findViewById(R.id.login);
+		loginButton = (Button) findViewById(R.id.userAccount);
 		mImageView = (ImageView) findViewById(R.id.setAddress);
 	}
 
@@ -80,9 +78,9 @@ public class SearchActivity extends Activity implements OnClickListener {
 			orderPriceButton.setBackgroundResource(R.drawable.tab_right_b);
 			break;
 			
-		case R.id.login:
+		case R.id.userAccount:
 			Intent mIntent = new Intent();
-			mIntent.setClass(this, LoginActivity.class);
+			mIntent.setClass(this, UserAccountActivity.class);
 			startActivity(mIntent);
 			break;
 			
@@ -98,20 +96,5 @@ public class SearchActivity extends Activity implements OnClickListener {
 		orderDistanceButton.setBackgroundResource(R.drawable.tab_left_a);
 		orderPopularityButton.setBackgroundResource(R.drawable.tab_middle_a);
 		orderPriceButton.setBackgroundResource(R.drawable.tab_right_a);
-	}
-	
-	public void getLogin() {		
-		Map<String, String> param = new HashMap<String, String>();
-		param.put("username", "admin");
-		param.put("password", "admin");
-		String result = HttpClientUtil.postRequest(UrlConfig.LOGIN_ACTION, param);
-		
-		try {
-			JSONObject jsonObjs = new JSONObject(result);
-			boolean state = jsonObjs.getBoolean("success");
-			System.out.println(state);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
 	}
 }

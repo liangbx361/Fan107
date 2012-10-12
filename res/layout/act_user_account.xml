@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_title_bar" >
+
+        <Button
+            android:id="@id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5.0dip"
+            android:background="@drawable/universal_btn"
+            android:text="登录/注册"
+            android:textColor="@color/white"
+            android:textSize="14.0sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的拉手"
+            android:textColor="@color/white"
+            android:textSize="20.0sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_title_bar_splict" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@id/logout_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10.0dip"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip" >
+
+                <ImageView
+                    android:id="@id/username_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/account_icon" />
+
+                <TextView
+                    android:id="@id/nologin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8.0dip"
+                    android:layout_toRightOf="@id/username_icon"
+                    android:text="用户未登录"
+                    android:textColor="@color/content_color"
+                    android:textSize="18.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@id/login_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip"
+                android:padding="10.0dip" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5.0dip"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:id="@id/uname_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:src="@drawable/account_icon" />
+
+                        <TextView
+                            android:id="@id/uname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5.0dip"
+                            android:gravity="center_vertical"
+                            android:text="@string/no_date"
+                            android:textColor="@color/content_color"
+                            android:textSize="18.0sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5.0dip"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:id="@id/money_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:src="@drawable/rmb_icon" />
+
+                        <TextView
+                            android:id="@id/money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5.0dip"
+                            android:gravity="center_vertical"
+                            android:text="积分余额:"
+                            android:textColor="@color/content_color"
+                            android:textSize="18.0sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:id="@id/order_layout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16.0dip"
+                        android:layout_marginLeft="8.0dip"
+                        android:layout_marginRight="4.0dip"
+                        android:layout_marginTop="20.0dip"
+                        android:layout_weight="1.0"
+                        android:background="@drawable/btn_account_bg"
+                        android:clickable="true"
+                        android:orientation="vertical"
+                        android:paddingBottom="8.0dip"
+                        android:paddingTop="8.0dip" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:drawableTop="@drawable/dingdan"
+                            android:gravity="center_horizontal"
+                            android:text="订单"
+                            android:textColor="#ff62646a"
+                            android:textSize="16.0sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@id/ticket_layout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16.0dip"
+                        android:layout_marginLeft="4.0dip"
+                        android:layout_marginRight="4.0dip"
+                        android:layout_marginTop="20.0dip"
+                        android:layout_weight="1.0"
+                        android:background="@drawable/btn_account_bg"
+                        android:clickable="true"
+                        android:orientation="vertical"
+                        android:paddingBottom="8.0dip"
+                        android:paddingTop="8.0dip" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:drawableTop="@drawable/lashouquan"
+                            android:gravity="center_horizontal"
+                            android:text="拉手券"
+                            android:textColor="#ff62646a"
+                            android:textSize="16.0sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@id/collect_layout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16.0dip"
+                        android:layout_marginLeft="4.0dip"
+                        android:layout_marginRight="8.0dip"
+                        android:layout_marginTop="20.0dip"
+                        android:layout_weight="1.0"
+                        android:background="@drawable/btn_account_bg"
+                        android:clickable="true"
+                        android:orientation="vertical"
+                        android:paddingBottom="8.0dip"
+                        android:paddingTop="8.0dip" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:drawableTop="@drawable/shouchang"
+                            android:gravity="center_horizontal"
+                            android:text="收藏"
+                            android:textColor="#ff62646a"
+                            android:textSize="16.0sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shadow" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8.0dip"
+                android:layout_marginLeft="8.0dip"
+                android:layout_marginRight="8.0dip"
+                android:background="@drawable/bg_corners"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@id/change_my_password"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1.0dip"
+                    android:layout_marginRight="1.0dip"
+                    android:layout_marginTop="1.0dip"
+                    android:background="@drawable/bg_corners_top"
+                    android:clickable="true"
+                    android:orientation="horizontal"
+                    android:padding="10.0dip" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5.0dip"
+                        android:src="@drawable/arrow_right" />
+
+                    <ImageView
+                        android:id="@id/lsq_ico"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ico_account_editpass" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6.0dip"
+                        android:layout_toRightOf="@id/lsq_ico"
+                        android:text="修改密码"
+                        android:textColor="@color/content_color"
+                        android:textSize="17.0sp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@id/change_password_xian"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/bg_corners_border" />
+
+                <RelativeLayout
+                    android:id="@id/my_send_address"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1.0dip"
+                    android:layout_marginRight="1.0dip"
+                    android:layout_marginTop="1.0dip"
+                    android:background="@drawable/bg_corners_center"
+                    android:clickable="true"
+                    android:orientation="horizontal"
+                    android:padding="10.0dip" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5.0dip"
+                        android:src="@drawable/arrow_right" />
+
+                    <ImageView
+                        android:id="@id/lsq_ico"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ico_account_adress" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6.0dip"
+                        android:layout_toRightOf="@id/lsq_ico"
+                        android:text="收货地址"
+                        android:textColor="@color/content_color"
+                        android:textSize="17.0sp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/bg_corners_border" />
+
+                <RelativeLayout
+                    android:id="@id/share_config_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1.0dip"
+                    android:layout_marginLeft="1.0dip"
+                    android:layout_marginRight="1.0dip"
+                    android:background="@drawable/bg_corners_bottom"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:padding="10.0dip" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5.0dip"
+                        android:src="@drawable/arrow_right" />
+
+                    <ImageView
+                        android:id="@id/send_address_ico"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/send_address" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6.0dip"
+                        android:layout_toRightOf="@id/send_address_ico"
+                        android:text="系统设置"
+                        android:textColor="@color/content_color"
+                        android:textSize="17.0sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8.0dip"
+                android:layout_marginLeft="8.0dip"
+                android:layout_marginRight="8.0dip"
+                android:background="@drawable/bg_corners"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@id/yijian"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1.0dip"
+                    android:layout_marginRight="1.0dip"
+                    android:layout_marginTop="1.0dip"
+                    android:background="@drawable/bg_corners_top"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10.0dip" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5.0dip"
+                        android:src="@drawable/arrow_right" />
+
+                    <ImageView
+                        android:id="@id/feedback_ico"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ico_account_suggest" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6.0dip"
+                        android:layout_toRightOf="@id/feedback_ico"
+                        android:text="意见反馈"
+                        android:textColor="@color/content_color"
+                        android:textSize="17.0sp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/bg_corners_border" />
+
+                <RelativeLayout
+                    android:id="@id/pingjia_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1.0dip"
+                    android:layout_marginRight="1.0dip"
+                    android:background="@drawable/bg_corners_center"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10.0dip" >
+
+                    <ImageView
+                        android:id="@id/ico_more_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5.0dip"
+                        android:src="@drawable/arrow_right" />
+
+                    <ImageView
+                        android:id="@id/pingjia_ico"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ico_account_grade" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6.0dip"
+                        android:layout_toRightOf="@id/pingjia_ico"
+                        android:text="推荐评分"
+                        android:textColor="@color/content_color"
+                        android:textSize="17.0sp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/bg_corners_border" />
+
+                <RelativeLayout
+                    android:id="@id/kefu_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1.0dip"
+                    android:layout_marginRight="1.0dip"
+                    android:background="@drawable/bg_corners_center"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10.0dip" >
+
+                    <ImageView
+                        android:id="@id/kefu_icom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5.0dip"
+                        android:src="@drawable/arrow_right" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5.0dip"
+                        android:layout_toLeftOf="@id/kefu_icom"
+                        android:text="4000-517-317"
+                        android:textColor="@color/content_color"
+                        android:textSize="17.0sp" />
+
+                    <ImageView
+                        android:id="@id/pingjia_ico"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ico_account_tel" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6.0dip"
+                        android:layout_toRightOf="@id/pingjia_ico"
+                        android:text="拉手客服"
+                        android:textColor="@color/content_color"
+                        android:textSize="17.0sp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/bg_corners_border" />
+
+                <RelativeLayout
+                    android:id="@id/about_us_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1.0dip"
+                    android:layout_marginRight="1.0dip"
+                    android:background="@drawable/bg_corners_center"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10.0dip" >
+
+                    <ImageView
+                        android:id="@id/ico_more_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5.0dip"
+                        android:src="@drawable/arrow_right" />
+
+                    <ImageView
+                        android:id="@id/pingjia_ico"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ico_account_about" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6.0dip"
+                        android:layout_toRightOf="@id/pingjia_ico"
+                        android:text="关于我们"
+                        android:textColor="@color/content_color"
+                        android:textSize="17.0sp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/bg_corners_border" />
+
+                <RelativeLayout
+                    android:id="@id/more_soft_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1.0dip"
+                    android:layout_marginLeft="1.0dip"
+                    android:layout_marginRight="1.0dip"
+                    android:background="@drawable/bg_corners_bottom"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:padding="10.0dip" >
+
+                    <ImageView
+                        android:id="@id/ico_more_soft"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5.0dip"
+                        android:src="@drawable/arrow_right" />
+
+                    <ImageView
+                        android:id="@id/tuijian_ico"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/more_app" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6.0dip"
+                        android:layout_toLeftOf="@id/ico_more_soft"
+                        android:layout_toRightOf="@id/tuijian_ico"
+                        android:text="精彩应用"
+                        android:textColor="@color/content_color"
+                        android:textSize="17.0sp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
