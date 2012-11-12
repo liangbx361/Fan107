@@ -5,43 +5,38 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
 
 public class DBHelper extends SQLiteOpenHelper {
 	
-	// 鏁版嵁搴撳瓨鏀剧殑璺緞
+	//数据库路径
 	public static final String DB_NAME_PATH = "";
 	
-	// 鏁版嵁搴撳悕绉�
+	//数据库名称
 	private static final String DB_NAME = "fan107.db";
-	public static final String RECEIVE_ADDRESS_TBL_NAME = "receive_address";
-	public static final String ERROR_TBL_NAME = "ERROR_WORD";
-	public static final String HISTORY_TBL_NAME = "history_word_table";
-
-	private static final String SQL_CREATE_TABLE_WORD_TABLE = "CREATE TABLE IF NOT EXISTS "
-			+ RECEIVE_ADDRESS_TBL_NAME
-			+ "("
-			+ "_id integer PRIMARY KEY,"
-			+ "user_name TEXT,"
-			+ "area TEXT,"
-			+ "address TEXT,"
-			+ "moblie TEXT,"
-			+ ");";
-
-	private static final String SQL_CREATE_TABLE_ERROR_WORD_TABLE = "CREATE TABLE IF NOT EXISTS "
-			+ ERROR_TBL_NAME
-			+ "("
-			+ "_id integer PRIMARY KEY,"
-			+ "word TEXT"
-			+ ");";
 	
-	private static final String SQL_CREATE_HISTORY_WORD_TABLE = "CREATE TABLE IF NOT EXISTS "
-			+ HISTORY_TBL_NAME
-			+ "("
-			+ "_time time PRIMARY KEY,"
-			+ "word TEXT"
-			+ ");";
-			
+	public static final String USER_TABLE_NAME = "users";
+	public static final String RECEIVE_ADDRESS_TBL_NAME = "receive_address";
+	
+	//创建user数据表
+	private static final String CREATE_TABLE_USER = "create table if not exists " + USER_TABLE_NAME 
+		+ " (id int primary key," 
+		+ "usergroup int, " 
+		+ "username varchar(20),"
+		+ "userpass varchar(32)," 
+		+ "nickname varchar(20)," 
+		+ "gender int,"  
+		+ "birthday varchar(20),"       
+		+ "totalpoint decimal(8, 1),"       
+		+ "currentpoint decimal(8, 1,"       
+		+ "usepoint decimal(8, 1),"       
+		+ "spreadcount int,"       
+		+ "mobile varchar(20),"       
+		+ "email varchar(100),"       
+		+ "address varchar(200),"       
+		+ "utype int,"       
+		+ "shopid int,"       
+		+ "addtime datetime"
+		+ ")";
 
 	private SQLiteDatabase mDatabase;
 
@@ -52,27 +47,16 @@ public class DBHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		mDatabase = db;
-		mDatabase.execSQL(SQL_CREATE_TABLE_WORD_TABLE);
+		mDatabase.execSQL(CREATE_TABLE_USER);
 	}
 	
 	@Override
 	public void onOpen(SQLiteDatabase db) {
 		mDatabase = db;
-		mDatabase.execSQL(SQL_CREATE_TABLE_WORD_TABLE);
-	}
-
-	public void insert(ContentValues contentValues) {
-		mDatabase = getWritableDatabase();
-		mDatabase.insert(SQL_CREATE_TABLE_WORD_TABLE, null, contentValues);
-	}
-
-	public void insertErrorWord(ContentValues contentValues) {
-		mDatabase = getWritableDatabase();
-		mDatabase.insert(ERROR_TBL_NAME, null, contentValues);
 	}
 	
 	/**
-	 * 寰�〃涓彃鍏ユ暟鎹�
+	 * 往表里插入数据
 	 * @param tableName
 	 * @param contentValues
 	 */
@@ -80,48 +64,51 @@ public class DBHelper extends SQLiteOpenHelper {
 		mDatabase = getWritableDatabase();
 		mDatabase.insert(tableName, null, contentValues);
 	}
-
-	public Cursor query() {
+	
+	/**
+	 * 通过sql语句往表里插入数据
+	 * @param sql
+	 */
+	public void insert(String sql) {
+		mDatabase = getWritableDatabase();
+		mDatabase.execSQL(sql);
+	}
+	
+	/**
+	 * 查询表中的数据
+	 * @param tableName
+	 * @param columns
+	 * @param orderBy
+	 * @return
+	 */
+	public Cursor query(String tableName, String[] columns, String orderBy) {
 		mDatabase = getReadableDatabase();
 		Cursor c = mDatabase
-				.query(RECEIVE_ADDRESS_TBL_NAME, null, null, null, null, null, null);
-		return c;
-	}
-
-	public Cursor queryWord() {
-		mDatabase = getReadableDatabase();
-		Cursor c = mDatabase.query(RECEIVE_ADDRESS_TBL_NAME, new String[] { "word",
-				"mean AS _id" }, null, null, null, null, "word asc");
-		return c;
-	}
-
-	// + "where word = " + word
-	public Cursor queryWordRow(String word) {
-		word = word.replace("'", "''");
-		mDatabase = getReadableDatabase();
-		Cursor c = mDatabase.rawQuery("select * from " + RECEIVE_ADDRESS_TBL_NAME
-				+ " where word = " + "'" + word + "'", null);
+				.query(tableName, columns, null, null, null, null, orderBy);
 		return c;
 	}
 	
-	public Cursor queryStr(String str) {
-		str = str.replace("'", "''");
+	/**
+	 * 通过sql语句查询表中的数据
+	 * @param sql
+	 * @return
+	 */
+	public Cursor query(String sql) {
 		mDatabase = getReadableDatabase();
-		Cursor c = mDatabase.rawQuery("select word AS _id from " + RECEIVE_ADDRESS_TBL_NAME + " where word like '" + str + "%' order by word limit 50" , null);
-		
-		return c;
-	}
-	
-	public Cursor queryHistoryTable() {
-		mDatabase = getReadableDatabase();
-		Cursor c = mDatabase.rawQuery("select word AS _id from " + HISTORY_TBL_NAME + " order by _time DESC", null);
+		Cursor c = mDatabase.rawQuery(sql, null);
 		return c;
 	}
 
-	public boolean existInDB(String tableName, String word) {
+
+	/**
+	 * 查询数据库中的值是否存在
+	 * @param tableName
+	 * @param word
+	 * @return
+	 */
+	public boolean existInDB(String tableName, String key, String keyValue) {
 		mDatabase = getReadableDatabase();
-		String newWord = word.replace("'", "''"); // 杞箟瀛楃 '
-		Cursor c = mDatabase.query(tableName, null, "word='" + newWord + "'",
+		Cursor c = mDatabase.query(tableName, null, key + "='" + keyValue + "'",
 				null, null, null, null);
 
 		if (!c.moveToFirst()) {
@@ -131,12 +118,23 @@ public class DBHelper extends SQLiteOpenHelper {
 		return true;
 	}
 
-	public SQLiteDatabase getDB() {
+	/**
+	 * 获取可写的数据库
+	 * @return
+	 */
+	public SQLiteDatabase getWritableDB() {
 		return getWritableDatabase();
+	}
+	
+	/**
+	 * 获取可读的数据库
+	 */
+	public SQLiteDatabase getReadableDB() {
+		return getReadableDatabase();
 	}
 
 	/**
-	 * 鍒犻櫎鎸囧畾琛�
+	 * 删除一张表
 	 * 
 	 * @param tableName
 	 */
@@ -144,33 +142,62 @@ public class DBHelper extends SQLiteOpenHelper {
 		mDatabase = getReadableDatabase();
 		mDatabase.execSQL("drop table if exists " + tableName);
 	}
-
+	
+	/**
+	 * 关闭数据库连接
+	 */
 	public void close() {
 		if (mDatabase != null) {
 			mDatabase.close();
 		}
 	}
-
+	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+		
 	}
 	
-	public void updateTable(String tableName, String setWhat, String where) {
+	/**
+	 * 更新表中的数据
+	 * @param tableName
+	 * @param setWhat
+	 * @param whereValue
+	 * SQL语句示例: update word_table set voice='123456' where word='baby';
+	 */
+	public void updateTable(String tableName, String setWhat, String whereValue) {
 		mDatabase = getWritableDatabase();
 		String SQL = "update ";
-		SQL += tableName + " set " + setWhat + " where " + where; 
+		SQL += tableName + " set " + setWhat + " where " + whereValue; 
 		mDatabase.execSQL(SQL);
 	}
 	
-	public void deleteTableContent(String tableName) {
+	/**
+	 * 通过sql语句更新表中的数据
+	 * @param sql
+	 */
+	public void updateTable(String sql) {
 		mDatabase = getWritableDatabase();
-		mDatabase.execSQL("delete from " + tableName);
+		mDatabase.execSQL(sql);
 	}
 	
-	public void deleteNullWordContent() {
+	/**
+	 * 删除表中的行
+	 * @param tableName
+	 * @param where
+	 * SQL语句示例: DELETE FROM 表名称 WHERE 列名称 = 值
+	 * DELETE FROM Person WHERE LastName = 'Wilson' 
+	 */
+	public void deleteTableContent(String tableName, String whereValue ) {
 		mDatabase = getWritableDatabase();
-		mDatabase.execSQL("delete from word_table where pron is null and voice is null and mean is null and examples is null");
-		mDatabase.execSQL("delete from word_table where word like '%锟�'");
+		mDatabase.execSQL("delete from " + tableName + " where " + whereValue);
+	}
+	
+	/**
+	 * 通过sql语句删除表中的行
+	 * @param sql
+	 */
+	public void deleteTableContent(String sql) {
+		mDatabase = getWritableDatabase();
+		mDatabase.execSQL(sql);
 	}
 }
