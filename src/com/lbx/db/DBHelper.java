@@ -22,6 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	private static final String DB_NAME = "fan107.db";
 	
 	public static final String USER_TABLE_NAME = "users";
+
 	public static final String USER_LOGIN_TABLE_NAME = "users_login";
 	public static final String RECEIVE_ADDRESS_TBL_NAME = "receive_address";
 	
@@ -78,6 +79,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * 判断是否已经存在，如果存在则更新数据, 否则插入数据
 	 * @param tableName
 	 * @param contentValues
@@ -118,6 +120,8 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
+=======
+>>>>>>> refs/heads/dbSet
 	 * 通过sql语句往表里插入数据
 	 * @param sql
 	 */

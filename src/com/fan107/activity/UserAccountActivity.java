@@ -19,11 +19,15 @@ import android.widget.TextView;
 
 public class UserAccountActivity extends Activity implements ActivityTemplete,
 		OnClickListener {
-	
+
 	Button login;
 	Button returnList;
 	RelativeLayout logout_layout;
 	RelativeLayout login_layout;
+	RelativeLayout order_layout; // 我的订单
+	RelativeLayout change_my_password; // 修改密码
+	RelativeLayout my_send_address; // 送餐地址
+	RelativeLayout share_config_layout; // 系统设置
 	TextView uname;
 	TextView point;
 	
@@ -46,7 +50,7 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.act_user_account);
-		
+
 		findWidget();
 		setWidgetListenter();
 		setWidgetPosition();
@@ -68,6 +72,10 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 		returnList = (Button) findViewById(R.id.returnList);
 		logout_layout = (RelativeLayout) findViewById(R.id.logout_layout);
 		login_layout = (RelativeLayout) findViewById(R.id.login_layout);
+		order_layout = (RelativeLayout) findViewById(R.id.order_layout);
+		change_my_password = (RelativeLayout) findViewById(R.id.change_my_password);
+		my_send_address = (RelativeLayout) findViewById(R.id.my_send_address);
+		share_config_layout = (RelativeLayout) findViewById(R.id.share_config_layout);
 		uname = (TextView) findViewById(R.id.uname);
 		point = (TextView) findViewById(R.id.money);
 		
@@ -78,6 +86,7 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 		login.setOnClickListener(this);
 		returnList.setOnClickListener(this);
 		chanagePasswordLayout.setOnClickListener(this);
+
 	}
 
 	public void setWidgetPosition() {
@@ -124,10 +133,26 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 				startActivity(changePasswordIntent);		
 			}
 			break;
+
+		// 我的订单
+		case R.id.order_layout:
+			break;
+
+		// 修改密码
+		case R.id.change_my_password:
+			break;
+
+		// 送餐地址
+		case R.id.my_send_address:
+			break;
+
+		// 系统设置
+		case R.id.share_config_layout:
+			break;
 		}
 
 	}
-	
+
 	private void getLoginState() {
 		userData = this.getSharedPreferences("account", MODE_PRIVATE);
 		loginState =  userData.getBoolean("loginState", false);
@@ -151,7 +176,7 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 			currentPointValue = cursor.getFloat(7);
 		}
 	}
-	
+
 	private String getUserName() {
 		userData = this.getSharedPreferences("account", MODE_PRIVATE);
 		return userData.getString("userName", "defalut");

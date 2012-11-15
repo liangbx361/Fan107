@@ -269,6 +269,49 @@
                 android:layout_marginRight="8.0dip"
                 android:background="@drawable/bg_corners"
                 android:orientation="vertical" >
+                
+                <RelativeLayout
+                    android:id="@id/order_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1.0dip"
+                    android:layout_marginRight="1.0dip"
+                    android:layout_marginTop="1.0dip"
+                    android:background="@drawable/bg_corners_top"
+                    android:clickable="true"
+                    android:orientation="horizontal"
+                    android:padding="10.0dip" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5.0dip"
+                        android:src="@drawable/arrow_right" />
+
+                    <ImageView
+                        android:id="@id/lsq_ico"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/dingdan" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6.0dip"
+                        android:layout_toRightOf="@id/lsq_ico"
+                        android:text="我的订单"
+                        android:textColor="@color/content_color"
+                        android:textSize="17.0sp" />
+                </RelativeLayout>
+                
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/bg_corners_border" />
 
                 <RelativeLayout
                     android:id="@id/user_information"
