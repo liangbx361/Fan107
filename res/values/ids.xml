@@ -194,7 +194,6 @@
     <item type="id" name="collect_layout">false</item>
     <item type="id" name="change_my_password">false</item>
     <item type="id" name="lsq_ico">false</item>
-    <item type="id" name="change_password_xian">false</item>
     <item type="id" name="my_send_address">false</item>
     <item type="id" name="share_config_layout">false</item>
     <item type="id" name="send_address_ico">false</item>
@@ -259,7 +258,6 @@
     <item type="id" name="et_old_password">false</item>
     <item type="id" name="et_new_password">false</item>
     <item type="id" name="et_determine_new_password">false</item>
-    <item type="id" name="btn_change_password">false</item>
     <item type="id" name="comment">false</item>
     <item type="id" name="ratingbar1">false</item>
     <item type="id" name="ratingbar2">false</item>
@@ -1302,4 +1300,13 @@
     <item type="id" name="setAddress">false</item>
     <item type="id" name="addressListView">false</item>
     <item type="id" name="userAccount">false</item>
+    <item type="id" name="returnList">false</item>
+    <item type="id" name="user_information">false</item>
+    
+    <item type="id" name="change_password">false</item>
+    <item type="id" name="income_manager">false</item>
+    <item type="id" name="recharge_layout">false</item>
+    
+    <item type="id" name="btn_change_password">false</item>
+    
 </resources>

@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:background="@drawable/tab_left_a"
-            android:text="@string/commodity_act_order_btn_distance"
+            android:text="@string/sort_time"
             android:textColor="@color/font_color"
             android:textSize="14.0sp"
             android:textStyle="bold" />
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:background="@drawable/tab_middle_a"
-            android:text="@string/commodity_act_order_btn_popularity"
+            android:text="@string/sort_populator"
             android:textColor="@color/font_color"
             android:textSize="14.0sp"
             android:textStyle="bold" />
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:background="@drawable/tab_right_a"
-            android:text="@string/commodity_act_order_btn_price"
+            android:text="@string/sort_score"
             android:textColor="@color/font_color"
             android:textSize="14.0sp"
             android:textStyle="bold" />

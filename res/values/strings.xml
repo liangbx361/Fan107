@@ -317,4 +317,7 @@
     <string name="user_account">帐户</string>
     <string name="user_login">登录/注册</string>
     <string name="user_loginout">登出</string>
+    <string name="sort_time">时间</string>
+    <string name="sort_populator">人气</string>
+    <string name="sort_score">评分</string>
 </resources>

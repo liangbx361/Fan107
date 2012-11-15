@@ -9,6 +9,20 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_title_bar" >
+        
+        <Button
+            android:id="@id/returnList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5.0dip"
+            android:background="@drawable/universal_btn"
+            android:gravity="center_horizontal"
+            android:text="返回"
+            android:textColor="@color/white"
+            android:textSize="14.0sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@id/login"
@@ -27,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="我的拉手"
+            android:text="我的信息"
             android:textColor="@color/white"
             android:textSize="20.0sp" />
     </RelativeLayout>
@@ -128,7 +142,6 @@
                             android:src="@drawable/rmb_icon" />
 
                         <TextView
-                            android:id="@id/money"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -137,6 +150,18 @@
                             android:text="积分余额:"
                             android:textColor="@color/content_color"
                             android:textSize="18.0sp" />
+                        
+                        <TextView
+                            android:id="@id/money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5.0dip"
+                            android:gravity="center_vertical"
+                            android:text=""
+                            android:textColor="@color/content_color"
+                            android:textSize="18.0sp" />
+                       	
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -178,7 +203,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@id/ticket_layout"
+                        android:id="@id/recharge_layout"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16.0dip"
@@ -198,7 +223,7 @@
                             android:layout_gravity="center_horizontal"
                             android:drawableTop="@drawable/lashouquan"
                             android:gravity="center_horizontal"
-                            android:text="拉手券"
+                            android:text="充值"
                             android:textColor="#ff62646a"
                             android:textSize="16.0sp" />
                     </LinearLayout>
@@ -246,7 +271,7 @@
                 android:orientation="vertical" >
 
                 <RelativeLayout
-                    android:id="@id/change_my_password"
+                    android:id="@id/user_information"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="1.0dip"
@@ -278,17 +303,59 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="6.0dip"
                         android:layout_toRightOf="@id/lsq_ico"
+                        android:text="个人资料"
+                        android:textColor="@color/content_color"
+                        android:textSize="17.0sp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/bg_corners_border" />
+
+                <RelativeLayout
+                    android:id="@id/change_password"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1.0dip"
+                    android:layout_marginRight="1.0dip"
+                    android:layout_marginTop="1.0dip"
+                    android:background="@drawable/bg_corners_center"
+                    android:clickable="true"
+                    android:orientation="horizontal"
+                    android:padding="10.0dip" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5.0dip"
+                        android:src="@drawable/arrow_right" />
+
+                    <ImageView
+                        android:id="@id/lsq_ico"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ico_account_adress" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6.0dip"
+                        android:layout_toRightOf="@id/lsq_ico"
                         android:text="修改密码"
                         android:textColor="@color/content_color"
                         android:textSize="17.0sp" />
                 </RelativeLayout>
 
                 <ImageView
-                    android:id="@id/change_password_xian"
                     android:layout_width="fill_parent"
                     android:layout_height="1.0dip"
                     android:background="@color/bg_corners_border" />
-
+                
                 <RelativeLayout
                     android:id="@id/my_send_address"
                     android:layout_width="fill_parent"
@@ -322,18 +389,18 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="6.0dip"
                         android:layout_toRightOf="@id/lsq_ico"
-                        android:text="收货地址"
+                        android:text="送餐地址"
                         android:textColor="@color/content_color"
                         android:textSize="17.0sp" />
                 </RelativeLayout>
-
+                
                 <ImageView
                     android:layout_width="fill_parent"
                     android:layout_height="1.0dip"
                     android:background="@color/bg_corners_border" />
 
                 <RelativeLayout
-                    android:id="@id/share_config_layout"
+                    android:id="@id/income_manager"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="1.0dip"
@@ -365,7 +432,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="6.0dip"
                         android:layout_toRightOf="@id/send_address_ico"
-                        android:text="系统设置"
+                        android:text="收益管理"
                         android:textColor="@color/content_color"
                         android:textSize="17.0sp" />
                 </RelativeLayout>

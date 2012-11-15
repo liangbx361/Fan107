@@ -59,7 +59,6 @@ public class SearchActivity extends Activity implements OnClickListener {
 		mImageView.setOnClickListener(this);
 	}
 
-	@Override
 	public void onClick(View v) {
 
 		switch (v.getId()) {
@@ -96,5 +95,9 @@ public class SearchActivity extends Activity implements OnClickListener {
 		orderDistanceButton.setBackgroundResource(R.drawable.tab_left_a);
 		orderPopularityButton.setBackgroundResource(R.drawable.tab_middle_a);
 		orderPriceButton.setBackgroundResource(R.drawable.tab_right_a);
+	}
+	
+	private void getShotList() {
+		
 	}
 }

@@ -37,24 +37,20 @@ public class RecevoirAddressActivity extends Activity implements
 		setWidgetAttribute();		
 	}
 
-	@Override
 	public void findWidget() {
 		addAddressButton = (Button) findViewById(R.id.add_adress_btn);
 		addressListView = (ListView) findViewById(R.id.addressListView);
 
 	}
 
-	@Override
 	public void setWidgetListenter() {
 		addAddressButton.setOnClickListener(this);
 	}
 
-	@Override
 	public void setWidgetPosition() {
 
 	}
 
-	@Override
 	public void setWidgetAttribute() {
 		mData = new ArrayList<Map<String,Object>>();
 		setTestData();
@@ -65,7 +61,6 @@ public class RecevoirAddressActivity extends Activity implements
 		addressListView.setAdapter(mAdapter);
 	}
 
-	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.add_adress_btn:

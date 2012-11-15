@@ -44,7 +44,6 @@ public class AddressAddActivity extends Activity implements ActivityTemplete, On
 		setWidgetAttribute();
 	}
 
-	@Override
 	public void findWidget() {
 		areaSpinner = (Spinner) findViewById(R.id.area_spinner);
 		nameText = (EditText) findViewById(R.id.name);
@@ -53,17 +52,14 @@ public class AddressAddActivity extends Activity implements ActivityTemplete, On
 		checkButton = (Button) findViewById(R.id.add);
 	}
 
-	@Override
 	public void setWidgetListenter() {
 		checkButton.setOnClickListener(this);
 	}
 
-	@Override
 	public void setWidgetPosition() {
 
 	}
 
-	@Override
 	public void setWidgetAttribute() {
 		List<String> mList = new ArrayList<String>();
 		
@@ -75,7 +71,6 @@ public class AddressAddActivity extends Activity implements ActivityTemplete, On
 		areaSpinner.setAdapter(adapter);
 	}
 
-	@Override
 	public void onClick(View v) {
 		
 		switch(v.getId()) {
