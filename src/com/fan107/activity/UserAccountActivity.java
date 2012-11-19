@@ -3,6 +3,7 @@ package com.fan107.activity;
 import com.fan107.R;
 import com.lbx.db.DBHelper;
 import com.lbx.templete.ActivityTemplete;
+import com.widget.helper.ToastHelper;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -14,18 +15,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class UserAccountActivity extends Activity implements ActivityTemplete,
 		OnClickListener {
+	
+	private static final String TAG = "UserAccountActivity";
+	private static final String MESSAGE_1 = "请先登录";
 
 	Button login;
 	Button returnList;
 	RelativeLayout logout_layout;
 	RelativeLayout login_layout;
-	RelativeLayout order_layout; // 我的订单
-	RelativeLayout change_my_password; // 修改密码
+	LinearLayout order_layout; // 我的订单
 	RelativeLayout my_send_address; // 送餐地址
 	RelativeLayout share_config_layout; // 系统设置
 	TextView uname;
@@ -72,8 +76,8 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 		returnList = (Button) findViewById(R.id.returnList);
 		logout_layout = (RelativeLayout) findViewById(R.id.logout_layout);
 		login_layout = (RelativeLayout) findViewById(R.id.login_layout);
-		order_layout = (RelativeLayout) findViewById(R.id.order_layout);
-		change_my_password = (RelativeLayout) findViewById(R.id.change_my_password);
+		order_layout = (LinearLayout) findViewById(R.id.order_layout);
+
 		my_send_address = (RelativeLayout) findViewById(R.id.my_send_address);
 		share_config_layout = (RelativeLayout) findViewById(R.id.share_config_layout);
 		uname = (TextView) findViewById(R.id.uname);
@@ -126,11 +130,14 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 			startActivity(returnIntent);
 			break;
 		
+		//修改密码
 		case R.id.change_password:
 			if(loginState) {
 				Intent changePasswordIntent = new Intent(this, ChangePasswordActivity.class);
 				changePasswordIntent.putExtra("userName", userName);
 				startActivity(changePasswordIntent);		
+			} else {
+				ToastHelper.showToastInBottom(this, MESSAGE_1);
 			}
 			break;
 
@@ -138,12 +145,10 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 		case R.id.order_layout:
 			break;
 
-		// 修改密码
-		case R.id.change_my_password:
-			break;
-
-		// 送餐地址
+		//送餐地址
 		case R.id.my_send_address:
+			Intent addressIntent = new Intent(this, RecevoirAddressActivity.class);
+			startActivity(addressIntent);
 			break;
 
 		// 系统设置
@@ -165,6 +170,7 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 			passwordMD5 = cursor.getString(3);
 			getUserInfo();
 		} else {
+			ToastHelper.showToastInBottom(this, MESSAGE_1);
 			loginState = false;
 		}
 	}
