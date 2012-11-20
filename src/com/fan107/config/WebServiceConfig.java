@@ -14,9 +14,12 @@ public interface WebServiceConfig {
 	
 	//商品列表
 	public static final String SHOP_LIST_WEB_SERVICE = "ShopList.asmx";
+	public static final String GET_SHOP_LIST_BY_USER_ID_METHOD = "getShopListByUserId";
+	public static final String GET_SHOP_LIST_BY_ADDRESS_ID_METHOD = "getShopListByAddressId";
 	
 	//用户信息
 	public static final String USER_ACCOUNT_WEB_SERVICE = "UserAccount.asmx";
 	public static final String CHANAGER_PASSWORD_METHOD = "chanagePassword";
+	
 
 }

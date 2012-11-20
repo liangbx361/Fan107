@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text ="@string/main_act_bottom_tab_today_gp"
+            android:text="@string/main_act_bottom_tab_today_gp"
             android:textColor="@color/white"
             android:textSize="20.0sp" />
     </RelativeLayout>
@@ -113,6 +113,12 @@
             android:layout_gravity="center"
             android:indeterminateDrawable="@drawable/progressbar" />
 
+        <ListView
+            android:id="@id/shopListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -127,23 +133,22 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/tab_bg"
         android:orientation="horizontal" >
-        
-        <ImageView 
+
+        <ImageView
             android:id="@id/setAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/current_position"
             android:background="@color/transparent_background"
-            android:contentDescription="@string/app_name"/>
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/current_position" />
 
         <TextView
+            android:id="@id/search_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:text="鼓楼区五四北路国泰大厦6层B区外星科技" 
+            android:text="鼓楼区五四北路国泰大厦6层B区外星科技"
             android:textSize="17.0sp" />
-
-
     </LinearLayout>
 
 </RelativeLayout>

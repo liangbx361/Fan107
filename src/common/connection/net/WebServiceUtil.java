@@ -86,4 +86,13 @@ public class WebServiceUtil {
 	public static float getSoapObjectFloat(SoapObject soapObject, String name) {
 		return Float.valueOf(soapObject.getProperty(name).toString()).floatValue();
 	}
+	
+	public static SoapObject getChildSoapObject(SoapObject soapObject, int[] childList) {
+		SoapObject child = soapObject;
+		for(int i=0; i<childList.length; i++) {
+			child = (SoapObject)child.getProperty(childList[i]);
+		}
+		
+		return child;
+	}
 }

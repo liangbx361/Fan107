@@ -1308,5 +1308,7 @@
     <item type="id" name="recharge_layout">false</item>
     
     <item type="id" name="btn_change_password">false</item>
+    <item type="id" name="shopListView">false</item>
+    <item type="id" name="search_address">false</item>
     
 </resources>
