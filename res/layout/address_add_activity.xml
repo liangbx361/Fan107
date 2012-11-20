@@ -74,14 +74,39 @@
                 android:layout_height="1.0dip"
                 android:background="@color/bg_corners_border" />
 
-            <ImageView
-                android:id="@id/splict_2"
+            <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="1.0dip"
-                android:background="@color/bg_corners_border" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1.0dip"
+                android:layout_marginRight="1.0dip"
+                android:background="@drawable/bg_corners_center"
+                android:gravity="center_vertical"
+                android:padding="10.0dip" >
+
+                <TextView
+                    android:id="@id/phone_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="电话"
+                    android:textColor="@color/title"
+                    android:textSize="18.0sp" />
+
+                <EditText
+                    android:id="@id/phone"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@id/phone_tv"
+                    android:inputType="number"
+                    android:numeric="integer"
+                    android:textColor="@color/content_color"
+                    android:textSize="18.0sp" />
+            </RelativeLayout>
 
             <ImageView
-                android:id="@id/splict_3"
+                android:id="@id/splict_2"
                 android:layout_width="fill_parent"
                 android:layout_height="1.0dip"
                 android:background="@color/bg_corners_border" />
@@ -118,37 +143,76 @@
             </RelativeLayout>
 
             <ImageView
+                android:id="@id/splict_3"
                 android:layout_width="fill_parent"
                 android:layout_height="1.0dip"
                 android:background="@color/bg_corners_border" />
 
             <RelativeLayout
+                android:id="@id/area_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="1.0dip"
                 android:layout_marginRight="1.0dip"
                 android:background="@drawable/bg_corners_center"
                 android:gravity="center_vertical"
-                android:padding="10.0dip" >
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip"
+                android:paddingTop="8.0dip" >
 
                 <TextView
-                    android:id="@id/address_tv"
+                    android:id="@id/area_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="地址"
+                    android:text="街道"
                     android:textColor="@color/title"
                     android:textSize="18.0sp" />
 
-                <EditText
-                    android:id="@id/address"
+                <Spinner
+                    android:id="@id/area_spinner"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/address_tv"
-                    android:textColor="@color/content_color"
+                    android:layout_toRightOf="@id/area_tv"
+                    android:textColor="@color/content_color" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/bg_corners_border" />
+
+            <RelativeLayout
+                android:id="@id/area_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1.0dip"
+                android:layout_marginRight="1.0dip"
+                android:background="@drawable/bg_corners_center"
+                android:gravity="center_vertical"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip"
+                android:paddingTop="8.0dip" >
+
+                <TextView
+                    android:id="@id/area_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="楼宇"
+                    android:textColor="@color/title"
                     android:textSize="18.0sp" />
+
+                <Spinner
+                    android:id="@id/area_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@id/area_tv"
+                    android:textColor="@color/content_color" />
             </RelativeLayout>
 
             <ImageView
@@ -160,37 +224,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="1.0dip"
                 android:background="@color/bg_corners_border" />
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1.0dip"
-                android:layout_marginRight="1.0dip"
-                android:background="@drawable/bg_corners_center"
-                android:gravity="center_vertical"
-                android:padding="10.0dip" >
-
-                <TextView
-                    android:id="@id/phone_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="电话"
-                    android:textColor="@color/title"
-                    android:textSize="18.0sp" />
-
-                <EditText
-                    android:id="@id/phone"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/phone_tv"
-                    android:inputType="number"
-                    android:numeric="integer"
-                    android:textColor="@color/content_color"
-                    android:textSize="18.0sp" />
-            </RelativeLayout>
 
             <ImageView
                 android:layout_width="fill_parent"
