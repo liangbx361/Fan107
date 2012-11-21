@@ -79,4 +79,30 @@ public class FileUtils {
 		}
 		return file;
 	}
+	
+	public static File write2SDFromInput(File file, InputStream input){
+		int temp=0;
+		OutputStream output = null;
+		try{
+			file.createNewFile();
+			output = new FileOutputStream(file);
+			byte buffer [] = new byte[1024];
+			while((temp = input.read(buffer)) != -1){
+				output.write(buffer, 0, temp);
+			}
+			output.flush();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		finally{
+			try{
+				output.close();
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return file;
+	}
 }

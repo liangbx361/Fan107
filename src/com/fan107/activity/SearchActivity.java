@@ -1,5 +1,10 @@
 package com.fan107.activity;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,14 +19,18 @@ import org.ksoap2.serialization.SoapObject;
 import com.fan107.R;
 import com.fan107.config.UrlConfig;
 import com.fan107.config.WebServiceConfig;
+import com.lbx.cache.FileCache;
 import com.lbx.templete.ActivityTemplete;
 
 import common.connection.net.HttpClientUtil;
 import common.connection.net.HttpDownloader;
 import common.connection.net.WebServiceUtil;
+import common.file.util.FileUtils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -29,8 +38,10 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
@@ -50,8 +61,10 @@ public class SearchActivity extends Activity implements OnClickListener, Activit
 	private ListView shopListView;
 	private ProgressBar loadingBar;
 	
-	private SimpleAdapter adapter;
+	private MyAdapter adapter;
 	private List<Map<String, String>> shopData;
+	
+	FileCache fileCache;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +72,17 @@ public class SearchActivity extends Activity implements OnClickListener, Activit
 
 		setContentView(R.layout.act_commodity_list);
 
-		findView();
-		setListenter();
+		findWidget();
+		setWidgetListenter();
 		setWidgetAttribute();
 				
 		LoadShopListThread listThread = new LoadShopListThread(0, 0, 0);
 		listThread.start();
+		
+		fileCache = new FileCache(this); 
 	}
-
-	private void findView() {
+	
+	public void findWidget() {
 		orderDistanceButton = (Button) findViewById(R.id.class_1);
 		orderPopularityButton = (Button) findViewById(R.id.class_2);
 		orderPriceButton = (Button) findViewById(R.id.class_3);
@@ -77,16 +92,24 @@ public class SearchActivity extends Activity implements OnClickListener, Activit
 		mAddressTextView = (TextView) findViewById(R.id.search_address);
 		
 		shopListView = (ListView) findViewById(R.id.shopListView);
-		loadingBar = (ProgressBar) findViewById(R.id.loading);
+		loadingBar = (ProgressBar) findViewById(R.id.loading);		
 	}
-
-	private void setListenter() {
+	
+	public void setWidgetListenter() {
 		orderDistanceButton.setOnClickListener(this);
 		orderPopularityButton.setOnClickListener(this);
 		orderPriceButton.setOnClickListener(this);
 		
 		loginButton.setOnClickListener(this);
-		mImageView.setOnClickListener(this);
+		mImageView.setOnClickListener(this);		
+	}
+
+	public void setWidgetPosition() {
+	
+	}
+
+	public void setWidgetAttribute() {
+		shopData = new ArrayList<Map<String,String>>();
 	}
 
 	public void onClick(View v) {
@@ -186,6 +209,18 @@ public class SearchActivity extends Activity implements OnClickListener, Activit
 				mData.put("shoppic", shoppic);
 				
 				shopData.add(mData);
+				
+				if(shoppic != null && !shoppic.equals("")) {
+					try {					
+						InputStream inputStream = HttpDownloader.getInputStreamFromUrl(WebServiceConfig.RES_URL + shoppic);
+						File picFile = fileCache.getFile(shoppic);
+						FileUtils.write2SDFromInput(picFile, inputStream);
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 	}
@@ -194,32 +229,53 @@ public class SearchActivity extends Activity implements OnClickListener, Activit
 
 		@Override
 		public void handleMessage(Message msg) {
+			adapter = new MyAdapter(SearchActivity.this, shopData, R.layout.shop_list_item, 
+					new String[]{"shopname"}, 
+					new int[]{R.id.shop_name});
+			shopListView.setAdapter(adapter);
+			
 			shopListView.removeAllViewsInLayout();
 			shopListView.requestLayout();
 			loadingBar.setVisibility(View.GONE);
 		}
 	};
+	
+	class MyAdapter extends SimpleAdapter {
+		private List<? extends Map<String, ?>> mData;
+		
+		public MyAdapter(Context context, List<? extends Map<String, ?>> data,
+				int resource, String[] from, int[] to) {
+			super(context, data, resource, from, to);
+			
+			mData = data;
+		}
 
-	public void findWidget() {
-		// TODO Auto-generated method stub
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View view =  super.getView(position, convertView, parent);
+
+			LinearLayout layout = (LinearLayout) view;
+			ImageView pic = (ImageView) layout.findViewById(R.id.shop_pic);
+			String picPath = (String) mData.get(position).get("shoppic");
+			if(picPath != null && !picPath.equals("")) {
+				File picFile = fileCache.getFile(picPath);
+				if(picFile.exists()) {
+					String pathStr = picFile.getAbsolutePath();
+					pathStr = pathStr.replace("/mnt", "");
+					Uri uri = Uri.parse("file://" + pathStr);
+					pic.setImageURI(uri);
+				}
+			} else {
+				pic.setImageResource(R.drawable.default_pic);
+			}
+							
+			Log.d(TAG, "picPath: " + picPath);
+			return view;
+		}
 		
 	}
 
-	public void setWidgetListenter() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	public void setWidgetPosition() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	public void setWidgetAttribute() {
-		shopData = new ArrayList<Map<String,String>>();		
-		adapter = new SimpleAdapter(this, shopData, R.layout.shop_list_item, 
-				new String[]{"shopname"}, 
-				new int[]{R.id.shop_name});
-		shopListView.setAdapter(adapter);
-	}
+
 }

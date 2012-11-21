@@ -1311,4 +1311,6 @@
     <item type="id" name="shopListView">false</item>
     <item type="id" name="search_address">false</item>
     
+    <item type="id" name="shop_pic">false</item>
+    
 </resources>

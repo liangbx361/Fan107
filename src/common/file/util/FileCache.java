@@ -1,4 +1,4 @@
-package com.lbx.cache;
+package common.file.util;
 
 import java.io.File;
 
@@ -24,7 +24,7 @@ public class FileCache {
 
     public File getFile(String url) {
             // 将url的hashCode作为缓存的文件名
-            String filename = String.valueOf(url.split("/")[2]);
+            String filename = String.valueOf(url.hashCode());
             // Another possible solution
             // String filename = URLEncoder.encode(url);
             File f = new File(cacheDir, filename);

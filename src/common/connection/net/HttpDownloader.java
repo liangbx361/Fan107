@@ -104,7 +104,7 @@ public class HttpDownloader {
 	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-	public InputStream getInputStreamFromUrl(String urlStr)
+	public static InputStream getInputStreamFromUrl(String urlStr)
 			throws MalformedURLException, IOException {
 		URL url = new URL(urlStr);
 		HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
