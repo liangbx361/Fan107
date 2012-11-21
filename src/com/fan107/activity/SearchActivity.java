@@ -19,6 +19,7 @@ import org.ksoap2.serialization.SoapObject;
 import com.fan107.R;
 import com.fan107.config.UrlConfig;
 import com.fan107.config.WebServiceConfig;
+import com.fan107.data.ShopInfo;
 import com.lbx.cache.FileCache;
 import com.lbx.templete.ActivityTemplete;
 
@@ -39,6 +40,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,7 +50,7 @@ import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-public class SearchActivity extends Activity implements OnClickListener, ActivityTemplete {
+public class SearchActivity extends Activity implements OnClickListener, OnItemClickListener, ActivityTemplete {
 	private static final String TAG = "SearchActivity";
 	
 	private Button orderDistanceButton;
@@ -63,6 +66,7 @@ public class SearchActivity extends Activity implements OnClickListener, Activit
 	
 	private MyAdapter adapter;
 	private List<Map<String, String>> shopData;
+	private List<ShopInfo> shopInfoList;
 	
 	FileCache fileCache;
 
@@ -101,7 +105,9 @@ public class SearchActivity extends Activity implements OnClickListener, Activit
 		orderPriceButton.setOnClickListener(this);
 		
 		loginButton.setOnClickListener(this);
-		mImageView.setOnClickListener(this);		
+		mImageView.setOnClickListener(this);	
+		
+		shopListView.setOnItemClickListener(this);
 	}
 
 	public void setWidgetPosition() {
@@ -110,6 +116,7 @@ public class SearchActivity extends Activity implements OnClickListener, Activit
 
 	public void setWidgetAttribute() {
 		shopData = new ArrayList<Map<String,String>>();
+		shopInfoList = new ArrayList<ShopInfo>();
 	}
 
 	public void onClick(View v) {
@@ -200,20 +207,19 @@ public class SearchActivity extends Activity implements OnClickListener, Activit
 					
 			for(int i=0; i<child.getPropertyCount(); i++) {
 				SoapObject shopChild = (SoapObject) child.getProperty(i);
-				
-				String shopname = WebServiceUtil.getSoapObjectString(shopChild, "shopname");
-				String shoppic = WebServiceUtil.getSoapObjectString(shopChild, "shoppic");
+								
+				ShopInfo mInfo = SaveShopInfo(shopChild);
 				
 				Map<String, String> mData = new HashMap<String, String>();
-				mData.put("shopname", shopname);
-				mData.put("shoppic", shoppic);
-				
+				mData.put("shopname", mInfo.getShopname());
+				mData.put("shoppic", mInfo.getShoppic());
 				shopData.add(mData);
-				
-				if(shoppic != null && !shoppic.equals("")) {
+				shopInfoList.add(mInfo);
+								
+				if(mInfo.getShoppic() != null && !mInfo.getShoppic().equals("")) {
 					try {					
-						InputStream inputStream = HttpDownloader.getInputStreamFromUrl(WebServiceConfig.RES_URL + shoppic);
-						File picFile = fileCache.getFile(shoppic);
+						InputStream inputStream = HttpDownloader.getInputStreamFromUrl(WebServiceConfig.RES_URL + mInfo.getShoppic());
+						File picFile = fileCache.getFile(mInfo.getShoppic());
 						FileUtils.write2SDFromInput(picFile, inputStream);
 					} catch (MalformedURLException e) {
 						e.printStackTrace();
@@ -222,6 +228,30 @@ public class SearchActivity extends Activity implements OnClickListener, Activit
 					}
 				}
 			}
+		}
+		
+		private ShopInfo SaveShopInfo(SoapObject shopInfo) {
+			ShopInfo mInfo = new ShopInfo();
+			mInfo.setShopname(WebServiceUtil.getSoapObjectString(shopInfo, "shopname"));
+			mInfo.setAddress(WebServiceUtil.getSoapObjectString(shopInfo, "address"));
+			mInfo.setAddtime(WebServiceUtil.getSoapObjectString(shopInfo, "addtime"));
+			mInfo.setHit(WebServiceUtil.getSoapObjectInt(shopInfo, "hit"));
+			mInfo.setIntro(WebServiceUtil.getSoapObjectString(shopInfo, "intro"));
+			mInfo.setLimitprice(WebServiceUtil.getSoapObjectFloat(shopInfo, "limitprice"));
+			mInfo.setOpentime(WebServiceUtil.getSoapObjectString(shopInfo, "opentime"));
+			mInfo.setOrdertime(WebServiceUtil.getSoapObjectString(shopInfo, "ordertime"));
+			mInfo.setPayment(WebServiceUtil.getSoapObjectString(shopInfo, "payment"));
+			mInfo.setPhone(WebServiceUtil.getSoapObjectString(shopInfo, "phone"));
+			mInfo.setSendprice(WebServiceUtil.getSoapObjectFloat(shopInfo, "sendprice"));
+			mInfo.setSendtime(WebServiceUtil.getSoapObjectInt(shopInfo, "sendtime"));
+			mInfo.setShoppic(WebServiceUtil.getSoapObjectString(shopInfo, "shoppic"));
+			mInfo.setSummilieupoint(WebServiceUtil.getSoapObjectInt(shopInfo, "summilieupoint"));
+			mInfo.setSumperson(WebServiceUtil.getSoapObjectInt(shopInfo, "sumperson"));
+			mInfo.setSumpoint(WebServiceUtil.getSoapObjectInt(shopInfo, "sumpoint"));
+			mInfo.setSumservicepoint(WebServiceUtil.getSoapObjectInt(shopInfo, "sumservicepoint"));
+			mInfo.setSumtastepoint(WebServiceUtil.getSoapObjectInt(shopInfo, "sumtastepoint"));
+						
+			return mInfo;
 		}
 	}
 	
@@ -269,10 +299,18 @@ public class SearchActivity extends Activity implements OnClickListener, Activit
 				pic.setImageResource(R.drawable.default_pic);
 			}
 							
-			Log.d(TAG, "picPath: " + picPath);
+//			Log.d(TAG, "picPath: " + picPath);
 			return view;
 		}
 		
+	}
+
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		ShopInfo mInfo = shopInfoList.get(position);
+		Intent mIntent = new Intent(this, ShopInfoActivity.class);
+		mIntent.putExtra("shopinfo", mInfo);
+		startActivity(mIntent);
 	}
 
 

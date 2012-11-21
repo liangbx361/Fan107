@@ -10,7 +10,7 @@
     <string name="commodity_act_order_btn_new">最新</string>
     <string name="commodity_act_order_btn_popularity">人气</string>
     <string name="commodity_act_order_btn_price">价格</string>
-    <string name="commodity_act_introduct">商品介绍</string>
+    
     <string name="about">简介</string>
     <string name="detail">详情</string>
     <string name="list">名单</string>
@@ -320,4 +320,6 @@
     <string name="sort_time">时间</string>
     <string name="sort_populator">人气</string>
     <string name="sort_score">评分</string>
+    
+    <string name="commodity_act_introduct">外买餐厅</string>
 </resources>
