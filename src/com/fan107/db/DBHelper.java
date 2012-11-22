@@ -1,4 +1,4 @@
-package com.lbx.db;
+package com.fan107.db;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -15,10 +15,10 @@ import android.util.Log;
 public class DBHelper extends SQLiteOpenHelper {
 	private static final String TAG = "DBHelper";
 	
-	//数据库路径
+	//数据库路�?
 	public static final String DB_NAME_PATH = "";
 	
-	//数据库名称
+	//数据库名�?	
 	private static final String DB_NAME = "fan107.db";
 	
 	public static final String USER_TABLE_NAME = "users";
@@ -26,7 +26,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	public static final String USER_LOGIN_TABLE_NAME = "users_login";
 	public static final String RECEIVE_ADDRESS_TBL_NAME = "receive_address";
 	
-	//创建user数据表
+	//创建user数据�?
 	private static final String CREATE_TABLE_USER = "create table if not exists " + USER_TABLE_NAME 
 		+ " (_id int primary key," 
 		+ "usergroup int, " 
@@ -69,8 +69,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * 往表里插入数据
-	 * @param tableName
+	 * �?��里插入数�?	 * @param tableName
 	 * @param contentValues
 	 */
 	public void insert(String tableName, ContentValues contentValues) {
@@ -105,11 +104,11 @@ public class DBHelper extends SQLiteOpenHelper {
 		}
 		
 		if(c == null) {
-			Log.d(TAG, "insertOrUpdate 数据库查询失败!");
+			Log.d(TAG, "insertOrUpdate 数据库查询失�?");
 			return -1;
 		} else {
 			if(c.moveToFirst()) {
-				//更新数据库中的信息
+				//更新数据库中的信�?
 				mDatabase.update(tableName, contentValues, whereClause, null);
 				return -2;
 			} else {
@@ -122,7 +121,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	/**
 =======
 >>>>>>> refs/heads/dbSet
-	 * 通过sql语句往表里插入数据
+	 * 通过sql语句�?��里插入数�?
 	 * @param sql
 	 */
 	public void insert(String sql) {
@@ -131,7 +130,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * 查询表中的数据
+	 * 查询表中的数�?
 	 * @param tableName
 	 * @param columns
 	 * @param orderBy
@@ -145,7 +144,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * 通过sql语句查询表中的数据
+	 * 通过sql语句查询表中的数�?
 	 * @param sql
 	 * @return
 	 */
@@ -157,7 +156,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 	/**
-	 * 查询数据库中的值是否存在
+	 * 查询数据库中的�?是否存在
 	 * @param tableName
 	 * @param word
 	 * @return
@@ -190,8 +189,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 
 	/**
-	 * 删除一张表
-	 * 
+	 * 删除�?���?	 * 
 	 * @param tableName
 	 */
 	public void dropTable(String tableName) {
@@ -200,7 +198,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * 关闭数据库连接
+	 * 关闭数据库连�?
 	 */
 	public void close() {
 		if (mDatabase != null) {
@@ -218,8 +216,8 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * 
 	 * @param tableName
 	 * @param contentValues
-	 * @param whereClause	判断的条件
-	 * @param whereArgs		条件里的动态参数
+	 * @param whereClause	判断的条�?
+	 * @param whereArgs		条件里的动�?参数
 	 */
 	public void updateTable(String tableName, ContentValues contentValues, String whereClause, String[] whereArgs) {
 		mDatabase = getWritableDatabase();
@@ -227,7 +225,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * 更新表中的数据
+	 * 更新表中的数�?
 	 * @param tableName
 	 * @param setWhat
 	 * @param whereValue
@@ -241,7 +239,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * 通过sql语句更新表中的数据
+	 * 通过sql语句更新表中的数�?
 	 * @param sql
 	 */
 	public void updateTable(String sql) {
@@ -253,7 +251,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	 * 删除表中的行
 	 * @param tableName
 	 * @param where
-	 * SQL语句示例: DELETE FROM 表名称 WHERE 列名称 = 值
+	 * SQL语句示例: DELETE FROM 表名�?WHERE 列名�?= �?
 	 * DELETE FROM Person WHERE LastName = 'Wilson' 
 	 */
 	public void deleteTableContent(String tableName, String whereValue ) {

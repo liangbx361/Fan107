@@ -14,7 +14,7 @@ import org.ksoap2.serialization.SoapObject;
 import com.fan107.R;
 import com.fan107.config.UrlConfig;
 import com.fan107.config.WebServiceConfig;
-import com.lbx.db.DBHelper;
+import com.fan107.db.DBHelper;
 
 import common.connection.net.HttpClientUtil;
 import common.connection.net.NetWorkCheck;
@@ -261,21 +261,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 				dbHelper.insertOrUpdate(DBHelper.USER_TABLE_NAME, contentValues, "username", "String");
 			}
 		}
-		
-		/**
-		 * ±£´æÕÊ»§ÃÜÂë
-		 */
-		private void savaAccount() {
-			SharedPreferences initData = LoginActivity.this.getSharedPreferences("account", MODE_PRIVATE);
-			Editor mEditor = initData.edit();
-			mEditor.putString("userName", userName);
-			mEditor.putString("password", password);
-			mEditor.putBoolean("loginState", true); // µÇÂ¼×´Ì¬
-			mEditor.commit();
-		}
-
 	}
-
+	
 	Handler mHandler = new Handler() {
 
 		@Override

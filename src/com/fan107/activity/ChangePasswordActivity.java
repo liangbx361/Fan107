@@ -16,7 +16,7 @@ import android.widget.EditText;
 
 import com.fan107.R;
 import com.fan107.config.WebServiceConfig;
-import com.lbx.db.DBHelper;
+import com.fan107.db.DBHelper;
 import com.lbx.templete.ActivityTemplete;
 import com.widget.helper.ToastHelper;
 

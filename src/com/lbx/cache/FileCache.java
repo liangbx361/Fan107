@@ -18,6 +18,7 @@ public class FileCache {
                                     "fan107");
             else
                     cacheDir = context.getCacheDir();
+    		cacheDir = context.getCacheDir();
             if (!cacheDir.exists())
                     cacheDir.mkdirs();
     }

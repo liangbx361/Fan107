@@ -9,6 +9,7 @@ public class ShopInfo implements Serializable {
 	 */
 	private static final long serialVersionUID = -5465251419465952331L;
 	
+	private int shopId;
 	private String shopname;
 	private String shoppic;
 	private String opentime;
@@ -29,6 +30,12 @@ public class ShopInfo implements Serializable {
 	private int zk;
 	private String addtime;
 	
+	public int getShopId() {
+		return shopId;
+	}
+	public void setShopId(int shopId) {
+		this.shopId = shopId;
+	}
 	public String getShopname() {
 		return shopname;
 	}

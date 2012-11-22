@@ -68,7 +68,8 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	private List<Map<String, String>> shopData;
 	private List<ShopInfo> shopInfoList;
 	
-	FileCache fileCache;
+	private FileCache fileCache;
+	private String orderType;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +80,12 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		findWidget();
 		setWidgetListenter();
 		setWidgetAttribute();
-				
-		LoadShopListThread listThread = new LoadShopListThread(0, 0, 0);
-		listThread.start();
 		
 		fileCache = new FileCache(this); 
+		orderType = "hit";
+				
+		LoadShopListThread listThread = new LoadShopListThread(0, 0, 0, orderType);
+		listThread.start();
 	}
 	
 	public void findWidget() {
@@ -117,24 +119,41 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	public void setWidgetAttribute() {
 		shopData = new ArrayList<Map<String,String>>();
 		shopInfoList = new ArrayList<ShopInfo>();
+		orderPopularityButton.setBackgroundResource(R.drawable.tab_middle_b);
+		
+		adapter = new MyAdapter(SearchActivity.this, shopData, R.layout.shop_list_item, 
+				new String[]{"shopname"}, 
+				new int[]{R.id.shop_name});
 	}
 
 	public void onClick(View v) {
 
 		switch (v.getId()) {
 		case R.id.class_1:
-			cleanOrderButtonState();
-			orderDistanceButton.setBackgroundResource(R.drawable.tab_left_b);			
+			if(!orderType.equals("time")) {
+				cleanOrderButtonState();
+				orderDistanceButton.setBackgroundResource(R.drawable.tab_left_b);				
+				orderType = "time";
+				mHandler.sendEmptyMessage(1);
+			}
 			break;
 			
 		case R.id.class_2:
-			cleanOrderButtonState();
-			orderPopularityButton.setBackgroundResource(R.drawable.tab_middle_b);
+			if(!orderType.equals("hit")) {
+				cleanOrderButtonState();
+				orderPopularityButton.setBackgroundResource(R.drawable.tab_middle_b);
+				orderType = "hit";
+				mHandler.sendEmptyMessage(1);
+			}
 			break;
 			
 		case R.id.class_3:
-			cleanOrderButtonState();
-			orderPriceButton.setBackgroundResource(R.drawable.tab_right_b);
+			if(!orderType.equals("point")) {
+				cleanOrderButtonState();
+				orderPriceButton.setBackgroundResource(R.drawable.tab_right_b);
+				orderType = "point";
+				mHandler.sendEmptyMessage(1);
+			}
 			break;
 			
 		case R.id.userAccount:
@@ -163,16 +182,18 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		int sid;
 		int did;
 		int searchType;
+		String orderType;
 		
 		public LoadShopListThread(int userId) {
 			this.userId = userId;
 			searchType = 0;
 		}
 		
-		public LoadShopListThread(int aid, int sid, int did) {
+		public LoadShopListThread(int aid, int sid, int did, String orderType) {
 			this.aid = aid;
 			this.sid = sid;
 			this.did = did;
+			this.orderType = orderType;
 			searchType = 1;
 		}
 
@@ -189,12 +210,14 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 			if(searchType == 0) {			
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("userId", userId);
+				params.put("orderType",	orderType);
 				shopInfo = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.GET_SHOP_LIST_BY_USER_ID_METHOD, params);
 			} else {
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("aid", aid);
 				params.put("sid", sid);
 				params.put("did", did);
+				params.put("orderType", orderType);
 				shopInfo = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.GET_SHOP_LIST_BY_ADDRESS_ID_METHOD, params);
 			}
 			parseShopInfo(shopInfo);
@@ -232,6 +255,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		
 		private ShopInfo SaveShopInfo(SoapObject shopInfo) {
 			ShopInfo mInfo = new ShopInfo();
+			mInfo.setShopId(WebServiceUtil.getSoapObjectInt(shopInfo, "id"));
 			mInfo.setShopname(WebServiceUtil.getSoapObjectString(shopInfo, "shopname"));
 			mInfo.setAddress(WebServiceUtil.getSoapObjectString(shopInfo, "address"));
 			mInfo.setAddtime(WebServiceUtil.getSoapObjectString(shopInfo, "addtime"));
@@ -259,14 +283,26 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 
 		@Override
 		public void handleMessage(Message msg) {
-			adapter = new MyAdapter(SearchActivity.this, shopData, R.layout.shop_list_item, 
-					new String[]{"shopname"}, 
-					new int[]{R.id.shop_name});
-			shopListView.setAdapter(adapter);
+			switch(msg.what) {
+			case 0:
+				shopListView.setAdapter(adapter);
 			
-			shopListView.removeAllViewsInLayout();
-			shopListView.requestLayout();
-			loadingBar.setVisibility(View.GONE);
+				shopListView.removeAllViewsInLayout();
+				shopListView.requestLayout();
+				loadingBar.setVisibility(View.GONE);
+				break;
+			
+			case 1:
+				loadingBar.setVisibility(View.VISIBLE);
+				shopListView.removeAllViewsInLayout();
+				shopListView.requestLayout();
+				shopListView.setAdapter(null);
+				shopData.clear();
+				
+				LoadShopListThread listThread = new LoadShopListThread(0, 0, 0, orderType);
+				listThread.start();
+				break;
+			}
 		}
 	};
 	
