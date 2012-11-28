@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_title_bar" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="个人资料"
+            android:textColor="@color/white"
+            android:textSize="20.0sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@id/title_bar_splict"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_bar"
+        android:background="@drawable/bg_title_bar_splict" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8.0dip"
+                android:text="    完善个人资料，有助于我们根据您的情况提供更加个性化的服务; \n    邀您吃饭网会对您的个人资料隐私加以保密。"
+                android:textSize="16.0sp" >
+            </TextView>
+
+            <LinearLayout
+                android:id="@id/linear_find_by_phone_message"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8.0dip"
+                android:layout_marginRight="8.0dip"
+                android:layout_marginTop="8.0dip"
+                android:background="@drawable/bg_corners"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10.0dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5.0dip"
+                        android:gravity="center_vertical"
+                        android:text="用户名: "
+                        android:textColor="#ffb4b4b4"
+                        android:textSize="17.0sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@id/username"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5.0dip"
+                        android:background="#00000000"
+                        android:gravity="center_vertical"
+                        android:scrollHorizontally="true" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/bg_corners_border" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10.0dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5.0dip"
+                        android:gravity="center_vertical"
+                        android:text="邮箱："
+                        android:textColor="#ffb4b4b4"
+                        android:textSize="17.0sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@id/email"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5.0dip"
+                        android:background="#00000000"
+                        android:ems="10"
+                        android:gravity="center_vertical"
+                        android:inputType="textEmailAddress"
+                        android:scrollHorizontally="true" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/bg_corners_border" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10.0dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5.0dip"
+                        android:gravity="center_vertical"
+                        android:maxLength="10"
+                        android:singleLine="true"
+                        android:text="昵称："
+                        android:textColor="#ffb4b4b4"
+                        android:textSize="17.0sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@id/nickname"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5.0dip"
+                        android:background="#00000000"
+                        android:gravity="center_vertical"
+                        android:scrollHorizontally="true" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/bg_corners_border" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10.0dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5.0dip"
+                        android:gravity="center_vertical"
+                        android:text="性别："
+                        android:textColor="#ffb4b4b4"
+                        android:textSize="17.0sp"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:id="@id/sex_radiogroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <RadioButton
+                            android:id="@id/sex_male_Radio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/radio_male" 
+                            android:textSize="17.0sp"
+                            android:textColor="#ffb4b4b4"/>
+
+                        <RadioButton
+                            android:id="@id/sex_female_radio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/radio_female" 
+                            android:textSize="17.0sp"
+                            android:textColor="#ffb4b4b4"/>
+                    </RadioGroup>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/bg_corners_border" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10.0dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5.0dip"
+                        android:gravity="center_vertical"
+                        android:text="手机号："
+                        android:textColor="#ffb4b4b4"
+                        android:textSize="17.0sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@id/phone"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5.0dip"
+                        android:background="#00000000"
+                        android:ems="10"
+                        android:gravity="center_vertical"
+                        android:inputType="phone"
+                        android:scrollHorizontally="true" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/bg_corners_border" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10.0dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5.0dip"
+                        android:gravity="center_vertical"
+                        android:text="生日："
+                        android:textColor="#ffb4b4b4"
+                        android:textSize="17.0sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@id/birthday"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5.0dip"
+                        android:background="#00000000"
+                        android:ems="10"
+                        android:gravity="center_vertical"
+                        android:inputType="date" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@id/btn_change_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:layout_marginTop="10.0dip"
+                android:background="@drawable/btn_bg"
+                android:gravity="center"
+                android:padding="5.0dip"
+                android:text="确认修改"
+                android:textColor="@color/white"
+                android:textSize="17.0sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

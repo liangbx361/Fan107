@@ -222,7 +222,7 @@
     <item type="id" name="city_name">false</item>
     <item type="id" name="goods_title">false</item>
     <item type="id" name="set_number_layout">false</item>
-    <item type="id" name="phone">false</item>
+    
     <item type="id" name="check_phone_btn">false</item>
     <item type="id" name="phone_et">false</item>
     <item type="id" name="check_layout">false</item>
@@ -249,7 +249,7 @@
     <item type="id" name="send_time_layout">false</item>
     <item type="id" name="text_view_2">false</item>
     <item type="id" name="image_view_2">false</item>
-    <item type="id" name="send_time">false</item>
+    
     <item type="id" name="context_layout">false</item>
     <item type="id" name="text_view_3">false</item>
     <item type="id" name="image_view_3">false</item>
@@ -340,7 +340,7 @@
     <item type="id" name="add_adress_btn">false</item>
     <item type="id" name="act_title">false</item>
     <item type="id" name="regbtn">false</item>
-    <item type="id" name="email">false</item>
+    
     <item type="id" name="password">false</item>
     <item type="id" name="loginbtn">false</item>
     <item type="id" name="tv_find_message">false</item>
@@ -356,7 +356,7 @@
     <item type="id" name="comment_btn_1">false</item>
     <item type="id" name="map_bubblebtn">false</item>
     <item type="id" name="map_bubbleTitle">false</item>
-    <item type="id" name="username">false</item>
+    
     <item type="id" name="reg_btn">false</item>
     <item type="id" name="max_number">false</item>
     <item type="id" name="item_layout">false</item>
@@ -1312,7 +1312,25 @@
     <item type="id" name="search_address">false</item>
     
     <item type="id" name="shop_pic">false</item>
+    
     <item type="id" name="shop_flavor">false</item>
     <item type="id" name="shop_environment">false</item>
     <item type="id" name="shop_server">false</item>
+    <item type="id" name="shop_flavor_point">false</item>
+    <item type="id" name="shop_environment_point">false</item>
+    <item type="id" name="shop_server_point">false</item>
+    
+    <item type="id" name="scheduled_time">false</item>
+    <item type="id" name="scheduled_time_value">false</item>
+        
+    <!-- member_info_layout id -->
+    <item type="id" name="username">false</item>
+    <item type="id" name="email">false</item>
+    <item type="id" name="nickname">false</item>
+    <item type="id" name="sex_radiogroup">false</item>
+    <item type="id" name="sex_male_Radio">false</item>
+    <item type="id" name="sex_female_radio">false</item>
+    <item type="id" name="phone">false</item>
+    <item type="id" name="birthday">false</item>
+        
 </resources>

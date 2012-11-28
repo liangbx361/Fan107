@@ -24,7 +24,7 @@
     
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="120px"
         android:layout_margin="5dp"
         android:orientation="vertical" >
 
@@ -44,28 +44,76 @@
                 android:id="@id/shop_flavor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="口味:4 " 
+                android:text="口味:" 
                 android:textSize="12sp"
             	android:textColor="#696969"/>
+            
+            <TextView
+                android:id="@id/shop_flavor_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/shop_flavor"
+                android:text="4 "  
+                android:textSize="12sp"
+            	android:textColor="#FF6347"/>
 
             <TextView
                 android:id="@id/shop_environment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/shop_flavor"
-                android:text="环境:3 " 
+                android:layout_toRightOf="@id/shop_flavor_point"
+                android:text="环境:" 
                 android:textSize="12sp"
             	android:textColor="#696969"/>
+            
+            <TextView
+                android:id="@id/shop_environment_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/shop_environment"
+                android:text="4 "  
+                android:textSize="12sp"
+            	android:textColor="#FF6347"/>
 
             <TextView
                 android:id="@id/shop_server"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/shop_environment"
-                android:text="服务:4 " 
+                android:layout_toRightOf="@id/shop_environment_point"
+                android:text="服务:" 
                 android:textSize="12sp"
             	android:textColor="#696969"/>
-
+            
+            <TextView
+                android:id="@id/shop_server_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/shop_server"
+                android:text="4 "  
+                android:textSize="12sp"
+            	android:textColor="#FF6347"/>
+            
+            <TextView
+                android:id="@id/scheduled_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="预定时间:" 
+                android:singleLine="true"
+                android:textSize="11sp"
+            	android:textColor="#696969"/>
+            
+            <TextView
+                android:id="@id/scheduled_time_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@id/scheduled_time"
+                android:text="08:30-11:00|12:30-22:30" 
+                android:singleLine="true"
+                android:textSize="11sp"
+            	android:textColor="#696969"/>
+            
         </RelativeLayout>
         
     </LinearLayout>

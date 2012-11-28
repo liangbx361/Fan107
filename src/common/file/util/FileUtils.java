@@ -80,29 +80,69 @@ public class FileUtils {
 		return file;
 	}
 	
+	/**
+	 * 将输入流写入SD卡文件中
+	 * @param file
+	 * @param input
+	 * @return
+	 */
 	public static File write2SDFromInput(File file, InputStream input){
 		int temp=0;
 		OutputStream output = null;
+		File tempFile = null;
 		try{
-			file.createNewFile();
-			output = new FileOutputStream(file);
+			tempFile = new File(file.getParent(), file.getName() + ".temp");
+			tempFile.createNewFile();
+			output = new FileOutputStream(tempFile);
 			byte buffer [] = new byte[1024];
 			while((temp = input.read(buffer)) != -1){
 				output.write(buffer, 0, temp);
 			}
 			output.flush();
-		}
-		catch(Exception e){
+			
+			//下载成功重命名为原来的文件后缀
+			File newFile = new File(tempFile.getParent(), replaceExtensions(tempFile.getName(), ""));
+			if(!tempFile.renameTo(newFile)) {
+				tempFile.delete();
+				tempFile = null;
+			}
+		
+		} catch(IOException e){
 			e.printStackTrace();
-		}
-		finally{
+			if(tempFile != null) {
+				tempFile.delete();
+				tempFile = null;
+			}
+			
+		} finally{
 			try{
 				output.close();
 			}
-			catch(Exception e){
+			catch(IOException e){
 				e.printStackTrace();
 			}
 		}
-		return file;
+		
+		return tempFile;
+	}
+	
+	/**
+	 * 替换文件的后缀名 (例如: 输入 a.mp3 .mp4, 返回 a.mp4)
+	 * @param filename
+	 * @param replaceExtensions
+	 * @return
+	 */
+	public static String replaceExtensions(String filename, String replaceExtensions ) {
+		return filename.substring(0, filename.lastIndexOf(".")) + replaceExtensions;
+	}
+	
+	/**
+	 * 获得文件的后缀名 (例如: 输入 a.mp3, 返回 .mp3)
+	 * 
+	 * @param name	
+	 * @return 
+	 */
+	public static String getFileExtensions(String filename) {
+		return filename.substring(filename.lastIndexOf("."), filename.length());
 	}
 }

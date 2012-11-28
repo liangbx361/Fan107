@@ -52,7 +52,7 @@ public class ChangePasswordActivity extends Activity implements
 		setWidgetListenter();
 		
 		Intent mIntent = getIntent();
-		userName = mIntent.getStringExtra("userName");
+		userName = mIntent.getStringExtra("username");
 	}
 
 	public void findWidget() {

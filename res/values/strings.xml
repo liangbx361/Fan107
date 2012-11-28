@@ -322,4 +322,6 @@
     <string name="sort_score">评分</string>
     
     <string name="commodity_act_introduct">外买餐厅</string>
+    <string name="radio_male">男    </string>
+    <string name="radio_female">女</string>
 </resources>
