@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
+import android.os.Handler;
 import android.util.Log;
 
 import com.fan107.activity.LoginActivity;
@@ -27,6 +28,11 @@ import common.connection.net.WebServiceUtil;
 public class UserState {
 
 	private static final String TAG = "UserState";
+	
+	public static final int HANDLER_LOGIN_SUCCESS = 10;
+	public static final int HANDLER_AUTO_LOGIN_SUCCESS = 11;
+	public static final int HANDLER_LOGIN_FAIL = 12;
+	public static final int HANDLER_NO_NETWORK = 13;
 	
 	public static final String LOGIN_SUCCESS = "登录成功";
 	public static final String AUTO_LOGIN_SUCCESS = "自动登录成功";
@@ -55,7 +61,7 @@ public class UserState {
 		return initData.getBoolean("loginState", false);
 	}
 	
-	public static boolean autoLogin(Context context, UserLogin mLogin) {
+	public static boolean autoLogin(Context context, UserLogin mLogin, Handler mHandler) {
 		boolean isAutoLogin = false;
 		if(NetWorkCheck.checkNetWorkStatus(context)) {
 			DBHelper mDbHelper = new DBHelper(context);
@@ -70,13 +76,13 @@ public class UserState {
 				if(getLoginStateByWebService(username, userpass)) {
 					isAutoLogin = true;
 					setLoginState(context, true);
-//					ToastHelper.showToastInBottom(context, AUTO_LOGIN_SUCCESS);
+					mHandler.sendMessage(mHandler.obtainMessage(HANDLER_AUTO_LOGIN_SUCCESS, AUTO_LOGIN_SUCCESS));
 				} else {
-//					ToastHelper.showToastInBottom(context, LOGIN_FAIL);
+					mHandler.sendMessage(mHandler.obtainMessage(HANDLER_LOGIN_FAIL, LOGIN_FAIL));
 				}				
 			} 
 		} else {
-//			ToastHelper.showToastInBottom(context, NO_NETWORK);
+			mHandler.sendMessage(mHandler.obtainMessage(HANDLER_NO_NETWORK, NO_NETWORK));;
 		}
 		
 		return isAutoLogin;

@@ -25,6 +25,7 @@ import com.fan107.data.User;
 import com.fan107.data.UserLogin;
 import com.lbx.cache.FileCache;
 import com.lbx.templete.ActivityTemplete;
+import com.widget.helper.ToastHelper;
 
 import common.connection.net.HttpClientUtil;
 import common.connection.net.HttpDownloader;
@@ -55,6 +56,10 @@ import android.widget.TextView;
 
 public class SearchActivity extends Activity implements OnClickListener, OnItemClickListener, ActivityTemplete {
 	private static final String TAG = "SearchActivity";
+	
+	private static final String NO_LOGIN_MESSAGE = "ÈçÐèÒª¶©²Í£¬ÇëÏÈµÇÂ¼";
+	private static final String LOGIN_MESSAGE = "µÇÂ¼";
+	private static final String ACCOUNT_MESSAGE = "ÕÊ»§";
 	
 	private Button orderDistanceButton;
 	private Button orderPopularityButton;
@@ -87,11 +92,20 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		
 		fileCache = new FileCache(this); 
 		orderType = "hit";
-				
+	}
+	
+	
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
 		LoadShopListThread listThread = new LoadShopListThread(0, 0, 0, orderType);
 		listThread.start();
 	}
-	
+
+
+
 	public void findWidget() {
 		orderDistanceButton = (Button) findViewById(R.id.class_1);
 		orderPopularityButton = (Button) findViewById(R.id.class_2);
@@ -131,6 +145,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 					R.id.shop_server_point, R.id.scheduled_time_value});
 
 		mAddressTextView.setText("");
+		loginButton.setText(LOGIN_MESSAGE);
 	}
 
 	public void onClick(View v) {
@@ -165,17 +180,84 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 			
 		case R.id.userAccount:
 			Intent mIntent = new Intent();
-			mIntent.setClass(this, UserAccountActivity.class);
+			if(isLogin) {				
+				mIntent.setClass(this, UserAccountActivity.class);				
+			} else {
+				mIntent.setClass(this, LoginActivity.class);
+			}
 			startActivity(mIntent);
 			break;
 			
 		case R.id.setAddress:
 			Intent mIntent2 = new Intent();
-			mIntent2.setClass(this, RecevoirAddressActivity.class);
+			if(isLogin) {
+				mIntent2.setClass(this, RecevoirAddressActivity.class);				
+			} else {
+				mIntent2.setClass(this, LoginActivity.class);
+			}
 			startActivity(mIntent2);
 			break;
 		}
 	}
+	
+	Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			switch(msg.what) {
+			case 0:
+				shopListView.setAdapter(adapter);
+			
+				shopListView.removeAllViewsInLayout();
+				shopListView.requestLayout();
+				loadingBar.setVisibility(View.GONE);
+				loginButton.setText(ACCOUNT_MESSAGE);
+				break;
+			
+			case 1:
+				loadingBar.setVisibility(View.VISIBLE);
+				shopListView.removeAllViewsInLayout();
+				shopListView.requestLayout();
+				shopListView.setAdapter(null);
+				shopData.clear();
+				
+				LoadShopListThread listThread = new LoadShopListThread(0, 0, 0, orderType);
+				listThread.start();
+				break;
+				
+			case 2:
+				String addressName = msg.obj.toString();
+				mAddressTextView.setText(addressName);
+				break;
+				
+			case 3:
+				shopListView.setAdapter(adapter);
+				
+				shopListView.removeAllViewsInLayout();
+				shopListView.requestLayout();
+				loadingBar.setVisibility(View.GONE);
+				mAddressTextView.setText(NO_LOGIN_MESSAGE);
+				loginButton.setText(LOGIN_MESSAGE);
+				break;
+				
+			case UserState.HANDLER_AUTO_LOGIN_SUCCESS:
+				ToastHelper.showToastInBottom(SearchActivity.this, UserState.AUTO_LOGIN_SUCCESS);
+				break;
+				
+			case UserState.HANDLER_LOGIN_FAIL:
+				ToastHelper.showToastInBottom(SearchActivity.this, UserState.LOGIN_FAIL);
+				break;
+				
+			case UserState.HANDLER_LOGIN_SUCCESS:
+				ToastHelper.showToastInBottom(SearchActivity.this, UserState.LOGIN_SUCCESS);
+				break;
+				
+			case UserState.HANDLER_NO_NETWORK:
+				ToastHelper.showToastInBottom(SearchActivity.this, UserState.NO_NETWORK);
+				break;
+			}
+		}
+	};	
 	
 	public void cleanOrderButtonState() {
 		orderDistanceButton.setBackgroundResource(R.drawable.tab_left_a);
@@ -207,7 +289,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		@Override
 		public void run() {
 			UserLogin mLogin = new UserLogin();
-			isLogin = UserState.autoLogin(SearchActivity.this, mLogin); 
+			isLogin = UserState.autoLogin(SearchActivity.this, mLogin, mHandler); 
 			if(isLogin) {
 				User user = UserState.getUserInfo(mLogin.getUserName(), mLogin.getPasswdMD5());
 				String[] addressIdList = user.getAddress().split("\\|")[0].split(",");
@@ -227,7 +309,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				mHandler.sendMessage(mHandler.obtainMessage(2, addressName));
 			} else {
 				getShotList();
-				mHandler.sendEmptyMessage(0);
+				mHandler.sendEmptyMessage(3);
 			}
 		}
 		
@@ -313,39 +395,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 			return mInfo;
 		}
 	}
-	
-	Handler mHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			switch(msg.what) {
-			case 0:
-				shopListView.setAdapter(adapter);
-			
-				shopListView.removeAllViewsInLayout();
-				shopListView.requestLayout();
-				loadingBar.setVisibility(View.GONE);
-				break;
-			
-			case 1:
-				loadingBar.setVisibility(View.VISIBLE);
-				shopListView.removeAllViewsInLayout();
-				shopListView.requestLayout();
-				shopListView.setAdapter(null);
-				shopData.clear();
-				
-				LoadShopListThread listThread = new LoadShopListThread(0, 0, 0, orderType);
-				listThread.start();
-				break;
-				
-			case 2:
-				String addressName = msg.obj.toString();
-				mAddressTextView.setText(addressName);
-				break;
-			}
-		}
-	};
-	
+		
 	class MyAdapter extends SimpleAdapter {
 		private List<? extends Map<String, ?>> mData;
 		

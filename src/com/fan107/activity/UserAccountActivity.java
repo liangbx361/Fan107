@@ -141,7 +141,7 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 		//个人资料
 		case R.id.user_information:
 			if(loginState) {
-				Intent userInfoIntent = new Intent(this, ChangePasswordActivity.class);
+				Intent userInfoIntent = new Intent(this, MemberInformationActivity.class);
 				userInfoIntent.putExtra("userInfo", mUserInfo);
 				startActivity(userInfoIntent);		
 			} else {

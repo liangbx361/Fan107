@@ -56,7 +56,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	ProgressDialog mProgressDialog;
 	
 	private UserInfo mUserInfo = null;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,7 +87,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		case R.id.regbtn:
 			Intent mIntent = new Intent();
 			mIntent.setClass(this, RegisterActivity.class);
-			startActivity(mIntent);
+			startActivity(mIntent);			
 			break;
 
 		case R.id.loginbtn:
@@ -295,9 +295,12 @@ public class LoginActivity extends Activity implements OnClickListener {
 				if (state) {
 					showToast(LoginActivity.this, "登录成功");
 					// 跳转到用户帐户页面
-					Intent mIntent = new Intent(LoginActivity.this, UserAccountActivity.class);
-					mIntent.putExtra("userInfo", mUserInfo);
-					startActivity(mIntent);
+//					Intent mIntent = new Intent(LoginActivity.this, UserAccountActivity.class);
+//					mIntent.putExtra("userInfo", mUserInfo);
+//					startActivity(mIntent);
+					
+					// 跳转到之前的页面
+					onBackPressed();
 				} else {
 					showToast(LoginActivity.this, "登录失败");
 				}
