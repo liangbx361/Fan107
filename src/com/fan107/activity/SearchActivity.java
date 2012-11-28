@@ -17,9 +17,12 @@ import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 
 import com.fan107.R;
+import com.fan107.common.UserState;
 import com.fan107.config.UrlConfig;
 import com.fan107.config.WebServiceConfig;
 import com.fan107.data.ShopInfo;
+import com.fan107.data.User;
+import com.fan107.data.UserLogin;
 import com.lbx.cache.FileCache;
 import com.lbx.templete.ActivityTemplete;
 
@@ -70,6 +73,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	
 	private FileCache fileCache;
 	private String orderType;
+	private boolean isLogin;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +128,8 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		adapter = new MyAdapter(SearchActivity.this, shopData, R.layout.shop_list_item, 
 				new String[]{"shopname"}, 
 				new int[]{R.id.shop_name});
+		
+		mAddressTextView.setText("");
 	}
 
 	public void onClick(View v) {
@@ -199,11 +205,32 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 
 		@Override
 		public void run() {
-			getShotList(userId);
-			mHandler.sendEmptyMessage(0);
+			UserLogin mLogin = new UserLogin();
+			isLogin = UserState.autoLogin(SearchActivity.this, mLogin); 
+			if(isLogin) {
+				User user = UserState.getUserInfo(mLogin.getUserName(), mLogin.getPasswdMD5());
+				String[] addressIdList = user.getAddress().split("\\|")[0].split(",");
+				String addressName = user.getAddress().split("\\|")[1];
+				try{ 
+					aid = Integer.parseInt(addressIdList[0]);
+					sid = Integer.parseInt(addressIdList[1]);
+					did = Integer.parseInt(addressIdList[2]);
+				}catch (Exception e) {
+					aid = 0;
+					sid = 0;
+					did = 0;
+				}
+				searchType = 1;
+				getShotList();
+				mHandler.sendEmptyMessage(0);
+				mHandler.sendMessage(mHandler.obtainMessage(2, addressName));
+			} else {
+				getShotList();
+				mHandler.sendEmptyMessage(0);
+			}
 		}
 		
-		private void getShotList(int userId) {
+		private void getShotList() {
 			
 			String url = WebServiceConfig.url + WebServiceConfig.SHOP_LIST_WEB_SERVICE;
 			SoapObject shopInfo;
@@ -302,6 +329,11 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				LoadShopListThread listThread = new LoadShopListThread(0, 0, 0, orderType);
 				listThread.start();
 				break;
+				
+			case 2:
+				String addressName = msg.obj.toString();
+				mAddressTextView.setText(addressName);
+				break;
 			}
 		}
 	};
@@ -348,8 +380,4 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		mIntent.putExtra("shopinfo", mInfo);
 		startActivity(mIntent);
 	}
-
-
-
-
 }

@@ -2,7 +2,7 @@ package com.fan107.config;
 
 public interface WebServiceConfig {
 	//服务器的IP地址 
-	public static final String SERVER_IP = "192.168.0.23";
+	public static final String SERVER_IP = "192.168.0.105";
 	
 	public static final String RES_URL = "http://" + SERVER_IP + "/";
 	
@@ -13,6 +13,7 @@ public interface WebServiceConfig {
 	//登录
 	public static final String LOGIN_WEB_SERVICE = "LoginCheck.asmx";
 	public static final String LOGIN_METHOD = "login";
+	public static final String AUTO_LOGIN_METHOD = "autoLoginCheck";
 	public static final String GET_LOGIN_USER_INFO_METHOD = "getLoginUserInfo";
 	
 	//用户信息
