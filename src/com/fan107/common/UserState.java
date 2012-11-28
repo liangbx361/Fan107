@@ -25,15 +25,16 @@ import common.connection.net.NetWorkCheck;
 import common.connection.net.WebServiceUtil;
 
 public class UserState {
+
 	private static final String TAG = "UserState";
 	
 	public static final String LOGIN_SUCCESS = "登录成功";
 	public static final String AUTO_LOGIN_SUCCESS = "自动登录成功";
 	public static final String LOGIN_FAIL = "登录失败";
 	public static final String NO_NETWORK = "无网络连接, 请检查网络";
-	
+		
 	/**
-	 * 设置用户的登录状态
+	 * 设置登录状态
 	 * @param context
 	 * @param isLogin
 	 */
@@ -42,6 +43,16 @@ public class UserState {
 		Editor mEditor = initData.edit();
 		mEditor.putBoolean("loginState", isLogin); // 登录状态
 		mEditor.commit();
+	}
+	
+	/**
+	 * 获取用户的登录状态
+	 * @param context
+	 * @return
+	 */
+	public static boolean getLoginState(Context context) {
+		SharedPreferences initData = context.getSharedPreferences("account", Activity.MODE_PRIVATE);
+		return initData.getBoolean("loginState", false);
 	}
 	
 	public static boolean autoLogin(Context context, UserLogin mLogin) {

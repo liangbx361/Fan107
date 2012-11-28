@@ -1,22 +1,29 @@
 package com.fan107.data;
 
-public class User {
+import java.io.Serializable;
+
+public class UserInfo implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1454337815540147840L;
+	
 	private int usergroup;
 	private String username;
+	private String userpass;
 	private String nickname;
-	private int gender;
+	private int gender;	//性别
 	private String birthday;
 	private float totalpoint;
 	private float currentpoint;
-	private float usepoint;
-	private int spreadcount;
+	private float userpoint;
+	private int spreadcount; //推广个数
 	private String mobile;
 	private String email;
 	private String address;
 	private int utype;
 	private int shopid;
 	private String addtime;
-	
 	public int getUsergroup() {
 		return usergroup;
 	}
@@ -28,6 +35,12 @@ public class User {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public String getUserpass() {
+		return userpass;
+	}
+	public void setUserpass(String userpass) {
+		this.userpass = userpass;
 	}
 	public String getNickname() {
 		return nickname;
@@ -59,11 +72,11 @@ public class User {
 	public void setCurrentpoint(float currentpoint) {
 		this.currentpoint = currentpoint;
 	}
-	public float getUsepoint() {
-		return usepoint;
+	public float getUserpoint() {
+		return userpoint;
 	}
-	public void setUsepoint(float usepoint) {
-		this.usepoint = usepoint;
+	public void setUserpoint(float userpoint) {
+		this.userpoint = userpoint;
 	}
 	public int getSpreadcount() {
 		return spreadcount;

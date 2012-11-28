@@ -14,6 +14,7 @@ import org.ksoap2.serialization.SoapObject;
 import com.fan107.R;
 import com.fan107.config.UrlConfig;
 import com.fan107.config.WebServiceConfig;
+import com.fan107.data.UserInfo;
 import com.fan107.db.DBHelper;
 
 import common.connection.net.HttpClientUtil;
@@ -53,6 +54,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private DBHelper dbHelper;
 
 	ProgressDialog mProgressDialog;
+	
+	private UserInfo mUserInfo = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -227,6 +230,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 				
 				int userGroup = WebServiceUtil.getSoapObjectInt(soapChilds, "UserGroup");
 				String userName = WebServiceUtil.getSoapObjectString(soapChilds, "UserName");
+				String userPass = WebServiceUtil.getSoapObjectString(soapChilds, "UserPass");
 				String nickName = WebServiceUtil.getSoapObjectString(soapChilds, "NickName");
 				int gender =  WebServiceUtil.getSoapObjectInt(soapChilds, "Gender");
 				String birthday = WebServiceUtil.getSoapObjectString(soapChilds, "Birthday");
@@ -240,7 +244,25 @@ public class LoginActivity extends Activity implements OnClickListener {
 				int utype = WebServiceUtil.getSoapObjectInt(soapChilds, "Utype");
 				int shopId = WebServiceUtil.getSoapObjectInt(soapChilds, "ShopId");
 				String addTime = WebServiceUtil.getSoapObjectString(soapChilds, "AddTime");
-								
+				
+				mUserInfo = new UserInfo();
+				mUserInfo.setUsergroup(userGroup);
+				mUserInfo.setUsername(userName);
+				mUserInfo.setUserpass(userPass);
+				mUserInfo.setNickname(nickName);
+				mUserInfo.setGender(gender);
+				mUserInfo.setBirthday(birthday);
+				mUserInfo.setTotalpoint(totalPoint);
+				mUserInfo.setCurrentpoint(currentPoint);
+				mUserInfo.setUserpoint(usePoint);
+				mUserInfo.setSpreadcount(spreadCount);
+				mUserInfo.setMobile(mobile);
+				mUserInfo.setEmail(email);
+				mUserInfo.setAddress(address);
+				mUserInfo.setUtype(utype);
+				mUserInfo.setShopid(shopId);
+				mUserInfo.setAddtime(addTime);
+				
 				ContentValues contentValues = new ContentValues();
 				contentValues.put("usergroup", userGroup);
 				contentValues.put("username", userName);
@@ -274,6 +296,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 					showToast(LoginActivity.this, "登录成功");
 					// 跳转到用户帐户页面
 					Intent mIntent = new Intent(LoginActivity.this, UserAccountActivity.class);
+					mIntent.putExtra("userInfo", mUserInfo);
 					startActivity(mIntent);
 				} else {
 					showToast(LoginActivity.this, "登录失败");

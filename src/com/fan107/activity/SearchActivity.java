@@ -100,7 +100,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		loginButton = (Button) findViewById(R.id.userAccount);
 		mImageView = (ImageView) findViewById(R.id.setAddress);
 		mAddressTextView = (TextView) findViewById(R.id.search_address);
-		
+				
 		shopListView = (ListView) findViewById(R.id.shopListView);
 		loadingBar = (ProgressBar) findViewById(R.id.loading);		
 	}
@@ -126,9 +126,10 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		orderPopularityButton.setBackgroundResource(R.drawable.tab_middle_b);
 		
 		adapter = new MyAdapter(SearchActivity.this, shopData, R.layout.shop_list_item, 
-				new String[]{"shopname"}, 
-				new int[]{R.id.shop_name});
-		
+				new String[]{"shopname", "flavor", "environment", "server", "ordertime"}, 
+				new int[]{R.id.shop_name, R.id.shop_flavor_point, R.id.shop_environment_point, 
+					R.id.shop_server_point, R.id.scheduled_time_value});
+
 		mAddressTextView.setText("");
 	}
 
@@ -263,14 +264,21 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				Map<String, String> mData = new HashMap<String, String>();
 				mData.put("shopname", mInfo.getShopname());
 				mData.put("shoppic", mInfo.getShoppic());
+				mData.put("flavor", String.valueOf(mInfo.getSumtastepoint()));
+				mData.put("environment", String.valueOf(mInfo.getSummilieupoint()));
+				mData.put("server", String.valueOf(mInfo.getSumservicepoint()));
+				mData.put("ordertime", mInfo.getOrdertime());
+				
 				shopData.add(mData);
 				shopInfoList.add(mInfo);
 								
 				if(mInfo.getShoppic() != null && !mInfo.getShoppic().equals("")) {
 					try {					
-						InputStream inputStream = HttpDownloader.getInputStreamFromUrl(WebServiceConfig.RES_URL + mInfo.getShoppic());
 						File picFile = fileCache.getFile(mInfo.getShoppic());
-						FileUtils.write2SDFromInput(picFile, inputStream);
+						if(!picFile.exists()) {
+							InputStream inputStream = HttpDownloader.getInputStreamFromUrl(WebServiceConfig.RES_URL + mInfo.getShoppic());						
+							FileUtils.write2SDFromInput(picFile, inputStream);
+						}
 					} catch (MalformedURLException e) {
 						e.printStackTrace();
 					} catch (IOException e) {

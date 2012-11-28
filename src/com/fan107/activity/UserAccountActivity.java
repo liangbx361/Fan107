@@ -1,6 +1,7 @@
 package com.fan107.activity;
 
 import com.fan107.R;
+import com.fan107.data.UserInfo;
 import com.fan107.db.DBHelper;
 import com.lbx.templete.ActivityTemplete;
 import com.widget.helper.ToastHelper;
@@ -48,6 +49,8 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 	SharedPreferences userData;
 	
 	DBHelper mDbHelper;
+	
+	private UserInfo mUserInfo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,14 +86,16 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 		uname = (TextView) findViewById(R.id.uname);
 		point = (TextView) findViewById(R.id.money);
 		
+		userInfoLayout = (RelativeLayout) findViewById(R.id.user_information);
 		chanagePasswordLayout = (RelativeLayout) findViewById(R.id.change_password);
+		
 	}
 
 	public void setWidgetListenter() {
 		login.setOnClickListener(this);
 		returnList.setOnClickListener(this);
 		chanagePasswordLayout.setOnClickListener(this);
-
+		userInfoLayout.setOnClickListener(this);
 	}
 
 	public void setWidgetPosition() {
@@ -110,6 +115,9 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 			logout_layout.setVisibility(View.VISIBLE);
 			login.setText(R.string.user_login);
 		}
+		
+		Intent mIntent = getIntent();
+		mUserInfo = (UserInfo) mIntent.getSerializableExtra("userInfo");
 	}
 
 	public void onClick(View v) {
@@ -129,12 +137,23 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 			Intent returnIntent = new Intent(this, SearchActivity.class);
 			startActivity(returnIntent);
 			break;
+			
+		//个人资料
+		case R.id.user_information:
+			if(loginState) {
+				Intent userInfoIntent = new Intent(this, ChangePasswordActivity.class);
+				userInfoIntent.putExtra("userInfo", mUserInfo);
+				startActivity(userInfoIntent);		
+			} else {
+				ToastHelper.showToastInBottom(this, MESSAGE_1);
+			}
+			break;
 		
 		//修改密码
 		case R.id.change_password:
 			if(loginState) {
 				Intent changePasswordIntent = new Intent(this, ChangePasswordActivity.class);
-				changePasswordIntent.putExtra("userName", userName);
+				changePasswordIntent.putExtra("username", userName);
 				startActivity(changePasswordIntent);		
 			} else {
 				ToastHelper.showToastInBottom(this, MESSAGE_1);
