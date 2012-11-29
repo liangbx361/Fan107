@@ -10,9 +10,9 @@
     <item type="id" name="delete_all">false</item>
     <item type="id" name="act_collect_listview">false</item>
     <item type="id" name="loading">false</item>
-    <item type="id" name="title_bar">false</item>
+    
     <item type="id" name="share">false</item>
-    <item type="id" name="collect">false</item>
+    
     <item type="id" name="category_text">false</item>
     <item type="id" name="number_text">false</item>
     <item type="id" name="title_bar_splict">false</item>
@@ -160,7 +160,7 @@
     <item type="id" name="shop_address_text">false</item>
     <item type="id" name="icon_go">false</item>
     <item type="id" name="shop_name_text">false</item>
-    <item type="id" name="shop_name">false</item>
+
     <item type="id" name="code_text">false</item>
     <item type="id" name="code">false</item>
     <item type="id" name="pwd_text">false</item>
@@ -337,7 +337,7 @@
     <item type="id" name="progress">false</item>
     <item type="id" name="load_text">false</item>
     <item type="id" name="main">false</item>
-    <item type="id" name="add_adress_btn">false</item>
+    
     <item type="id" name="act_title">false</item>
     <item type="id" name="regbtn">false</item>
     
@@ -1298,7 +1298,7 @@
     <item type="id" name="search_title">false</item>
     <item type="id" name="login">false</item>
     <item type="id" name="setAddress">false</item>
-    <item type="id" name="addressListView">false</item>
+    
     <item type="id" name="userAccount">false</item>
     <item type="id" name="returnList">false</item>
     <item type="id" name="user_information">false</item>
@@ -1310,19 +1310,35 @@
     <item type="id" name="btn_change_password">false</item>
     <item type="id" name="shopListView">false</item>
     <item type="id" name="search_address">false</item>
+           
+    <!-- act_commodity_introduct -->
+    <item type="id" name="title_bar">false</item>
+    <item type="id" name="back_shop_list">false</item>
+    <item type="id" name="collect">false</item>
+    <item type="id" name="shop_info">false</item>
+    <item type="id" name="shop_order">false</item>
+    <item type="id" name="shop_comment">false</item>
+    <item type="id" name="containerBody">fase</item>
     
-    <item type="id" name="shop_pic">false</item>
+    <!-- act_commodity_list -->
     
-    <item type="id" name="shop_flavor">false</item>
-    <item type="id" name="shop_environment">false</item>
-    <item type="id" name="shop_server">false</item>
-    <item type="id" name="shop_flavor_point">false</item>
-    <item type="id" name="shop_environment_point">false</item>
-    <item type="id" name="shop_server_point">false</item>
+    <!-- act_user_account -->
     
-    <item type="id" name="scheduled_time">false</item>
-    <item type="id" name="scheduled_time_value">false</item>
-        
+    <!--  address_add_activity -->
+    
+    <!-- address_list_item -->
+    
+    <!-- change_password -->
+    
+    <!-- dish_list -->
+    <item type="id" name="dish_name">false</item>
+    <item type="id" name="dish_price">fase</item>
+    
+    <!-- dishes_lst -->
+    <item type="id" name="dishs_name">false</item>
+    
+    <!-- login_activity -->
+      
     <!-- member_info_layout id -->
     <item type="id" name="username">false</item>
     <item type="id" name="email">false</item>
@@ -1332,5 +1348,26 @@
     <item type="id" name="sex_female_radio">false</item>
     <item type="id" name="phone">false</item>
     <item type="id" name="birthday">false</item>
-        
+    
+    <!-- recevoir_address -->
+    <item type="id" name="addressListView">false</item>
+    <item type="id" name="add_adress_btn">false</item>
+    
+    <!-- register_activity -->
+    
+    <!-- shop_introduct_layout -->
+    <item type="id" name="shop_detail_pic">false</item>
+    
+    <!-- shop_list_item -->
+    <item type="id" name="shop_pic">false</item>    
+    <item type="id" name="shop_name">false</item>
+    <item type="id" name="shop_flavor">false</item>
+    <item type="id" name="shop_environment">false</item>
+    <item type="id" name="shop_server">false</item>
+    <item type="id" name="shop_flavor_point">false</item>
+    <item type="id" name="shop_environment_point">false</item>
+    <item type="id" name="shop_server_point">false</item>
+    <item type="id" name="scheduled_time">false</item>
+    <item type="id" name="scheduled_time_value">false</item>
+            
 </resources>

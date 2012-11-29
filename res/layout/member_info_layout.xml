@@ -68,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5.0dip"
                         android:gravity="center_vertical"
-                        android:text="用户名: "
+                        android:text="用户名："
                         android:textColor="#ffb4b4b4"
                         android:textSize="17.0sp"
                         android:textStyle="bold" />
@@ -80,7 +80,9 @@
                         android:layout_marginLeft="5.0dip"
                         android:background="#00000000"
                         android:gravity="center_vertical"
-                        android:scrollHorizontally="true" />
+                        android:scrollHorizontally="true" 
+                        android:textSize="17.0sp"/>
+
                 </LinearLayout>
 
                 <ImageView
@@ -100,7 +102,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5.0dip"
                         android:gravity="center_vertical"
-                        android:text="邮箱："
+                        android:text="邮    箱："
                         android:textColor="#ffb4b4b4"
                         android:textSize="17.0sp"
                         android:textStyle="bold" />
@@ -114,7 +116,8 @@
                         android:ems="10"
                         android:gravity="center_vertical"
                         android:inputType="textEmailAddress"
-                        android:scrollHorizontally="true" />
+                        android:scrollHorizontally="true" 
+                        android:textSize="17.0sp"/>
                 </LinearLayout>
 
                 <ImageView
@@ -133,10 +136,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5.0dip"
-                        android:gravity="center_vertical"
-                        android:maxLength="10"
-                        android:singleLine="true"
-                        android:text="昵称："
+                        android:gravity="center_vertical"                        
+                        android:text="昵    称："
                         android:textColor="#ffb4b4b4"
                         android:textSize="17.0sp"
                         android:textStyle="bold" />
@@ -148,7 +149,10 @@
                         android:layout_marginLeft="5.0dip"
                         android:background="#00000000"
                         android:gravity="center_vertical"
-                        android:scrollHorizontally="true" />
+                        android:scrollHorizontally="true" 
+                        android:maxLength="10"
+                        android:singleLine="true"
+                        android:textSize="17.0sp"/>
                 </LinearLayout>
 
                 <ImageView
@@ -168,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5.0dip"
                         android:gravity="center_vertical"
-                        android:text="性别："
+                        android:text="性    别："
                         android:textColor="#ffb4b4b4"
                         android:textSize="17.0sp"
                         android:textStyle="bold" />
@@ -230,7 +234,8 @@
                         android:ems="10"
                         android:gravity="center_vertical"
                         android:inputType="phone"
-                        android:scrollHorizontally="true" />
+                        android:scrollHorizontally="true" 
+                        android:textSize="17.0sp"/>
                 </LinearLayout>
 
                 <ImageView
@@ -250,7 +255,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5.0dip"
                         android:gravity="center_vertical"
-                        android:text="生日："
+                        android:text="生    日："
                         android:textColor="#ffb4b4b4"
                         android:textSize="17.0sp"
                         android:textStyle="bold" />
@@ -263,7 +268,8 @@
                         android:background="#00000000"
                         android:ems="10"
                         android:gravity="center_vertical"
-                        android:inputType="date" />
+                        android:inputType="date" 
+                        android:textSize="17.0sp"/>
                 </LinearLayout>
             </LinearLayout>
 

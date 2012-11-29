@@ -63,13 +63,15 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 		setWidgetPosition();
 		
 		mDbHelper = new DBHelper(this);
+		
+		loginState = true;
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
 		
-		getLoginState();
+//		getLoginState();
 		setWidgetAttribute();
 	}
 
@@ -103,21 +105,21 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 	}
 
 	public void setWidgetAttribute() {
+		Intent mIntent = getIntent();
+		mUserInfo = (UserInfo) mIntent.getSerializableExtra("userInfo");
+		
 		if(loginState) {
 			//显示为登出按钮
 			login_layout.setVisibility(View.VISIBLE);
 			logout_layout.setVisibility(View.GONE);
 			login.setText(R.string.user_loginout);
-			uname.setText(nickName);
-			point.setText(currentPointValue + "");
+			uname.setText(mUserInfo.getNickname());
+			point.setText(mUserInfo.getCurrentpoint() + "");
 		} else {
 			login_layout.setVisibility(View.GONE);
 			logout_layout.setVisibility(View.VISIBLE);
 			login.setText(R.string.user_login);
 		}
-		
-		Intent mIntent = getIntent();
-		mUserInfo = (UserInfo) mIntent.getSerializableExtra("userInfo");
 	}
 
 	public void onClick(View v) {
@@ -134,8 +136,7 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 			break;
 			
 		case R.id.returnList:
-			Intent returnIntent = new Intent(this, SearchActivity.class);
-			startActivity(returnIntent);
+			onBackPressed();
 			break;
 			
 		//个人资料

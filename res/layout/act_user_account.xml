@@ -387,7 +387,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="6.0dip"
                         android:layout_toRightOf="@id/lsq_ico"
-                        android:text="送餐地址"
+                        android:text="收餐地址"
                         android:textColor="@color/content_color"
                         android:textSize="17.0sp" />
                 </RelativeLayout>

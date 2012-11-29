@@ -8,101 +8,74 @@ import java.util.Map;
 import org.ksoap2.serialization.SoapObject;
 
 import com.fan107.R;
+import com.fan107.activity.ShopInfoActivity.LoadProductThread;
 import com.fan107.config.WebServiceConfig;
-import com.fan107.data.ShopInfo;
 import com.fan107.data.Product;
 import com.fan107.data.ProductType;
-import com.lbx.templete.ActivityTemplete;
+import com.fan107.data.ShopInfo;
+
 import common.connection.net.WebServiceUtil;
 
 import android.app.Activity;
-import android.app.ActivityGroup;
+import android.app.ExpandableListActivity;
 import android.content.Intent;
-import android.content.pm.LabeledIntent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.os.Handler;
+import android.os.Message;
+import android.widget.SimpleExpandableListAdapter;
 
-public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete, OnClickListener{
-	private List<Map<String, List<Product>>> ProductList;
-	ShopInfo mInfo;
+public class ShopOrderActivity extends ExpandableListActivity {	
+	private static final int SET_ADAPTER = 1;
 	
-	private LinearLayout shopInfo;
-	private LinearLayout shopOrder;
-	private LinearLayout shopComment;
-	private ScrollView containerBody;
+	private List<Map<String, String>> dishsNameList;
+	private List<List<Map<String, String>>> dishList;
+	private List<Map<String, List<Product>>> ProductList;
+	private SimpleExpandableListAdapter mAdapter;
+	private ShopInfo mInfo;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_commodity_introduct);
+		
+		setContentView(R.layout.shop_order_layout);
 		
 		Intent mIntent  = getIntent();
 		mInfo = (ShopInfo) mIntent.getSerializableExtra("shopInfo");
-		
-		findWidget();
-		setWidgetListenter();
-		setWidgetPosition();
-		setWidgetAttribute();
-		
+				
+		dishsNameList = new ArrayList<Map<String,String>>();
+		dishList = new ArrayList<List<Map<String, String>>>();
 		ProductList = new ArrayList<Map<String,List<Product>>>();
-		
 		LoadProductThread mThread = new LoadProductThread();
 		mThread.start();
-	}
-
-	public void findWidget() {
-		shopInfo = (LinearLayout) findViewById(R.id.shop_info);
-		shopOrder = (LinearLayout) findViewById(R.id.shop_order);
-		shopComment = (LinearLayout) findViewById(R.id.shop_comment);
-		containerBody = (ScrollView) findViewById(R.id.containerBody);
-	}
-
-	public void setWidgetListenter() {
-		shopInfo.setOnClickListener(this);
-		shopOrder.setOnClickListener(this);
-		shopComment.setOnClickListener(this);		
-	}
-
-	public void setWidgetPosition() {
 		
-	}
-
-	public void setWidgetAttribute() {
-		
+		mAdapter = new SimpleExpandableListAdapter(this, 
+				dishsNameList, R.layout.dishes_list, 
+				new String[]{"dishName"}, new int[]{R.id.dishs_name}, 
+				
+				dishList,
+				android.R.layout.simple_expandable_list_item_2,
+				new String[]{"dishName", "price"},
+                new int[] { android.R.id.text1, android.R.id.text2 });
+				
+//				dishList, R.layout.dish_list, 
+//				new String[]{"dishName", "price"}, new int[]{R.id.dish_name, R.id.dish_price});
+								
 	}
 	
-	public void onClick(View v) {
-		switch(v.getId()) {
-		case R.id.shop_info:
-			containerBody.removeAllViews();
-			containerBody.addView(getLocalActivityManager().startActivity(
-                    "简介",
-                    new Intent(ShopInfoActivity.this, ShopIntroductionActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
-                    .getDecorView());
-			break;
+	Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
 			
-		case R.id.shop_order:
-			containerBody.addView(getLocalActivityManager().startActivity(
-                    "点餐",
-                    new Intent(ShopInfoActivity.this, ShopOrderActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                            .putExtra("shopInfo", mInfo))
-                    .getDecorView());
-			break;
-			
-		case R.id.shop_comment:
-			containerBody.addView(getLocalActivityManager().startActivity(
-                    "点评",
-                    new Intent(ShopInfoActivity.this, ShopCommentActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                    .getDecorView());
-			break;
+			switch(msg.what) {
+			case SET_ADAPTER:
+				ShopOrderActivity.this.setListAdapter(mAdapter);
+				onContentChanged();
+				break;
+			}
 		}
-	}
+		
+	};
 	
 	class LoadProductThread extends Thread {
 
@@ -124,10 +97,18 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 				SoapObject proudctSoObject = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.GET_PRODUCT_METHOD, params1);
 				List<Product> product = saveProudct(proudctSoObject);
 				
+				//获得菜品名称
+				Map<String, String> name = new HashMap<String, String>();
+				name.put("dishName", pType.getTypeName());
+				dishsNameList.add(name);
+				
 				Map<String, List<Product>> pMap = new HashMap<String, List<Product>>();
 				pMap.put(pType.getTypeName(), product);
 				ProductList.add(pMap);
+							
 			}
+			
+			mHandler.sendEmptyMessage(SET_ADAPTER);
 			
 		}
 		
@@ -160,6 +141,7 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		 */
 		private List<Product> saveProudct(SoapObject pSoObject) {
 			List<Product> pList = new ArrayList<Product>();
+			List<Map<String, String>> dishChildList = new ArrayList<Map<String,String>>();
 			int[] childList = {0};
 			SoapObject childs = WebServiceUtil.getChildSoapObject(pSoObject, childList);
 			for(int i=0; i<childs.getPropertyCount(); i++) {
@@ -176,11 +158,20 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 				product.setTypeId(WebServiceUtil.getSoapObjectInt(child, "TypeId"));
 				
 				pList.add(product);
+				
+				//获得单个菜名和菜价				
+				Map<String, String> child1 = new HashMap<String, String>();
+				child1.put("dishName", product.getProductName());
+				dishChildList.add(child1);
+				Map<String, String> child2 = new HashMap<String, String>();
+				child2.put("price", String.valueOf(product.getPrice()));
+				dishChildList.add(child2);
 			}
+			
+			dishList.add(dishChildList);
 			return pList;
 		}
 		
 	}
-
 
 }

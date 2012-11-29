@@ -17,7 +17,7 @@ import android.util.Log;
 import com.fan107.activity.LoginActivity;
 import com.fan107.activity.SearchActivity;
 import com.fan107.config.WebServiceConfig;
-import com.fan107.data.User;
+import com.fan107.data.UserInfo;
 import com.fan107.data.UserLogin;
 import com.fan107.db.DBHelper;
 import com.widget.helper.ToastHelper;
@@ -95,15 +95,15 @@ public class UserState {
 		String url = WebServiceConfig.url + WebServiceConfig.LOGIN_WEB_SERVICE;
 		SoapObject result = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.AUTO_LOGIN_METHOD, params);
 		
-		if(Boolean.valueOf(result.getPropertyAsString(0))) {
+		if(result != null && Boolean.valueOf(result.getPropertyAsString(0))) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	public static User getUserInfo(String username, String passwordMD5) {
-		User mUser = null;
+	public static UserInfo getUserInfo(String username, String passwordMD5) {
+		UserInfo mUser = null;
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("username", username);
 		params.put("password", passwordMD5);
@@ -120,8 +120,8 @@ public class UserState {
 		
 	}
 	
-	private static User getUser(SoapObject userInfo) {
-		User mUser = new User();
+	private static UserInfo getUser(SoapObject userInfo) {
+		UserInfo mUser = new UserInfo();
 		for(int i=0; i<userInfo.getPropertyCount(); i++) {
 			SoapObject soapChilds = (SoapObject) userInfo.getProperty(i);
 			
@@ -148,7 +148,7 @@ public class UserState {
 			mUser.setBirthday(birthday);
 			mUser.setTotalpoint(totalPoint);
 			mUser.setCurrentpoint(currentPoint);
-			mUser.setUsepoint(usePoint);
+			mUser.setUserpoint(usePoint);
 			mUser.setSpreadcount(spreadCount);
 			mUser.setMobile(mobile);
 			mUser.setEmail(email);

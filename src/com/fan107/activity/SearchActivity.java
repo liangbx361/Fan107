@@ -21,7 +21,7 @@ import com.fan107.common.UserState;
 import com.fan107.config.UrlConfig;
 import com.fan107.config.WebServiceConfig;
 import com.fan107.data.ShopInfo;
-import com.fan107.data.User;
+import com.fan107.data.UserInfo;
 import com.fan107.data.UserLogin;
 import com.lbx.cache.FileCache;
 import com.lbx.templete.ActivityTemplete;
@@ -79,6 +79,9 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	private FileCache fileCache;
 	private String orderType;
 	private boolean isLogin;
+	private boolean isFirst;
+	
+	private UserInfo mUserInfo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,19 +95,16 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		
 		fileCache = new FileCache(this); 
 		orderType = "hit";
-	}
-	
-	
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
+		isFirst = true;
 		
 		LoadShopListThread listThread = new LoadShopListThread(0, 0, 0, orderType);
 		listThread.start();
 	}
-
-
+		
+	@Override
+	protected void onResume() {
+		super.onResume();
+	}
 
 	public void findWidget() {
 		orderDistanceButton = (Button) findViewById(R.id.class_1);
@@ -151,6 +151,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	public void onClick(View v) {
 
 		switch (v.getId()) {
+		//按时间排序
 		case R.id.class_1:
 			if(!orderType.equals("time")) {
 				cleanOrderButtonState();
@@ -159,7 +160,8 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				mHandler.sendEmptyMessage(1);
 			}
 			break;
-			
+		
+		//按人气排序
 		case R.id.class_2:
 			if(!orderType.equals("hit")) {
 				cleanOrderButtonState();
@@ -169,6 +171,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 			}
 			break;
 			
+		//按评分排序
 		case R.id.class_3:
 			if(!orderType.equals("point")) {
 				cleanOrderButtonState();
@@ -177,17 +180,20 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				mHandler.sendEmptyMessage(1);
 			}
 			break;
-			
+		
+		//跳转到用户帐户, 或者登录界面
 		case R.id.userAccount:
 			Intent mIntent = new Intent();
-			if(isLogin) {				
-				mIntent.setClass(this, UserAccountActivity.class);				
+			if(isLogin) {								
+				mIntent.setClass(this, UserAccountActivity.class);
+				mIntent.putExtra("userInfo", mUserInfo);
 			} else {
 				mIntent.setClass(this, LoginActivity.class);
 			}
 			startActivity(mIntent);
 			break;
-			
+		
+		//更改收餐地址
 		case R.id.setAddress:
 			Intent mIntent2 = new Intent();
 			if(isLogin) {
@@ -241,19 +247,31 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				break;
 				
 			case UserState.HANDLER_AUTO_LOGIN_SUCCESS:
-				ToastHelper.showToastInBottom(SearchActivity.this, UserState.AUTO_LOGIN_SUCCESS);
+				if(isFirst) {
+					ToastHelper.showToastInBottom(SearchActivity.this, UserState.AUTO_LOGIN_SUCCESS);
+					isFirst = false;
+				}
 				break;
 				
 			case UserState.HANDLER_LOGIN_FAIL:
-				ToastHelper.showToastInBottom(SearchActivity.this, UserState.LOGIN_FAIL);
+				if(isFirst) {
+					ToastHelper.showToastInBottom(SearchActivity.this, UserState.LOGIN_FAIL);
+					isFirst = false;
+				}
 				break;
 				
 			case UserState.HANDLER_LOGIN_SUCCESS:
-				ToastHelper.showToastInBottom(SearchActivity.this, UserState.LOGIN_SUCCESS);
+				if(isFirst) {
+					ToastHelper.showToastInBottom(SearchActivity.this, UserState.LOGIN_SUCCESS);
+					isFirst = false;
+				}
 				break;
 				
 			case UserState.HANDLER_NO_NETWORK:
-				ToastHelper.showToastInBottom(SearchActivity.this, UserState.NO_NETWORK);
+				if(isFirst) {
+					ToastHelper.showToastInBottom(SearchActivity.this, UserState.NO_NETWORK);
+					isFirst = false;
+				}
 				break;
 			}
 		}
@@ -291,9 +309,9 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 			UserLogin mLogin = new UserLogin();
 			isLogin = UserState.autoLogin(SearchActivity.this, mLogin, mHandler); 
 			if(isLogin) {
-				User user = UserState.getUserInfo(mLogin.getUserName(), mLogin.getPasswdMD5());
-				String[] addressIdList = user.getAddress().split("\\|")[0].split(",");
-				String addressName = user.getAddress().split("\\|")[1];
+				mUserInfo = UserState.getUserInfo(mLogin.getUserName(), mLogin.getPasswdMD5());
+				String[] addressIdList = mUserInfo.getAddress().split("\\|")[0].split(",");
+				String addressName = mUserInfo.getAddress().split("\\|")[1];	//用户的默认地址
 				try{ 
 					aid = Integer.parseInt(addressIdList[0]);
 					sid = Integer.parseInt(addressIdList[1]);
@@ -313,8 +331,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 			}
 		}
 		
-		private void getShotList() {
-			
+		private void getShotList() {			
 			String url = WebServiceConfig.url + WebServiceConfig.SHOP_LIST_WEB_SERVICE;
 			SoapObject shopInfo;
 			if(searchType == 0) {			
@@ -434,8 +451,8 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		ShopInfo mInfo = shopInfoList.get(position);
-		Intent mIntent = new Intent(this, ShopInfoActivity.class);
-		mIntent.putExtra("shopinfo", mInfo);
+		Intent mIntent = new Intent(this, ShopOrderActivity.class);
+		mIntent.putExtra("shopInfo", mInfo);
 		startActivity(mIntent);
 	}
 }

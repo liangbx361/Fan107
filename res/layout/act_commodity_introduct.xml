@@ -11,7 +11,7 @@
         android:background="@drawable/bg_title_bar" >
 
         <ImageButton
-            android:id="@id/share"
+            android:id="@id/back_shop_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -45,6 +45,17 @@
         android:layout_below="@id/title_bar"
         android:background="@drawable/bg_title_bar_splict" />
 
+    <!-- 中间动态加载View -->
+
+    <ScrollView
+        android:id="@id/containerBody"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/main_tab"
+        android:layout_below="@id/title_bar_splict"
+        android:measureAllChildren="true" >
+    </ScrollView>
+
     <LinearLayout
         android:id="@id/main_tab"
         android:layout_width="fill_parent"
@@ -54,7 +65,7 @@
         android:orientation="horizontal" >
 
         <LinearLayout
-            android:id="@id/radio_button0"
+            android:id="@id/shop_info"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -80,7 +91,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@id/radio_button1"
+            android:id="@id/shop_order"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -100,13 +111,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="详情"
+                android:text="点餐"
                 android:textColor="@color/white"
                 android:textSize="11.0sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@id/radio_button2"
+            android:id="@id/shop_comment"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -126,7 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="名单"
+                android:text="点评"
                 android:textColor="@color/white"
                 android:textSize="11.0sp" />
         </LinearLayout>

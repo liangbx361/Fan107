@@ -16,31 +16,20 @@ import com.lbx.templete.ActivityTemplete;
 import common.connection.net.WebServiceUtil;
 
 import android.app.Activity;
-import android.app.ActivityGroup;
 import android.content.Intent;
-import android.content.pm.LabeledIntent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
-public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete, OnClickListener{
+public class CopyOfShopInfoActivity extends Activity implements ActivityTemplete{
 	private List<Map<String, List<Product>>> ProductList;
 	ShopInfo mInfo;
-	
-	private LinearLayout shopInfo;
-	private LinearLayout shopOrder;
-	private LinearLayout shopComment;
-	private ScrollView containerBody;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_commodity_introduct);
 		
 		Intent mIntent  = getIntent();
-		mInfo = (ShopInfo) mIntent.getSerializableExtra("shopInfo");
+		mInfo = (ShopInfo) mIntent.getSerializableExtra("shopinfo");
 		
 		findWidget();
 		setWidgetListenter();
@@ -54,16 +43,11 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 	}
 
 	public void findWidget() {
-		shopInfo = (LinearLayout) findViewById(R.id.shop_info);
-		shopOrder = (LinearLayout) findViewById(R.id.shop_order);
-		shopComment = (LinearLayout) findViewById(R.id.shop_comment);
-		containerBody = (ScrollView) findViewById(R.id.containerBody);
+		
 	}
 
 	public void setWidgetListenter() {
-		shopInfo.setOnClickListener(this);
-		shopOrder.setOnClickListener(this);
-		shopComment.setOnClickListener(this);		
+		
 	}
 
 	public void setWidgetPosition() {
@@ -72,36 +56,6 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 
 	public void setWidgetAttribute() {
 		
-	}
-	
-	public void onClick(View v) {
-		switch(v.getId()) {
-		case R.id.shop_info:
-			containerBody.removeAllViews();
-			containerBody.addView(getLocalActivityManager().startActivity(
-                    "ºÚΩÈ",
-                    new Intent(ShopInfoActivity.this, ShopIntroductionActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
-                    .getDecorView());
-			break;
-			
-		case R.id.shop_order:
-			containerBody.addView(getLocalActivityManager().startActivity(
-                    "µ„≤Õ",
-                    new Intent(ShopInfoActivity.this, ShopOrderActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                            .putExtra("shopInfo", mInfo))
-                    .getDecorView());
-			break;
-			
-		case R.id.shop_comment:
-			containerBody.addView(getLocalActivityManager().startActivity(
-                    "µ„∆¿",
-                    new Intent(ShopInfoActivity.this, ShopCommentActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                    .getDecorView());
-			break;
-		}
 	}
 	
 	class LoadProductThread extends Thread {
@@ -181,6 +135,4 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		}
 		
 	}
-
-
 }
