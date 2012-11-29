@@ -8,5 +8,5 @@
         <!-- 指定分割线高度 -->
         <item name="android:dividerHeight" >1px </item>
     </style >
-
+    
 </resources>

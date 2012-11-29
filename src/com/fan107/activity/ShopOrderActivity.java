@@ -13,6 +13,7 @@ import com.fan107.config.WebServiceConfig;
 import com.fan107.data.Product;
 import com.fan107.data.ProductType;
 import com.fan107.data.ShopInfo;
+import com.lbx.templete.ActivityTemplete;
 
 import common.connection.net.WebServiceUtil;
 
@@ -22,15 +23,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 
-public class ShopOrderActivity extends ExpandableListActivity {	
+
+
+public class ShopOrderActivity extends ExpandableListActivity implements ActivityTemplete, ExpandableListView.OnChildClickListener{	
 	private static final int SET_ADAPTER = 1;
 	
 	private List<Map<String, String>> dishsNameList;
 	private List<List<Map<String, String>>> dishList;
 	private List<Map<String, List<Product>>> ProductList;
 	private SimpleExpandableListAdapter mAdapter;
+	private ExpandableListView mListView;
 	private ShopInfo mInfo;
 	
 	@Override
@@ -41,25 +47,44 @@ public class ShopOrderActivity extends ExpandableListActivity {
 		
 		Intent mIntent  = getIntent();
 		mInfo = (ShopInfo) mIntent.getSerializableExtra("shopInfo");
-				
+		
+//		findWidget();
+//		setWidgetListenter();
+//		setWidgetAttribute();
+		
 		dishsNameList = new ArrayList<Map<String,String>>();
 		dishList = new ArrayList<List<Map<String, String>>>();
 		ProductList = new ArrayList<Map<String,List<Product>>>();
 		LoadProductThread mThread = new LoadProductThread();
-		mThread.start();
+		mThread.start();				
 		
 		mAdapter = new SimpleExpandableListAdapter(this, 
 				dishsNameList, R.layout.dishes_list, 
 				new String[]{"dishName"}, new int[]{R.id.dishs_name}, 
-				
-				dishList,
-				android.R.layout.simple_expandable_list_item_2,
-				new String[]{"dishName", "price"},
-                new int[] { android.R.id.text1, android.R.id.text2 });
-				
-//				dishList, R.layout.dish_list, 
-//				new String[]{"dishName", "price"}, new int[]{R.id.dish_name, R.id.dish_price});
 								
+				dishList, R.layout.dish_list, 
+				new String[]{"dishName", }, new int[]{R.id.dish_name});
+	}
+	
+	public void findWidget() {
+		mListView = getExpandableListView();
+	}
+
+	public void setWidgetListenter() {
+		mListView.setOnChildClickListener(this);
+	}
+
+	public void setWidgetPosition() {
+		
+	}
+
+	public void setWidgetAttribute() {
+		mAdapter = new SimpleExpandableListAdapter(this, 
+				dishsNameList, R.layout.dishes_list, 
+				new String[]{"dishName"}, new int[]{R.id.dishs_name}, 
+								
+				dishList, R.layout.dish_list, 
+				new String[]{"dishName", }, new int[]{R.id.dish_name});
 	}
 	
 	Handler mHandler = new Handler() {
@@ -76,6 +101,11 @@ public class ShopOrderActivity extends ExpandableListActivity {
 		}
 		
 	};
+	
+	public boolean onChildClick(ExpandableListView parent, View v,
+			int groupPosition, int childPosition, long id) {
+		return false;
+	}
 	
 	class LoadProductThread extends Thread {
 
@@ -160,12 +190,10 @@ public class ShopOrderActivity extends ExpandableListActivity {
 				pList.add(product);
 				
 				//获得单个菜名和菜价				
-				Map<String, String> child1 = new HashMap<String, String>();
-				child1.put("dishName", product.getProductName());
-				dishChildList.add(child1);
-				Map<String, String> child2 = new HashMap<String, String>();
-				child2.put("price", String.valueOf(product.getPrice()));
-				dishChildList.add(child2);
+				Map<String, String> childMap = new HashMap<String, String>();
+				childMap.put("dishName", product.getProductName());
+				childMap.put("price", String.valueOf(product.getPrice()));
+				dishChildList.add(childMap);
 			}
 			
 			dishList.add(dishChildList);

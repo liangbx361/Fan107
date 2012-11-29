@@ -47,14 +47,14 @@
 
     <!-- 中间动态加载View -->
 
-    <ScrollView
+    <LinearLayout
         android:id="@id/containerBody"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@id/main_tab"
         android:layout_below="@id/title_bar_splict"
         android:measureAllChildren="true" >
-    </ScrollView>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@id/main_tab"

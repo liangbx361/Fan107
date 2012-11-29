@@ -451,7 +451,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		ShopInfo mInfo = shopInfoList.get(position);
-		Intent mIntent = new Intent(this, ShopOrderActivity.class);
+		Intent mIntent = new Intent(this, ShopInfoActivity.class);
 		mIntent.putExtra("shopInfo", mInfo);
 		startActivity(mIntent);
 	}

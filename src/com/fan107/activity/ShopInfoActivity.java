@@ -32,7 +32,7 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 	private LinearLayout shopInfo;
 	private LinearLayout shopOrder;
 	private LinearLayout shopComment;
-	private ScrollView containerBody;
+	private LinearLayout containerBody;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		shopInfo = (LinearLayout) findViewById(R.id.shop_info);
 		shopOrder = (LinearLayout) findViewById(R.id.shop_order);
 		shopComment = (LinearLayout) findViewById(R.id.shop_comment);
-		containerBody = (ScrollView) findViewById(R.id.containerBody);
+		containerBody = (LinearLayout) findViewById(R.id.containerBody);
 	}
 
 	public void setWidgetListenter() {
