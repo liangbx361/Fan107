@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete, OnClickListener{
 	private List<Map<String, List<Product>>> ProductList;
@@ -33,6 +34,7 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 	private LinearLayout shopOrder;
 	private LinearLayout shopComment;
 	private LinearLayout containerBody;
+	private TextView shopName;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		shopOrder = (LinearLayout) findViewById(R.id.shop_order);
 		shopComment = (LinearLayout) findViewById(R.id.shop_comment);
 		containerBody = (LinearLayout) findViewById(R.id.containerBody);
+		shopName = (TextView) findViewById(R.id.shop_name_title);
 	}
 
 	public void setWidgetListenter() {
@@ -71,7 +74,16 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 	}
 
 	public void setWidgetAttribute() {
+		shopName.setText(mInfo.getShopname());
 		
+		// ƒ¨»œΩ¯»Î…ÃµÍºÚΩÈ“≥√Ê
+		containerBody.removeAllViews();
+		containerBody.addView(getLocalActivityManager().startActivity(
+                "ºÚΩÈ",
+                new Intent(ShopInfoActivity.this, ShopIntroductionActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        .putExtra("shopInfo", mInfo))
+                .getDecorView());
 	}
 	
 	public void onClick(View v) {
@@ -81,11 +93,13 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 			containerBody.addView(getLocalActivityManager().startActivity(
                     "ºÚΩÈ",
                     new Intent(ShopInfoActivity.this, ShopIntroductionActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            .putExtra("shopInfo", mInfo))
                     .getDecorView());
 			break;
 			
 		case R.id.shop_order:
+			containerBody.removeAllViews();
 			containerBody.addView(getLocalActivityManager().startActivity(
                     "µ„≤Õ",
                     new Intent(ShopInfoActivity.this, ShopOrderActivity.class)
@@ -95,10 +109,12 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 			break;
 			
 		case R.id.shop_comment:
+			containerBody.removeAllViews();
 			containerBody.addView(getLocalActivityManager().startActivity(
                     "µ„∆¿",
                     new Intent(ShopInfoActivity.this, ShopCommentActivity.class)
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            .putExtra("shopInfo", mInfo))
                     .getDecorView());
 			break;
 		}

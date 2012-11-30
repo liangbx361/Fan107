@@ -23,13 +23,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 
 
-
 public class ShopOrderActivity extends ExpandableListActivity implements ActivityTemplete, ExpandableListView.OnChildClickListener{	
+	private static final String TAG = "ShopOrderActivity";
 	private static final int SET_ADAPTER = 1;
 	
 	private List<Map<String, String>> dishsNameList;
@@ -104,6 +105,9 @@ public class ShopOrderActivity extends ExpandableListActivity implements Activit
 	
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
+		
+		Log.d(TAG, "groupPosition: " + groupPosition + " childPosition:" + childPosition + " id:" + id);
+		Log.d(TAG, dishList.get(groupPosition).get(childPosition).get("dishName") + " Ò»·Ý");
 		return false;
 	}
 	

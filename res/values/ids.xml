@@ -1321,6 +1321,7 @@
     <item type="id" name="containerBody">fase</item>
     
     <!-- act_commodity_list -->
+    <item type="id" name="shop_name_title">false</item>
     
     <!-- act_user_account -->
     
@@ -1357,6 +1358,30 @@
     
     <!-- shop_introduct_layout -->
     <item type="id" name="shop_detail_pic">false</item>
+    <item type="id" name="shop_detail_name">false</item>
+    
+    <item type="id" name="shop_detail_flavor">false</item>
+    <item type="id" name="shop_detail_environment">false</item>
+    <item type="id" name="shop_detail_server">false</item>
+    <item type="id" name="shop_detail_flavor_point">false</item>
+    <item type="id" name="shop_detail_environment_point">false</item>
+    <item type="id" name="shop_detail_server_point">false</item>
+    <item type="id" name="shop_detail_point_ratingbar">false</item>
+    
+    <item type="id" name="shop_detail_limitPrice">false</item>
+    <item type="id" name="shop_detail_sendPrice">false</item>
+    <item type="id" name="shop_detail_send_time">false</item>
+    <item type="id" name="shop_detail_payment">false</item>
+    
+    <item type="id" name="shop_detail_open_time">false</item>
+    <item type="id" name="shop_detail_scheduled_time">false</item>
+    
+    <item type="id" name="shop_detail_phone">false</item>
+    
+    
+    
+    
+    
     
     <!-- shop_list_item -->
     <item type="id" name="shop_pic">false</item>    

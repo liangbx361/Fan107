@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" 
+    android:layout_height="wrap_content"
+    android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
     android:orientation="vertical">
 
     <TextView
@@ -9,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:paddingLeft="40dip"
         android:text="川菜"
-        android:textSize="20sp" />
+        android:textSize="24sp" 
+        android:textColor="#696969"/>
 
 </LinearLayout>

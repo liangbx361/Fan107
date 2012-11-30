@@ -1,150 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_color"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_detailpic_header" >
-
-        <ImageView
-            android:id="@id/shop_detail_pic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:padding="5dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/default_pic" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="vertical" >
+        android:layout_height="match_parent" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="horizontal" >
+            android:layout_height="match_parent"
+            android:background="@color/background_color"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
 
-            <TextView
-                android:id="@id/shop_flavor"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="口味:"
-                android:textColor="#696969"
-                android:textSize="17sp" />
+                android:background="@drawable/bg_detailpic_header" >
 
-            <TextView
-                android:id="@id/shop_flavor_point"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4 "
-                android:textColor="#FF6347"
-                android:textSize="17sp" />
+                <ImageView
+                    android:id="@id/shop_detail_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/test" />
+            </RelativeLayout>
 
-            <TextView
-                android:id="@id/shop_environment"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="环境:"
-                android:textColor="#696969"
-                android:textSize="17sp" />
+                android:layout_margin="5dp"
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@id/shop_environment_point"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4 "
-                android:textColor="#FF6347"
-                android:textSize="17sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:orientation="horizontal" >
 
-            <TextView
-                android:id="@id/shop_server"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="服务:"
-                android:textColor="#696969"
-                android:textSize="17sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="口味:"
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
 
-            <TextView
-                android:id="@id/shop_server_point"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4 "
-                android:textColor="#FF6347"
-                android:textSize="17sp" />
+                    <TextView
+                        android:id="@id/shop_detail_flavor_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="4 "
+                        android:textColor="#FF6347"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="环境:"
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@id/shop_detail_environment_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="4 "
+                        android:textColor="#FF6347"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="服务:"
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@id/shop_detail_server_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="4 "
+                        android:textColor="#FF6347"
+                        android:textSize="17sp" />
+
+                    <RatingBar
+                        android:id="@id/shop_detail_point_ratingbar"
+                        style="@style/ShopRatingBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/rmb_icon" />
+
+                    <TextView
+                        android:id="@id/shop_detail_limitPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30.0"
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="元起送 "
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+                    
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/rmb_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="外送费:"
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@id/shop_detail_sendPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="元"
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal" >
+                    
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/rmb_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="约"
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@id/shop_detail_send_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30"
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="分种到达 "
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+                    
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/rmb_icon" />
+
+                    <TextView
+                        android:id="@id/shop_detail_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="餐到付款"
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="营业时间："
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@id/shop_detail_open_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="09:00-21:00"
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="预定时间："
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@id/shop_detail_scheduled_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="09:00-11:30|11:30-23:30"
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal" >
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="联系电话："
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+                    
+                    <TextView
+                        android:id="@id/shop_detail_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0591-87550466"
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+                    
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/rmb_icon" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="30.0"
-                android:textColor="#696969"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="元起送"
-                android:textColor="#696969"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="外送费无"
-                android:textColor="#696969"
-                android:textSize="17sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="约30分种到达"
-                android:textColor="#696969"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="餐到付款"
-                android:textColor="#696969"
-                android:textSize="17sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="horizontal" >
-            
-            
-            
-        </LinearLayout>
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

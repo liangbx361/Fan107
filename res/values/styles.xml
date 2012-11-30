@@ -2,11 +2,21 @@
 
     <style name="AppTheme" parent="android:Theme.Light" />
     
+    <!-- ListView -->
     <style name="ShopListViewStyle" parent="android:Widget.ListView">
         <!-- 指定分割线颜色 -->
         <item name="android:divider" >#DCDCDC</item>
         <!-- 指定分割线高度 -->
         <item name="android:dividerHeight" >1px </item>
     </style >
+    
+    <!-- RatingBar -->
+    <style name="ShopRatingBarStyle" parent="android:Widget.RatingBar">
+        <item name="android:progressDrawable" >@drawable/ratingbar</item>
+        <item name="android:indeterminateDrawable" >@drawable/ratingbar</item>        
+        <item name="android:minHeight" >30dip </item>
+        <item name="android:maxHeight" >30dip </item>
+        <item name="android:isIndicator" >true</item>
+    </style>
     
 </resources>

@@ -28,14 +28,26 @@
             android:layout_marginRight="5.0dip"
             android:background="@drawable/collect_btn_1" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="wrap_content"    
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/commodity_act_introduct"
-            android:textColor="@color/white"
-            android:textSize="20.0sp" />
+            android:layout_centerVertical="true"        
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_toRightOf="@id/back_shop_list"
+            android:layout_toLeftOf="@id/collect">
+
+            <TextView
+                android:id="@id/shop_name_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="adfdsfdffffffffffffffffffffffff"
+                android:textColor="@color/white"
+                android:textSize="20.0sp" />
+        </LinearLayout>
     </RelativeLayout>
 
     <ImageView
