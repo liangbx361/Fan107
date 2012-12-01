@@ -9,6 +9,7 @@ import org.ksoap2.serialization.SoapObject;
 
 import com.fan107.R;
 import com.fan107.config.WebServiceConfig;
+import com.fan107.data.OrderCar;
 import com.fan107.data.ShopInfo;
 import com.fan107.data.Product;
 import com.fan107.data.ProductType;
@@ -22,18 +23,21 @@ import android.content.pm.LabeledIntent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete, OnClickListener{
 	private List<Map<String, List<Product>>> ProductList;
-	ShopInfo mInfo;
+	private ShopInfo mInfo;
+	private OrderCar mCar;
 	
 	private LinearLayout shopInfo;
 	private LinearLayout shopOrder;
 	private LinearLayout shopComment;
 	private LinearLayout containerBody;
+	private Button myOrder;
 	private TextView shopName;
 	
 	@Override
@@ -43,6 +47,7 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		
 		Intent mIntent  = getIntent();
 		mInfo = (ShopInfo) mIntent.getSerializableExtra("shopInfo");
+		mCar = new OrderCar();
 		
 		findWidget();
 		setWidgetListenter();
@@ -60,13 +65,15 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		shopOrder = (LinearLayout) findViewById(R.id.shop_order);
 		shopComment = (LinearLayout) findViewById(R.id.shop_comment);
 		containerBody = (LinearLayout) findViewById(R.id.containerBody);
+		myOrder = (Button) findViewById(R.id.my_order);
 		shopName = (TextView) findViewById(R.id.shop_name_title);
 	}
 
 	public void setWidgetListenter() {
 		shopInfo.setOnClickListener(this);
 		shopOrder.setOnClickListener(this);
-		shopComment.setOnClickListener(this);		
+		shopComment.setOnClickListener(this);
+		myOrder.setOnClickListener(this);
 	}
 
 	public void setWidgetPosition() {
@@ -82,7 +89,7 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
                 "¼ò½é",
                 new Intent(ShopInfoActivity.this, ShopIntroductionActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        .putExtra("shopInfo", mInfo))
+                        .putExtra("shopInfo", mInfo)                        )                        
                 .getDecorView());
 	}
 	
@@ -104,7 +111,8 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
                     "µã²Í",
                     new Intent(ShopInfoActivity.this, ShopOrderActivity.class)
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                            .putExtra("shopInfo", mInfo))
+                            .putExtra("shopInfo", mInfo)
+                            .putExtra("orderCar", mCar))
                     .getDecorView());
 			break;
 			
@@ -116,6 +124,12 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                             .putExtra("shopInfo", mInfo))
                     .getDecorView());
+			break;
+			
+		case R.id.my_order:
+			Intent orderCar = new Intent(ShopInfoActivity.this, OrderCarActivity.class);
+			orderCar.putExtra("orderCar", mCar);
+			startActivity(orderCar);
 			break;
 		}
 	}

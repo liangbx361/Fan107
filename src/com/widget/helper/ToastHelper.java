@@ -11,5 +11,11 @@ public class ToastHelper {
 		mToast.setGravity(Gravity.BOTTOM, 0, 0);
 		mToast.show();
 	}
+	
+	public static void showToastInBottom(Context mContext, String toast, int xOffer, int yOffer) {
+		Toast mToast = Toast.makeText(mContext, toast, 500);
+		mToast.setGravity(Gravity.BOTTOM, xOffer, yOffer);
+		mToast.show();
+	}
 
 }

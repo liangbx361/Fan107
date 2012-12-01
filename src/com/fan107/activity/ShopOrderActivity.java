@@ -10,15 +10,21 @@ import org.ksoap2.serialization.SoapObject;
 import com.fan107.R;
 import com.fan107.activity.ShopInfoActivity.LoadProductThread;
 import com.fan107.config.WebServiceConfig;
+import com.fan107.data.OrderCar;
+import com.fan107.data.OrderDish;
 import com.fan107.data.Product;
 import com.fan107.data.ProductType;
 import com.fan107.data.ShopInfo;
+import com.fan107.dialog.OrderDishDialog;
 import com.lbx.templete.ActivityTemplete;
+import com.widget.helper.ToastHelper;
 
 import common.connection.net.WebServiceUtil;
 
 import android.app.Activity;
 import android.app.ExpandableListActivity;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,7 +35,7 @@ import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 
 
-public class ShopOrderActivity extends ExpandableListActivity implements ActivityTemplete, ExpandableListView.OnChildClickListener{	
+public class ShopOrderActivity extends ExpandableListActivity implements ActivityTemplete, ExpandableListView.OnChildClickListener, OnDismissListener{	
 	private static final String TAG = "ShopOrderActivity";
 	private static final int SET_ADAPTER = 1;
 	
@@ -39,6 +45,7 @@ public class ShopOrderActivity extends ExpandableListActivity implements Activit
 	private SimpleExpandableListAdapter mAdapter;
 	private ExpandableListView mListView;
 	private ShopInfo mInfo;
+	private OrderCar mCar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,7 @@ public class ShopOrderActivity extends ExpandableListActivity implements Activit
 		
 		Intent mIntent  = getIntent();
 		mInfo = (ShopInfo) mIntent.getSerializableExtra("shopInfo");
+		mCar = (OrderCar) mIntent.getSerializableExtra("orderCar");
 		
 //		findWidget();
 //		setWidgetListenter();
@@ -59,12 +67,16 @@ public class ShopOrderActivity extends ExpandableListActivity implements Activit
 		LoadProductThread mThread = new LoadProductThread();
 		mThread.start();				
 		
-		mAdapter = new SimpleExpandableListAdapter(this, 
-				dishsNameList, R.layout.dishes_list, 
-				new String[]{"dishName"}, new int[]{R.id.dishs_name}, 
-								
-				dishList, R.layout.dish_list, 
-				new String[]{"dishName", }, new int[]{R.id.dish_name});
+//		mAdapter = new SimpleExpandableListAdapter(this, 
+//				dishsNameList, R.layout.dishes_list, 
+//				new String[]{"dishName"}, new int[]{R.id.dishs_name}, 
+//								
+//				dishList, R.layout.dish_list, 
+//				new String[]{"dishName", }, new int[]{R.id.dish_name});
+		
+		setWidgetAttribute();
+		
+		
 	}
 	
 	public void findWidget() {
@@ -85,7 +97,7 @@ public class ShopOrderActivity extends ExpandableListActivity implements Activit
 				new String[]{"dishName"}, new int[]{R.id.dishs_name}, 
 								
 				dishList, R.layout.dish_list, 
-				new String[]{"dishName", }, new int[]{R.id.dish_name});
+				new String[]{"dishName", "price", }, new int[]{R.id.dish_name, R.id.dish_price});
 	}
 	
 	Handler mHandler = new Handler() {
@@ -106,6 +118,18 @@ public class ShopOrderActivity extends ExpandableListActivity implements Activit
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
 		
+		OrderDish mOrderDish = new OrderDish();
+		String disTypeName = dishsNameList.get(groupPosition).get("dishName");
+		Product mProduct = (Product) ProductList.get(groupPosition).get(disTypeName).get(childPosition);
+		mOrderDish.setDishName(mProduct.getProductName());
+		mOrderDish.setOrderNum(1);
+		mOrderDish.setOldPrice(mProduct.getPrice());
+		mOrderDish.setNewPrice(mProduct.getPrice2());
+		
+		OrderDishDialog mDialog = new OrderDishDialog(this, mOrderDish);
+		mDialog.setOnDismissListener(this);
+		mDialog.show();
+				
 		Log.d(TAG, "groupPosition: " + groupPosition + " childPosition:" + childPosition + " id:" + id);
 		Log.d(TAG, dishList.get(groupPosition).get(childPosition).get("dishName") + " 一份");
 		return false;
@@ -204,6 +228,16 @@ public class ShopOrderActivity extends ExpandableListActivity implements Activit
 			return pList;
 		}
 		
+	}
+
+	public void onDismiss(DialogInterface dialog) {
+		OrderDishDialog mDialog = (OrderDishDialog) dialog;
+		OrderDish mOrderDish = mDialog.getOrderDish();
+		if(mOrderDish!= null) {
+			mCar.addItem(mOrderDish);
+			String message = "已点" + mOrderDish.getDishName() + " " + mOrderDish.getOrderNum() + "份";
+			ToastHelper.showToastInBottom(this, message, 0, 40);
+		}
 	}
 
 }

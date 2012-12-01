@@ -160,7 +160,7 @@ public class RecevoirAddressActivity extends Activity implements
 		Log.d(TAG, view.toString());
 	}
 	
-	public class MyAdapter extends SimpleAdapter {
+	 	class MyAdapter extends SimpleAdapter {
 
 		public MyAdapter(Context context, List<? extends Map<String, ?>> data,
 				int resource, String[] from, int[] to) {
