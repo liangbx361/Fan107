@@ -1,6 +1,9 @@
 package com.fan107.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +12,9 @@ import com.fan107.R;
 import com.fan107.activity.RecevoirAddressActivity.MyAdapter;
 import com.fan107.data.OrderCar;
 import com.fan107.data.OrderDish;
+import com.fan107.data.ShopInfo;
 import com.lbx.templete.ActivityTemplete;
+import com.widget.helper.ToastHelper;
 
 import android.app.Activity;
 import android.content.Context;
@@ -35,6 +40,7 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 	List<Map<String, String>> listData;
 	
 	private SimpleAdapter adapter;
+	private ShopInfo mInfo;
 	private OrderCar mCar;
 		
 	@Override
@@ -42,6 +48,7 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_car_layout);
 		
+		mInfo = (ShopInfo) getIntent().getSerializableExtra("shopInfo");
 		mCar = (OrderCar) getIntent().getSerializableExtra("orderCar");
 		
 		findWidget();
@@ -57,7 +64,7 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 	}
 
 	public void setWidgetListenter() {
-		
+		orderButton.setOnClickListener(this);
 	}
 
 	public void setWidgetPosition() {
@@ -87,7 +94,26 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 			
 		case R.id.order_list_dish_sub_num:
 			break;
+			
+		case R.id.order_car_order_btn:
+			//生成订单, 向服务器发送订单
+			if( checkOrder() ) {
+				
+			}
+			break;
 		}
+	}
+	
+	private boolean checkOrder() {
+		if(mCar.getTotalOldPrice() >= mInfo.getLimitprice()) {				
+			//判断是否拥有足够的积分
+			return true;
+		} else {
+			String toast = "抱歉,本店" + mInfo.getLimitprice() + "元起送";
+			ToastHelper.showToastInBottom(this, toast, 0, 100);
+		}
+		
+		return false;
 	}
 	
 	Handler mHandler = new Handler() {

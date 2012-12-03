@@ -1,19 +1,26 @@
 package com.fan107.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.ksoap2.serialization.SoapObject;
 
+import com.common.helper.TimeHelp;
 import com.fan107.R;
+import com.fan107.common.OrderState;
 import com.fan107.config.WebServiceConfig;
 import com.fan107.data.OrderCar;
 import com.fan107.data.ShopInfo;
 import com.fan107.data.Product;
 import com.fan107.data.ProductType;
 import com.lbx.templete.ActivityTemplete;
+import com.widget.helper.ToastHelper;
+
 import common.connection.net.WebServiceUtil;
 
 import android.app.Activity;
@@ -126,14 +133,19 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
                     .getDecorView());
 			break;
 			
-		case R.id.my_order:
-			Intent orderCar = new Intent(ShopInfoActivity.this, OrderCarActivity.class);
-			orderCar.putExtra("orderCar", mCar);
-			startActivity(orderCar);
+		case R.id.my_order:			
+			if(OrderState.checkTime(mInfo.getOrdertime())) {			
+				Intent orderCar = new Intent(ShopInfoActivity.this, OrderCarActivity.class);
+				orderCar.putExtra("shopInfo", mInfo);
+				orderCar.putExtra("orderCar", mCar);
+				startActivity(orderCar);
+			} else {
+				ToastHelper.showToastInBottom(this, "非订餐时段,请自行电话定餐", 0, 100);
+			}
 			break;
 		}
 	}
-	
+			
 	class LoadProductThread extends Thread {
 
 		@Override

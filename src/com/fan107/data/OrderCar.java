@@ -20,7 +20,16 @@ public class OrderCar implements Serializable{
 	}
 	
 	public void addItem(OrderDish dish) {
-		mCar.add(dish);
+		boolean isNew = true;
+		for(int i=0; i<mCar.size(); i++) {
+			OrderDish child = mCar.get(i);
+			if(child.getDishName().equals(dish.getDishName())) {
+				int sum = child.getOrderNum() + dish.getOrderNum();
+				child.setOrderNum(sum);
+				isNew = false;
+			}
+		}
+		if(isNew) mCar.add(dish);
 	}
 	
 	public void removeItem(int location) {
