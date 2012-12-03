@@ -27,7 +27,8 @@ public class OrderState {
 			}
 		}
 		
-		return false;
+//		return false;
+		return true;
 	}
 	
 	public static boolean checkLimitPrice(float totalPrice) {

@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class OrderCar implements Serializable{
 	/**
 	 * 
@@ -62,5 +65,29 @@ public class OrderCar implements Serializable{
 		}
 		
 		return totalNewPrice;
+	}
+	
+	public String getJsonString() {
+		JSONObject Order = new JSONObject();
+		
+		for(int i=0; i<mCar.size(); i++) {
+			OrderDish rOrderDish = mCar.get(i);
+			JSONObject dishs = new JSONObject();
+			try {
+				dishs.put("dishName", rOrderDish.getDishName());
+				dishs.put("orderNum", rOrderDish.getOrderNum());
+				Order.put("dishs", dishs);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		try {
+			Order.put("totalPrice", getTotalOldPrice());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+				
+		return Order.toString();
 	}
 }

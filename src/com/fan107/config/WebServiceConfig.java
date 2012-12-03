@@ -2,7 +2,7 @@ package com.fan107.config;
 
 public interface WebServiceConfig {
 	//服务器的IP地址 
-	public static final String SERVER_IP = "192.168.0.23";
+	public static final String SERVER_IP = "192.168.0.105";
 	
 	public static final String RES_URL = "http://" + SERVER_IP + "/";
 	
@@ -30,4 +30,7 @@ public interface WebServiceConfig {
 	public static final String GET_PRODUCT_LIST_METHOD = "getProductList";
 	public static final String GET_PRODUCT_METHOD = "getProduct";
 
+	//提交定单信息
+	public static final String ORDER_CHECK_WEB_SERVICE = "Ordercheck.asmx";
+	public static final String GENERATE_ORDER_METHOD = "generateOrder";
 }

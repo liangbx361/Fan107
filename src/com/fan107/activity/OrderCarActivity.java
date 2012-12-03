@@ -8,19 +8,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.ksoap2.serialization.SoapObject;
+
 import com.fan107.R;
 import com.fan107.activity.RecevoirAddressActivity.MyAdapter;
+import com.fan107.config.WebServiceConfig;
 import com.fan107.data.OrderCar;
 import com.fan107.data.OrderDish;
 import com.fan107.data.ShopInfo;
 import com.lbx.templete.ActivityTemplete;
 import com.widget.helper.ToastHelper;
+import common.connection.net.WebServiceUtil;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -98,7 +103,11 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 		case R.id.order_car_order_btn:
 			//生成订单, 向服务器发送订单
 			if( checkOrder() ) {
-				
+				String carJson = mCar.getJsonString();
+				Map<String, Object> data = new HashMap<String, Object>();
+				data.put("orderMesage", carJson.toString());
+				String url = WebServiceConfig.url + WebServiceConfig.ORDER_CHECK_WEB_SERVICE;
+				SoapObject result = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.GENERATE_ORDER_METHOD, data);
 			}
 			break;
 		}
