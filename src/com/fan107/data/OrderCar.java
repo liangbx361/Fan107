@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,6 +18,14 @@ public class OrderCar implements Serializable{
 	private float totalOldPrice;
 	private float totalNewPrice;
 	
+	public int shopId;
+	public int userId;
+	public int areaId;
+	public float orderPoint;
+	public String userTel;
+	public String userName;
+	public String userAddress;	
+	public String remark;
 	
 	public OrderCar() {
 		mCar = new ArrayList<OrderDish>();
@@ -68,26 +77,29 @@ public class OrderCar implements Serializable{
 	}
 	
 	public String getJsonString() {
-		JSONObject Order = new JSONObject();
+		JSONObject orderObject = new JSONObject();
+		JSONArray dishArray = new JSONArray();
 		
-		for(int i=0; i<mCar.size(); i++) {
-			OrderDish rOrderDish = mCar.get(i);
-			JSONObject dishs = new JSONObject();
+		for(int i=0; i<mCar.size(); i++) {						
 			try {
-				dishs.put("dishName", rOrderDish.getDishName());
-				dishs.put("orderNum", rOrderDish.getOrderNum());
-				Order.put("dishs", dishs);
+				OrderDish rOrderDish = mCar.get(i);
+				JSONObject dishObject = new JSONObject();
+				dishObject.put("dishName", rOrderDish.getDishName());
+				dishObject.put("orderNum", rOrderDish.getOrderNum());
+				dishArray.put(i, dishObject);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
 		
-		try {
-			Order.put("totalPrice", getTotalOldPrice());
+		try {			
+			orderObject.putOpt("dishArray", dishArray);
+			orderObject.put("totalOldPrice", getTotalOldPrice());
+			orderObject.put("totalNewPrice", getTotalNewPrice());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 				
-		return Order.toString();
+		return orderObject.toString();
 	}
 }

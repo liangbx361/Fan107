@@ -10,10 +10,11 @@ public class OrderDish implements Serializable {
 	private static final long serialVersionUID = 4558063658122228216L;
 	
 	private String dishName;
+	private int productId;
 	private float oldPrice;
 	private float newPrice;
 	private int orderNum;
-	
+		
 	public String getDishName() {
 		return dishName;
 	}
@@ -38,6 +39,10 @@ public class OrderDish implements Serializable {
 	public void setOrderNum(int orderNum) {
 		this.orderNum = orderNum;
 	}
-	
-	
+	public int getProductId() {
+		return productId;
+	}
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}	
 }

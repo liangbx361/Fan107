@@ -105,7 +105,7 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 			if( checkOrder() ) {
 				String carJson = mCar.getJsonString();
 				Map<String, Object> data = new HashMap<String, Object>();
-				data.put("orderMesage", carJson.toString());
+				data.put("orderMesage", carJson);
 				String url = WebServiceConfig.url + WebServiceConfig.ORDER_CHECK_WEB_SERVICE;
 				SoapObject result = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.GENERATE_ORDER_METHOD, data);
 			}
