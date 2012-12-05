@@ -78,7 +78,6 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * 判断是否已经存在，如果存在则更新数据, 否则插入数据
 	 * @param tableName
 	 * @param contentValues
@@ -119,8 +118,6 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	
 	/**
-=======
->>>>>>> refs/heads/dbSet
 	 * 通过sql语句�?��里插入数�?
 	 * @param sql
 	 */
