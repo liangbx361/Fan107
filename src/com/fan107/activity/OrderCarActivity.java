@@ -16,6 +16,7 @@ import com.fan107.config.WebServiceConfig;
 import com.fan107.data.OrderCar;
 import com.fan107.data.OrderDish;
 import com.fan107.data.ShopInfo;
+import com.fan107.dialog.OrderAddressDialog;
 import com.lbx.templete.ActivityTemplete;
 import com.widget.helper.ToastHelper;
 import common.connection.net.WebServiceUtil;
@@ -28,6 +29,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -51,6 +53,8 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// 设置无标题
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.order_car_layout);
 		
 		mInfo = (ShopInfo) getIntent().getSerializableExtra("shopInfo");
@@ -101,14 +105,18 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 			break;
 			
 		case R.id.order_car_order_btn:
-			//生成订单, 向服务器发送订单
 			if( checkOrder() ) {
-				String carJson = mCar.getJsonString();
-				Map<String, Object> data = new HashMap<String, Object>();
-				data.put("orderMesage", carJson);
-				String url = WebServiceConfig.url + WebServiceConfig.ORDER_CHECK_WEB_SERVICE;
-				SoapObject result = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.GENERATE_ORDER_METHOD, data);
+				new OrderAddressDialog(this, mCar).show();
 			}
+			
+			//生成订单, 向服务器发送订单
+//			if( checkOrder() ) {
+//				String carJson = mCar.getJsonString();
+//				Map<String, Object> data = new HashMap<String, Object>();
+//				data.put("orderMesage", carJson);
+//				String url = WebServiceConfig.url + WebServiceConfig.ORDER_CHECK_WEB_SERVICE;
+//				SoapObject result = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.GENERATE_ORDER_METHOD, data);
+//			}
 			break;
 		}
 	}

@@ -1343,7 +1343,17 @@
     <item name="sex_female_radio" type="id">false</item>
     <item name="phone" type="id">false</item>
     <item name="birthday" type="id">false</item>
-
+    
+    <!-- order_address_layout -->	
+	<item name="order_address_1" type="id">false</item>
+	<item name="order_address_2" type="id">false</item>
+	<item name="order_address_name" type="id">false</item>
+	<item name="order_address_mobile" type="id">false</item>
+	<item name="order_address_time_hour" type="id">false</item>
+	<item name="order_address_time_minute" type="id">false</item>
+	<item name="order_address_confirm" type="id">false</item>
+	<item name="order_address_cancle" type="id">false</item>
+	
     <!-- order_car_layout -->
     <item name="order_car_title" type="id">false</item>
     <item name="order_car_order_btn" type="id">false</item>

@@ -21,6 +21,7 @@ import com.fan107.common.UserState;
 import com.fan107.config.UrlConfig;
 import com.fan107.config.WebServiceConfig;
 import com.fan107.data.ShopInfo;
+import com.fan107.data.UserAddress;
 import com.fan107.data.UserInfo;
 import com.fan107.data.UserLogin;
 import com.lbx.cache.FileCache;
@@ -82,6 +83,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	private boolean isFirst;
 	
 	private UserInfo mUserInfo;
+	private UserAddress mAddress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -310,8 +312,9 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 			isLogin = UserState.autoLogin(SearchActivity.this, mLogin, mHandler); 
 			if(isLogin) {
 				mUserInfo = UserState.getUserInfo(mLogin.getUserName(), mLogin.getPasswdMD5());
-				String[] addressIdList = mUserInfo.getAddress().split("\\|")[0].split(",");
-				String addressName = mUserInfo.getAddress().split("\\|")[1];	//用户的默认地址
+				mAddress = getDefaultAddress(mUserInfo.getUserid());
+				String[] addressIdList = mAddress.getAddress().split("\\|")[0].split(",");
+				String addressName = mAddress.getAddress().split("\\|")[1];	//用户的默认地址
 				try{ 
 					aid = Integer.parseInt(addressIdList[0]);
 					sid = Integer.parseInt(addressIdList[1]);
@@ -453,6 +456,29 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		ShopInfo mInfo = shopInfoList.get(position);
 		Intent mIntent = new Intent(this, ShopInfoActivity.class);
 		mIntent.putExtra("shopInfo", mInfo);
+		mIntent.putExtra("userInfo", mUserInfo);
+		mIntent.putExtra("userAddress", mAddress);
 		startActivity(mIntent);
+	}
+	
+	public UserAddress getDefaultAddress(int userId) {
+		UserAddress mAddress = new UserAddress();
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("userId", userId);
+		String url = WebServiceConfig.url + WebServiceConfig.USER_ADDRESS_WEB_SERVICE;
+		SoapObject userAddressObject = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.GET_DEFAULT_ADDRESS_METHOD, params);
+		
+		SoapObject chid = (SoapObject) userAddressObject.getProperty(0);
+		String userName = WebServiceUtil.getSoapObjectString(chid, "UserName");
+		String address = WebServiceUtil.getSoapObjectString(chid, "Address");
+		String mobile = WebServiceUtil.getSoapObjectString(chid, "Mobile");
+		
+		mAddress.setUserId(userId);
+		mAddress.setUserName(userName);
+		mAddress.setAddress(address);
+		mAddress.setMobile(mobile);
+		
+		return mAddress;
 	}
 }

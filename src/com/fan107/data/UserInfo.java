@@ -8,6 +8,7 @@ public class UserInfo implements Serializable{
 	 */
 	private static final long serialVersionUID = -1454337815540147840L;
 	
+	private int userid;
 	private int usergroup;
 	private String username;
 	private String userpass;
@@ -24,6 +25,13 @@ public class UserInfo implements Serializable{
 	private int utype;
 	private int shopid;
 	private String addtime;
+	
+	public int getUserid() {
+		return userid;
+	}
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
 	public int getUsergroup() {
 		return usergroup;
 	}

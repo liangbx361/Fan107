@@ -48,7 +48,7 @@ public class UserState {
 		SharedPreferences initData = context.getSharedPreferences("account", Context.MODE_PRIVATE);
 		Editor mEditor = initData.edit();
 		mEditor.putBoolean("loginState", isLogin); // 登录状态
-		mEditor.commit();
+		mEditor.commit();		
 	}
 	
 	/**
@@ -59,6 +59,27 @@ public class UserState {
 	public static boolean getLoginState(Context context) {
 		SharedPreferences initData = context.getSharedPreferences("account", Activity.MODE_PRIVATE);
 		return initData.getBoolean("loginState", false);
+	}
+	
+	/**
+	 * 设置登录用户的id
+	 * @param context
+	 */
+	public static void setLoginUserId(Context context, int userId) {
+		SharedPreferences initData = context.getSharedPreferences("account", Context.MODE_PRIVATE);
+		Editor mEditor = initData.edit();
+		mEditor.putInt("userId", userId); // 登录状态
+		mEditor.commit();	
+	}
+	
+	/**
+	 * 获取登录用户的id
+	 * @param context
+	 * @return
+	 */
+	public static int getLoginUserId(Context context) {
+		SharedPreferences initData = context.getSharedPreferences("account", Activity.MODE_PRIVATE);
+		return initData.getInt("userId", -1);
 	}
 	
 	public static boolean autoLogin(Context context, UserLogin mLogin, Handler mHandler) {
@@ -125,6 +146,7 @@ public class UserState {
 		for(int i=0; i<userInfo.getPropertyCount(); i++) {
 			SoapObject soapChilds = (SoapObject) userInfo.getProperty(i);
 			
+			int userId = WebServiceUtil.getSoapObjectInt(soapChilds, "Id");
 			int userGroup = WebServiceUtil.getSoapObjectInt(soapChilds, "UserGroup");
 			String userName = WebServiceUtil.getSoapObjectString(soapChilds, "UserName");
 			String nickName = WebServiceUtil.getSoapObjectString(soapChilds, "NickName");
@@ -141,6 +163,7 @@ public class UserState {
 			int shopId = WebServiceUtil.getSoapObjectInt(soapChilds, "ShopId");
 			String addTime = WebServiceUtil.getSoapObjectString(soapChilds, "AddTime");
 			
+			mUser.setUserid(userId);
 			mUser.setUsergroup(userGroup);
 			mUser.setUsername(userName);
 			mUser.setNickname(nickName);

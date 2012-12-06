@@ -84,6 +84,8 @@ public class OrderCar implements Serializable{
 			try {
 				OrderDish rOrderDish = mCar.get(i);
 				JSONObject dishObject = new JSONObject();
+				dishObject.put("productId", rOrderDish.getProductId());
+				dishObject.put("oldPrice", rOrderDish.getOldPrice());
 				dishObject.put("dishName", rOrderDish.getDishName());
 				dishObject.put("orderNum", rOrderDish.getOrderNum());
 				dishArray.put(i, dishObject);
@@ -94,6 +96,14 @@ public class OrderCar implements Serializable{
 		
 		try {			
 			orderObject.putOpt("dishArray", dishArray);
+			orderObject.put("shopId", shopId);
+			orderObject.put("userId", userId);
+			orderObject.put("orderPoint", orderPoint);
+			orderObject.put("userTel", userTel);
+			orderObject.put("userName", userName);
+			orderObject.put("userAddress", userAddress);
+			orderObject.put("areaId", areaId);
+			orderObject.put("remark", remark);
 			orderObject.put("totalOldPrice", getTotalOldPrice());
 			orderObject.put("totalNewPrice", getTotalNewPrice());
 		} catch (JSONException e) {

@@ -33,4 +33,9 @@ public interface WebServiceConfig {
 	//提交定单信息
 	public static final String ORDER_CHECK_WEB_SERVICE = "Ordercheck.asmx";
 	public static final String GENERATE_ORDER_METHOD = "generateOrder";
+	
+	//用户地址信息
+	public static final String USER_ADDRESS_WEB_SERVICE = "UserAddressInfo.asmx";
+	public static final String GET_DEFAULT_ADDRESS_METHOD = "getDefaultAddress";
+	public static final String GET_ADDRESS_LIST_METHOD = "getList";
 }

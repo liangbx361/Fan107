@@ -13,11 +13,15 @@ import org.ksoap2.serialization.SoapObject;
 import com.common.helper.TimeHelp;
 import com.fan107.R;
 import com.fan107.common.OrderState;
+import com.fan107.common.UserState;
 import com.fan107.config.WebServiceConfig;
 import com.fan107.data.OrderCar;
 import com.fan107.data.ShopInfo;
 import com.fan107.data.Product;
 import com.fan107.data.ProductType;
+import com.fan107.data.UserAddress;
+import com.fan107.data.UserInfo;
+import com.fan107.db.DBHelper;
 import com.lbx.templete.ActivityTemplete;
 import com.widget.helper.ToastHelper;
 
@@ -38,6 +42,8 @@ import android.widget.TextView;
 public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete, OnClickListener{
 	private List<Map<String, List<Product>>> ProductList;
 	private ShopInfo mInfo;
+	private UserInfo mUserInfo;
+	private UserAddress mAddress;
 	private OrderCar mCar;
 	
 	private LinearLayout shopInfo;
@@ -54,8 +60,13 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		
 		Intent mIntent  = getIntent();
 		mInfo = (ShopInfo) mIntent.getSerializableExtra("shopInfo");
-		mCar = new OrderCar();
+		mUserInfo = (UserInfo) mIntent.getSerializableExtra("userInfo");
+		mAddress = (UserAddress) mIntent.getSerializableExtra("userAddress");
 		
+		if(UserState.getLoginState(this)) {
+			mCar = OrderCarInit();
+		}
+				
 		findWidget();
 		setWidgetListenter();
 		setWidgetPosition();
@@ -65,6 +76,19 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		
 		LoadProductThread mThread = new LoadProductThread();
 		mThread.start();
+	}
+	
+	private OrderCar OrderCarInit() {
+		OrderCar mCar = new OrderCar();
+		
+		mCar.shopId = mInfo.getShopId();
+		mCar.userId = mUserInfo.getUserid();
+		mCar.areaId = Integer.valueOf(mAddress.getAddress().split("\\|")[0].split(",")[0]);
+		mCar.userTel = mAddress.getMobile();
+		mCar.userName = mAddress.getUserName();
+		mCar.userAddress = mAddress.getAddress();
+		
+		return mCar;
 	}
 
 	public void findWidget() {

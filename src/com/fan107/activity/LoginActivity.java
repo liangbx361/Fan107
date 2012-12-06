@@ -228,6 +228,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			for(int i=0; i<userInfo.getPropertyCount(); i++) {
 				SoapObject soapChilds = (SoapObject) userInfo.getProperty(i);
 				
+				int userId = WebServiceUtil.getSoapObjectInt(soapChilds, "Id");
 				int userGroup = WebServiceUtil.getSoapObjectInt(soapChilds, "UserGroup");
 				String userName = WebServiceUtil.getSoapObjectString(soapChilds, "UserName");
 				String userPass = WebServiceUtil.getSoapObjectString(soapChilds, "UserPass");
@@ -246,6 +247,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 				String addTime = WebServiceUtil.getSoapObjectString(soapChilds, "AddTime");
 				
 				mUserInfo = new UserInfo();
+				mUserInfo.setUserid(userId);
 				mUserInfo.setUsergroup(userGroup);
 				mUserInfo.setUsername(userName);
 				mUserInfo.setUserpass(userPass);
@@ -264,6 +266,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 				mUserInfo.setAddtime(addTime);
 				
 				ContentValues contentValues = new ContentValues();
+				contentValues.put("userid", userId);
 				contentValues.put("usergroup", userGroup);
 				contentValues.put("username", userName);
 				contentValues.put("nickname", nickName);

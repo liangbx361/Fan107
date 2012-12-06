@@ -29,6 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	//创建user数据�?
 	private static final String CREATE_TABLE_USER = "create table if not exists " + USER_TABLE_NAME 
 		+ " (_id int primary key," 
+		+ "userid int, "
 		+ "usergroup int, " 
 		+ "username varchar(20), "
 		//+ "userpass varchar(32)," 

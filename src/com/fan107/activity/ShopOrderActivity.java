@@ -120,7 +120,10 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
 		
-		if (OrderState.checkTime(mInfo.getOrdertime())) {
+		if(mCar == null) {
+			ToastHelper.showToastInBottom(this, "请先登录, 再进行订餐", 0, 100);
+			
+		} else if (OrderState.checkTime(mInfo.getOrdertime())) {
 			OrderDish mOrderDish = new OrderDish();
 			String disTypeName = dishsNameList.get(groupPosition).get(
 					"dishName");
