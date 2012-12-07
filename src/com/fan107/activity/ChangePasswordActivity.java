@@ -95,8 +95,7 @@ public class ChangePasswordActivity extends Activity implements
 					mDbHelper.updateTable(DBHelper.USER_LOGIN_TABLE_NAME, contentValues, "username = '" + userName + "'" , null);
 					ToastHelper.showToastInBottom(this, MESSAGE_6);
 					
-					Intent mIntent = new Intent(this, UserAccountActivity.class);
-					startActivity(mIntent);
+					onBackPressed();
 				} else {
 					ToastHelper.showToastInBottom(this, MESSAGE_7);
 				}

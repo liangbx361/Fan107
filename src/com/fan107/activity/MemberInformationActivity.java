@@ -1,9 +1,17 @@
 package com.fan107.activity;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.ksoap2.serialization.SoapObject;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,12 +28,16 @@ import com.dominicsayers.isemail.IsEMail;
 import com.dominicsayers.isemail.IsEMailResult;
 import com.dominicsayers.isemail.dns.DNSLookupException;
 import com.fan107.R;
+import com.fan107.config.WebServiceConfig;
 import com.fan107.data.UserInfo;
+import com.fan107.db.DBHelper;
 import com.lbx.templete.ActivityTemplete;
 import com.widget.helper.ToastHelper;
+import common.connection.net.WebServiceUtil;
 
 public class MemberInformationActivity extends Activity implements
 		ActivityTemplete, OnCheckedChangeListener, OnClickListener {
+	
 	private TextView usernameText;
 	private EditText emailText;
 	private EditText nicknameText;
@@ -36,6 +48,7 @@ public class MemberInformationActivity extends Activity implements
 
 	private UserInfo mUserInfo;
 
+	private int gender;
 	private int mYear;
 	private int mMonth;
 	private int mDay;
@@ -63,6 +76,7 @@ public class MemberInformationActivity extends Activity implements
 	public void setWidgetListenter() {
 		birthdayText.setOnClickListener(this);
 		confirmBtn.setOnClickListener(this);
+		sexRadio.setOnCheckedChangeListener(this);
 	}
 
 	public void setWidgetPosition() {
@@ -75,9 +89,10 @@ public class MemberInformationActivity extends Activity implements
 		usernameText.setText(mUserInfo.getUsername());
 		emailText.setText(mUserInfo.getEmail());
 		nicknameText.setText(mUserInfo.getNickname());
-
+		gender = mUserInfo.getGender();
+		
 		if (mUserInfo.getGender() == 0) {
-			sexRadio.check(R.id.sex_male_Radio);
+			sexRadio.check(R.id.sex_male_Radio);			
 		} else {
 			sexRadio.check(R.id.sex_female_radio);
 		}
@@ -87,7 +102,8 @@ public class MemberInformationActivity extends Activity implements
 	}
 
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
-
+		if(checkedId == R.id.sex_male_Radio) gender = 0;
+		else gender = 1;
 	}
 
 	public void onClick(View v) {
@@ -100,7 +116,7 @@ public class MemberInformationActivity extends Activity implements
 
 		case R.id.member_info_confirm_btn:
 			if (check()) {
-				
+				sendMemberInfo();
 			}
 			break;
 		}
@@ -162,7 +178,7 @@ public class MemberInformationActivity extends Activity implements
 				ToastHelper.showToastInBottom(this, "邮箱格式不正确", 0, 100);
 				return false;
 				
-			} else if(formatCheck.checkPhoto(phoneText.getText().toString()) != null) {
+			} else if(formatCheck.checkPhoto(phoneText.getText().toString()) == null) {
 				ToastHelper.showToastInBottom(this, "电话号码格式不正确", 0, 100);
 				return false;
 			}
@@ -173,5 +189,63 @@ public class MemberInformationActivity extends Activity implements
 
 		return true;
 	}
+	
+	private void sendMemberInfo() {
+		String phone;
+		String nickName;
+		String email;
+		String birthday;
+		
+		JSONObject orderObject = new JSONObject();
+		phone = phoneText.getText().toString();
+		nickName = nicknameText.getText().toString();
+		email = emailText.getText().toString();
+		birthday = birthdayText.getText().toString();
+		
+		try {
+			orderObject.put("id", mUserInfo.getUserid());
+			orderObject.put("usergroup", mUserInfo.getUsergroup());
+			orderObject.put("email", emailText.getText().toString());
+			orderObject.put("nickName", nicknameText.getText().toString());
+			orderObject.put("phone", phoneText.getText().toString());
+			orderObject.put("gender", gender);
+			orderObject.put("birthday", birthdayText.getText().toString());
+			orderObject.put("address", mUserInfo.getAddress());
+			
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("values", orderObject.toString());
+			String url = WebServiceConfig.url + WebServiceConfig.USER_ACCOUNT_WEB_SERVICE;
+			SoapObject result = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.CHANAGER_MEMBER_INFO_METHOD, data);
+			
+			if(result.getPropertyAsString(0).equals("ok")) {
+				
+				mUserInfo.setGender(gender);
+				mUserInfo.setMobile(phone);
+				mUserInfo.setNickname(nickName);
+				mUserInfo.setEmail(email);
+				mUserInfo.setBirthday(birthday);
 
+				//更新本地数据库
+				ContentValues content = new ContentValues();
+				content.put("gender", gender);
+				content.put("nickname", nickName);
+				content.put("mobile", phone);
+				content.put("email", email);
+				content.put("birthday", birthday);
+				DBHelper mDbHelper = new DBHelper(this);
+				mDbHelper.updateTable(DBHelper.USER_TABLE_NAME, content, "userid="+mUserInfo.getUserid(), null);
+				mDbHelper.close();
+				
+				onBackPressed();
+				
+				ToastHelper.showToastInBottom(this, "修改成功", 0, 100);
+			} else {
+				ToastHelper.showToastInBottom(this, "修改失败", 0, 100);
+			}
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

@@ -179,25 +179,89 @@ public class UserState {
 			mUser.setAddress(address);
 			mUser.setUtype(utype);
 			mUser.setShopid(shopId);
-			mUser.setAddtime(addTime);
-										
-//			ContentValues contentValues = new ContentValues();
-//			contentValues.put("usergroup", userGroup);
-//			contentValues.put("username", userName);
-//			contentValues.put("nickname", nickName);
-//			contentValues.put("gender", gender);
-//			contentValues.put("birthday", birthday);
-//			contentValues.put("totalpoint", totalPoint);
-//			contentValues.put("currentpoint", currentPoint);
-//			contentValues.put("usepoint", usePoint);
-//			contentValues.put("spreadcount", spreadCount);
-//			contentValues.put("mobile", mobile);
-//			contentValues.put("email", email);
-//			contentValues.put("address", address);
-//			contentValues.put("utype", utype);
-//			contentValues.put("shopid", shopId);
-//			contentValues.put("addtime", addTime);
+			mUser.setAddtime(addTime);													
 		}	
 		return mUser;
+	}
+	
+	public static void saveUserInfoToDB(Context context, UserInfo userInfo) {
+		ContentValues contentValues = new ContentValues();
+		
+		contentValues.put("userid", userInfo.getUserid());
+		contentValues.put("usergroup", userInfo.getUsergroup());
+		contentValues.put("username", userInfo.getUsername());
+		contentValues.put("nickname", userInfo.getNickname());
+		contentValues.put("gender", userInfo.getGender());
+		contentValues.put("birthday", userInfo.getBirthday());
+		contentValues.put("totalpoint", userInfo.getTotalpoint());
+		contentValues.put("currentpoint", userInfo.getCurrentpoint());
+		contentValues.put("usepoint", userInfo.getUserpoint());
+		contentValues.put("spreadcount", userInfo.getSpreadcount());
+		contentValues.put("mobile", userInfo.getMobile());
+		contentValues.put("email", userInfo.getEmail());
+		contentValues.put("address", userInfo.getAddress());
+		contentValues.put("utype", userInfo.getUtype());
+		contentValues.put("shopid", userInfo.getShopid());
+		contentValues.put("addtime", userInfo.getAddtime());
+		
+		DBHelper dbHelper = new DBHelper(context);
+		dbHelper.insertOrUpdate(DBHelper.USER_TABLE_NAME, contentValues, "username", "String");
+		dbHelper.close();
+	}
+	
+	public static UserInfo getUserInfoFromDB(Context context, int userid) {
+		UserInfo userInfo = null;
+		DBHelper dbHelper = new DBHelper(context);
+		
+		Cursor cursor = dbHelper.query("select * from " + DBHelper.USER_TABLE_NAME + " where userid=" + userid );
+		if(cursor.moveToFirst()) {
+			userInfo = new UserInfo();
+			userInfo.setUserid(userid);
+			userInfo.setUsergroup(cursor.getInt(cursor.getColumnIndex("usergroup")));
+			userInfo.setUsername(cursor.getString(cursor.getColumnIndex("username")));
+			userInfo.setNickname(cursor.getString(cursor.getColumnIndex("nickname")));
+			userInfo.setGender(cursor.getInt(cursor.getColumnIndex("gender")));
+			userInfo.setBirthday(cursor.getString(cursor.getColumnIndex("birthday")));
+			userInfo.setTotalpoint(cursor.getFloat(cursor.getColumnIndex("totalpoint")));
+			userInfo.setCurrentpoint(cursor.getFloat(cursor.getColumnIndex("currentpoint")));
+			userInfo.setUserpoint(cursor.getFloat(cursor.getColumnIndex("usepoint")));
+			userInfo.setSpreadcount(cursor.getInt(cursor.getColumnIndex("spreadcount")));
+			userInfo.setMobile(cursor.getString(cursor.getColumnIndex("mobile")));
+			userInfo.setEmail(cursor.getString(cursor.getColumnIndex("email")));
+			userInfo.setAddress(cursor.getString(cursor.getColumnIndex("address")));
+			userInfo.setUtype(cursor.getInt(cursor.getColumnIndex("utype")));
+			userInfo.setShopid(cursor.getInt(cursor.getColumnIndex("shopid")));
+			userInfo.setAddtime(cursor.getString(cursor.getColumnIndex("addtime")));
+		}
+		
+		dbHelper.close();
+		return userInfo;
+	}
+	
+	public static UserInfo upDateUserInfo(Context context, UserInfo userInfo) {
+		DBHelper dbHelper = new DBHelper(context);
+		
+		Cursor cursor = dbHelper.query("select * from " + DBHelper.USER_TABLE_NAME + " where userid=" + userInfo.getUserid() );
+		if(cursor.moveToFirst()) {
+			userInfo.setUserid(userInfo.getUserid());
+			userInfo.setUsergroup(cursor.getInt(cursor.getColumnIndex("usergroup")));
+			userInfo.setUsername(cursor.getString(cursor.getColumnIndex("username")));
+			userInfo.setNickname(cursor.getString(cursor.getColumnIndex("nickname")));
+			userInfo.setGender(cursor.getInt(cursor.getColumnIndex("gender")));
+			userInfo.setBirthday(cursor.getString(cursor.getColumnIndex("birthday")));
+			userInfo.setTotalpoint(cursor.getFloat(cursor.getColumnIndex("totalpoint")));
+			userInfo.setCurrentpoint(cursor.getFloat(cursor.getColumnIndex("currentpoint")));
+			userInfo.setUserpoint(cursor.getFloat(cursor.getColumnIndex("usepoint")));
+			userInfo.setSpreadcount(cursor.getInt(cursor.getColumnIndex("spreadcount")));
+			userInfo.setMobile(cursor.getString(cursor.getColumnIndex("mobile")));
+			userInfo.setEmail(cursor.getString(cursor.getColumnIndex("email")));
+			userInfo.setAddress(cursor.getString(cursor.getColumnIndex("address")));
+			userInfo.setUtype(cursor.getInt(cursor.getColumnIndex("utype")));
+			userInfo.setShopid(cursor.getInt(cursor.getColumnIndex("shopid")));
+			userInfo.setAddtime(cursor.getString(cursor.getColumnIndex("addtime")));
+		}
+		
+		dbHelper.close();
+		return userInfo;
 	}
 }

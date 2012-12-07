@@ -1,6 +1,7 @@
 package com.fan107.activity;
 
 import com.fan107.R;
+import com.fan107.common.UserState;
 import com.fan107.data.UserInfo;
 import com.fan107.db.DBHelper;
 import com.lbx.templete.ActivityTemplete;
@@ -71,8 +72,8 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 	protected void onResume() {
 		super.onResume();
 		
-//		getLoginState();
 		setWidgetAttribute();
+		mUserInfo = UserState.upDateUserInfo(this, mUserInfo);
 	}
 
 
@@ -98,6 +99,7 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 		returnList.setOnClickListener(this);
 		chanagePasswordLayout.setOnClickListener(this);
 		userInfoLayout.setOnClickListener(this);
+		my_send_address.setOnClickListener(this);
 	}
 
 	public void setWidgetPosition() {

@@ -186,9 +186,10 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		//跳转到用户帐户, 或者登录界面
 		case R.id.userAccount:
 			Intent mIntent = new Intent();
-			if(isLogin) {								
+			if(isLogin) {	
+				UserState.saveUserInfoToDB(this, mUserInfo);
 				mIntent.setClass(this, UserAccountActivity.class);
-				mIntent.putExtra("userInfo", mUserInfo);
+				mIntent.putExtra("userInfo", mUserInfo);				
 			} else {
 				mIntent.setClass(this, LoginActivity.class);
 			}
