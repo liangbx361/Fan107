@@ -21,11 +21,14 @@ public class OrderCar implements Serializable{
 	public int shopId;
 	public int userId;
 	public int areaId;
-	public float orderPoint;
+	public float orderPoint;	//使用的积分
 	public String userTel;
 	public String userName;
 	public String userAddress;	
 	public String remark;
+	public int discount;	//商家的折扣
+	
+	public float userPoint;
 	
 	public OrderCar() {
 		mCar = new ArrayList<OrderDish>();
@@ -60,7 +63,7 @@ public class OrderCar implements Serializable{
 		totalOldPrice = 0.0f;
 		
 		for(int i=0; i<mCar.size(); i++) {
-			totalOldPrice += mCar.get(i).getOldPrice();
+			totalOldPrice += mCar.get(i).getOldPrice() * mCar.get(i).getOrderNum();
 		}
 		
 		return totalOldPrice;
@@ -68,12 +71,39 @@ public class OrderCar implements Serializable{
 	
 	public float getTotalNewPrice() {
 		totalNewPrice = 0.0f;
+		float oldPrice = getTotalOldPrice();
 		
-		for(int i=0; i<mCar.size(); i++) {
-			totalNewPrice += mCar.get(i).getNewPrice();
+		if(discount != 0) {
+			//使用折扣方式
+			orderPoint = oldPrice * discount / 100;
+			totalNewPrice = oldPrice - orderPoint;
+		} else {
+			//使用非折扣政策的方式
+			for(int i=0; i<mCar.size(); i++) {
+				totalNewPrice += mCar.get(i).getNewPrice();
+			}
+			orderPoint = oldPrice - totalNewPrice;
+		}
+		return totalNewPrice;
+	}
+	
+	public float getNeedOrderPoint() {
+		float needPoint = 0.0f;
+		float oldPrice = getTotalOldPrice();
+		float newPrice = 0.0f;
+		
+		if(discount != 0) {
+			//使用折扣方式
+			needPoint = oldPrice * discount / 100;
+		} else {
+			//使用非折扣政策的方式			
+			for(int i=0; i<mCar.size(); i++) {
+				newPrice += mCar.get(i).getNewPrice();
+			}
+			needPoint = oldPrice - newPrice;
 		}
 		
-		return totalNewPrice;
+		return needPoint;
 	}
 	
 	public String getJsonString() {
@@ -98,14 +128,14 @@ public class OrderCar implements Serializable{
 			orderObject.putOpt("dishArray", dishArray);
 			orderObject.put("shopId", shopId);
 			orderObject.put("userId", userId);
-			orderObject.put("orderPoint", orderPoint);
 			orderObject.put("userTel", userTel);
 			orderObject.put("userName", userName);
 			orderObject.put("userAddress", userAddress);
 			orderObject.put("areaId", areaId);
 			orderObject.put("remark", remark);
-			orderObject.put("totalOldPrice", getTotalOldPrice());
+//			orderObject.put("totalOldPrice", getTotalOldPrice());
 			orderObject.put("totalNewPrice", getTotalNewPrice());
+			orderObject.put("orderPoint", orderPoint);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

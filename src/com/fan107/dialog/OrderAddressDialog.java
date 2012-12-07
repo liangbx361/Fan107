@@ -47,6 +47,8 @@ public class OrderAddressDialog extends Dialog implements ActivityTemplete, andr
 	private Context context;
 	private String address1;
 	
+	private boolean isConfirm = false;
+	
 	public OrderAddressDialog(Context context, OrderCar orderCar) {
 		super(context);
 		mCar = orderCar;
@@ -95,11 +97,11 @@ public class OrderAddressDialog extends Dialog implements ActivityTemplete, andr
 		}
 		hourSpinner.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, hourList));
 		
-		List<String> minList = new ArrayList<String>();
+		List<String> miuteList = new ArrayList<String>();
 		for(int i=0; i<minute.length; i++) {
-			minList.add(hour[i]);
+			miuteList.add(minute[i]);
 		}
-		minuteSpinner.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, hourList));		
+		minuteSpinner.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, miuteList));		
 	}
 
 	public void onClick(View v) {
@@ -110,12 +112,15 @@ public class OrderAddressDialog extends Dialog implements ActivityTemplete, andr
 			break;
 			
 		case R.id.order_address_cancle:
+			dismiss();
 			break;
 		}
 	}
 	
 	private void sendOrder() {
 		mCar.remark = (String)hourSpinner.getSelectedItem() + (String)minuteSpinner.getSelectedItem();
+		mCar.remark = mCar.remark.replace("µã", ":");
+		mCar.remark = mCar.remark.replace("·Ö", "");
 		mCar.userAddress = address1 + address2View.getText().toString();
 		
 		mThread.start();
@@ -132,11 +137,15 @@ public class OrderAddressDialog extends Dialog implements ActivityTemplete, andr
 			String url = WebServiceConfig.url + WebServiceConfig.ORDER_CHECK_WEB_SERVICE;
 			SoapObject result = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.GENERATE_ORDER_METHOD, data);
 			
-			if(result.getPropertyAsString(0) == "ok") {
+			if(result.getPropertyAsString(0).equals("ok")) {
+				isConfirm = true;
 				dismiss();
 			}	
 		}
 		
 	};
 
+	public boolean isConfirm() {
+		return isConfirm;
+	}
 }

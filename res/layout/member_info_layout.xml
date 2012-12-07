@@ -81,6 +81,7 @@
                         android:background="#00000000"
                         android:gravity="center_vertical"
                         android:scrollHorizontally="true" 
+                        android:textColor="#ffb4b4b4"
                         android:textSize="17.0sp"/>
 
                 </LinearLayout>
@@ -117,6 +118,7 @@
                         android:gravity="center_vertical"
                         android:inputType="textEmailAddress"
                         android:scrollHorizontally="true" 
+                        android:textColor = "#ff535353"
                         android:textSize="17.0sp"/>
                 </LinearLayout>
 
@@ -152,6 +154,7 @@
                         android:scrollHorizontally="true" 
                         android:maxLength="10"
                         android:singleLine="true"
+                        android:textColor = "#ff535353"
                         android:textSize="17.0sp"/>
                 </LinearLayout>
 
@@ -191,7 +194,7 @@
                             android:checked="true"
                             android:text="@string/radio_male" 
                             android:textSize="17.0sp"
-                            android:textColor="#ffb4b4b4"/>
+                            android:textColor = "#ff535353"/>
 
                         <RadioButton
                             android:id="@id/sex_female_radio"
@@ -199,7 +202,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/radio_female" 
                             android:textSize="17.0sp"
-                            android:textColor="#ffb4b4b4"/>
+                            android:textColor="#ff535353"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -235,6 +238,7 @@
                         android:gravity="center_vertical"
                         android:inputType="phone"
                         android:scrollHorizontally="true" 
+                        android:textColor = "#ff535353"
                         android:textSize="17.0sp"/>
                 </LinearLayout>
 
@@ -260,7 +264,7 @@
                         android:textSize="17.0sp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@id/birthday"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -268,7 +272,7 @@
                         android:background="#00000000"
                         android:ems="10"
                         android:gravity="center_vertical"
-                        android:inputType="date" 
+                        android:textColor = "#ff535353"
                         android:textSize="17.0sp"/>
                 </LinearLayout>
             </LinearLayout>

@@ -102,6 +102,7 @@ public class UserState {
 					mHandler.sendMessage(mHandler.obtainMessage(HANDLER_LOGIN_FAIL, LOGIN_FAIL));
 				}				
 			} 
+			mDbHelper.close();
 		} else {
 			mHandler.sendMessage(mHandler.obtainMessage(HANDLER_NO_NETWORK, NO_NETWORK));;
 		}

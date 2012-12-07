@@ -133,6 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/tab_bg"
+        android:gravity="center_vertical"
         android:orientation="horizontal" >
 
         <ImageView
@@ -148,6 +149,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
+            android:layout_gravity="center"
             android:text="鼓楼区五四北路国泰大厦6层B区外星科技"
             android:textSize="17.0sp" />
     </LinearLayout>

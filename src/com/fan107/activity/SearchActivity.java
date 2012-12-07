@@ -411,7 +411,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 			mInfo.setSumpoint(WebServiceUtil.getSoapObjectInt(shopInfo, "sumpoint"));
 			mInfo.setSumservicepoint(WebServiceUtil.getSoapObjectInt(shopInfo, "sumservicepoint"));
 			mInfo.setSumtastepoint(WebServiceUtil.getSoapObjectInt(shopInfo, "sumtastepoint"));
-						
+			mInfo.setZk(WebServiceUtil.getSoapObjectInt(shopInfo, "zk"));			
 			return mInfo;
 		}
 	}

@@ -82,12 +82,14 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		OrderCar mCar = new OrderCar();
 		
 		mCar.shopId = mInfo.getShopId();
+		mCar.discount = mInfo.getZk();
 		mCar.userId = mUserInfo.getUserid();
-		mCar.areaId = Integer.valueOf(mAddress.getAddress().split("\\|")[0].split(",")[0]);
+		mCar.userPoint = mUserInfo.getCurrentpoint();
+		mCar.areaId = Integer.valueOf(mAddress.getAddress().split("\\|")[0].split(",")[2]);
 		mCar.userTel = mAddress.getMobile();
 		mCar.userName = mAddress.getUserName();
 		mCar.userAddress = mAddress.getAddress();
-		
+				
 		return mCar;
 	}
 

@@ -22,7 +22,10 @@ import com.widget.helper.ToastHelper;
 import common.connection.net.WebServiceUtil;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,7 +40,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-public class OrderCarActivity extends Activity implements ActivityTemplete, OnClickListener{
+public class OrderCarActivity extends Activity implements ActivityTemplete, OnClickListener, OnDismissListener{
 	private ListView orderList;
 	private Button orderButton;
 	private TextView totalOldPrice;
@@ -106,7 +109,9 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 			
 		case R.id.order_car_order_btn:
 			if( checkOrder() ) {
-				new OrderAddressDialog(this, mCar).show();
+				Dialog dialog = new OrderAddressDialog(this, mCar);
+				dialog.setOnDismissListener(this);
+				dialog.show();
 			}
 			
 			//生成订单, 向服务器发送订单
@@ -121,10 +126,24 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 		}
 	}
 	
+	public void onDismiss(DialogInterface dialog) {
+		OrderAddressDialog orderDialog = (OrderAddressDialog)dialog;
+		if(orderDialog.isConfirm()) {
+			ToastHelper.showToastInBottom(this, "订单提交成功, 请等待商定送餐", 0, 100);
+		}
+	}
+	
 	private boolean checkOrder() {
 		if(mCar.getTotalOldPrice() >= mInfo.getLimitprice()) {				
-			//判断是否拥有足够的积分
-			return true;
+			//判断是否拥有足够的积分			
+			if(mCar.getNeedOrderPoint() <= mCar.userPoint) {
+				return true;
+			} else {
+				String toast = "您的积分不足, 请充值";
+				ToastHelper.showToastInBottom(this, toast, 0, 100);
+				return false;
+			}			
+			
 		} else {
 			String toast = "抱歉,本店" + mInfo.getLimitprice() + "元起送";
 			ToastHelper.showToastInBottom(this, toast, 0, 100);

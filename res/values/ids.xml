@@ -1343,6 +1343,7 @@
     <item name="sex_female_radio" type="id">false</item>
     <item name="phone" type="id">false</item>
     <item name="birthday" type="id">false</item>
+    <item name="member_info_confirm_btn" type="id">false</item>
     
     <!-- order_address_layout -->	
 	<item name="order_address_1" type="id">false</item>
