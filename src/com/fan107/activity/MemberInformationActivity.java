@@ -68,7 +68,7 @@ public class MemberInformationActivity extends Activity implements
 		emailText = (EditText) findViewById(R.id.email);
 		nicknameText = (EditText) findViewById(R.id.nickname);
 		sexRadio = (RadioGroup) findViewById(R.id.sex_radiogroup);
-		phoneText = (EditText) findViewById(R.id.phone);
+		phoneText = (EditText) findViewById(R.id.member_phone);
 		birthdayText = (TextView) findViewById(R.id.birthday);
 		confirmBtn = (Button) findViewById(R.id.member_info_confirm_btn);
 	}

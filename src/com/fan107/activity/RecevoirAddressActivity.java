@@ -5,14 +5,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.ksoap2.serialization.SoapObject;
 import org.w3c.dom.Text;
 
 import com.fan107.R;
+import com.fan107.common.UserState;
+import com.fan107.config.WebServiceConfig;
+import com.fan107.data.UserAddress;
+import com.fan107.db.DBHelper;
 import com.lbx.templete.ActivityTemplete;
+import common.connection.net.WebServiceUtil;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -40,7 +49,9 @@ public class RecevoirAddressActivity extends Activity implements
 	private List<Map<String, Object>> mData;
 	private List<List<TextView>> mList;
 	private List<LinearLayout> layoutView;
-
+	
+	private List<UserAddress> addressList;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,9 +91,9 @@ public class RecevoirAddressActivity extends Activity implements
 
 	public void setWidgetAttribute() {
 		mData = new ArrayList<Map<String,Object>>();
-		setTestData();
+		setAddressData();
 		mAdapter = new MyAdapter(this, mData, R.layout.address_list_item,
-				new String[] {"name", "phone", "address"}, new int[] { R.id.name, R.id.phone,
+				new String[] {"name", "phone", "address"}, new int[] { R.id.address_list_name, R.id.address_list_phone,
 						R.id.address });
 		
 		mList = new ArrayList<List<TextView>>();
@@ -118,6 +129,9 @@ public class RecevoirAddressActivity extends Activity implements
 			for(int i=0; i<mList.size(); i++) {
 				List<TextView> mData = mList.get(i);
 				if(v.equals( mData.get(1) ) ) {
+					
+					deleteAddress(addressList.get(i));
+					addressList.remove(i);
 					mHandler.removeMessages(INVALID_VIE);
 					mHandler.sendMessage(mHandler.obtainMessage(INVALID_VIE, i, 0));
 					Log.d(TAG, "del_btn: " + i);
@@ -129,38 +143,91 @@ public class RecevoirAddressActivity extends Activity implements
 		}
 	}
 	
+	private void deleteAddress(UserAddress userAddress) {
+		DBHelper dbHelper = new DBHelper(this);		
+		dbHelper.deleteTableContent(DBHelper.USER_ADDRESS_TABLE_NAME, "id="+userAddress.getId());		
+		dbHelper.close();
+		
+		new DeleteThread(userAddress.getId()).start(); 
+	}
+	
+	private class DeleteThread extends Thread { 
+		int id;
+		
+		public DeleteThread(int id) {
+			this.id = id;
+		}
+
+		@Override
+		public void run() {
+			//向服务器发送删除记录消息
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("id", id);
+			String url = WebServiceConfig.url + WebServiceConfig.USER_ADDRESS_WEB_SERVICE;
+			WebServiceUtil.getWebServiceResult(url, WebServiceConfig.DELETE_ADDRESS_METHOD, params);
+		}
+	}
+	
 	/**
-	 * 测试数据
+	 * 设置地址数据
 	 */
-	public void setTestData() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("name", "aaaa");
-		map.put("phone", "18657436598");
-		map.put("address", "金湖西路富民四巷26号");
-		mData.add(map);
+	public void setAddressData() {		
+		DBHelper dbHelper = new DBHelper(this);
 		
-		Map<String, Object> map2 = new HashMap<String, Object>();
-		map2.put("name", "sssss");
-		map2.put("phone", "18657436598");
-		map2.put("address", "金湖西路富民四巷26号");
-		mData.add(map2);
+		Cursor cursor = dbHelper.query(DBHelper.USER_ADDRESS_TABLE_NAME, new String[]{"id, username, mobile, address"}, null);
+		addressList = new ArrayList<UserAddress>();
+		cursor.moveToFirst();
+		do{
+			UserAddress userAddress = new UserAddress();
+			userAddress.setId(cursor.getInt(cursor.getColumnIndex("id")));
+			userAddress.setUserName(cursor.getString(cursor.getColumnIndex("username")));
+			userAddress.setMobile(cursor.getString(cursor.getColumnIndex("mobile")));
+			userAddress.setAddress(cursor.getString(cursor.getColumnIndex("address")));
+			addressList.add(userAddress);
+		} while(cursor.moveToNext());
 		
-//		Map<String, Object> map3 = new HashMap<String, Object>();
-//		map3.put("name", "sssss");
-//		map3.put("phone", "18657436598");
-//		map3.put("address", "金湖西路富民四巷26号");
-//		mData.add(map3);
+		dbHelper.close();
 		
+		for(int i=0; i<addressList.size(); i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			UserAddress userAddress = addressList.get(i);
+			
+			map.put("name", userAddress.getUserName());
+			map.put("phone", userAddress.getMobile());
+			map.put("address", userAddress.getAddress().split("\\|")[1]);
+			mData.add(map);
+		}		
 	}
 
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+		LinearLayout v = (LinearLayout) view;
+		TextView addressView = (TextView)v.findViewById(R.id.address);
+		String address = addressView.getText().toString();
+		
+		UserState.setRefreshState(this, true);
+		
+		for(int i=0; i<addressList.size(); i++) {
+			UserAddress userAddress = addressList.get(i);
+			if(address.equals(userAddress.getAddress().split("\\|")[1])) {
+				SharedPreferences initData = this.getSharedPreferences("account", Context.MODE_PRIVATE);
+				Editor mEditor = initData.edit();
+				mEditor.putString("mobile", userAddress.getMobile()); 
+				mEditor.putString("username", userAddress.getUserName());
+				mEditor.putString("address", userAddress.getAddress());
+				mEditor.commit();
+				break;
+			}
+		}
+		
+		onBackPressed();
 		
 		Log.d(TAG, addressListView.getChildCount()+"");
 		Log.d(TAG, view.toString());
+		Log.d(TAG, addressView.getText().toString());
 	}
 	
-	 	class MyAdapter extends SimpleAdapter {
+	class MyAdapter extends SimpleAdapter {
 
 		public MyAdapter(Context context, List<? extends Map<String, ?>> data,
 				int resource, String[] from, int[] to) {
@@ -197,15 +264,16 @@ public class RecevoirAddressActivity extends Activity implements
 			case INVALID_VIE:
 				try {
 					mData.remove(msg.arg1);
-					mList.remove(msg.arg1);
+					mList.clear();
+					layoutView.clear();
 				} catch (IndexOutOfBoundsException exception) {
 					mData.clear();
 					mList.clear();
 				}
+								
 				addressListView.removeAllViewsInLayout();
 				addressListView.requestLayout();
-				break;
-				
+				break;				
 			}
 		}
 		

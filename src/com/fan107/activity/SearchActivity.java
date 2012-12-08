@@ -24,6 +24,7 @@ import com.fan107.data.ShopInfo;
 import com.fan107.data.UserAddress;
 import com.fan107.data.UserInfo;
 import com.fan107.data.UserLogin;
+import com.fan107.db.DBHelper;
 import com.lbx.cache.FileCache;
 import com.lbx.templete.ActivityTemplete;
 import com.widget.helper.ToastHelper;
@@ -34,8 +35,10 @@ import common.connection.net.WebServiceUtil;
 import common.file.util.FileUtils;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -83,7 +86,8 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	private boolean isFirst;
 	
 	private UserInfo mUserInfo;
-	private UserAddress mAddress;
+	private UserAddress selectAddress;	
+	private List<UserAddress> mAddressList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,13 +103,27 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		orderType = "hit";
 		isFirst = true;
 		
-		LoadShopListThread listThread = new LoadShopListThread(0, 0, 0, orderType);
+		LoadShopListThread listThread = new LoadShopListThread(orderType, true);
 		listThread.start();
 	}
 		
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		if(UserState.getRefreshState(this)) {
+			UserState.setRefreshState(this, false);
+			SharedPreferences initData = this.getSharedPreferences("account", Activity.MODE_PRIVATE);
+			String address = initData.getString("address", null);
+			
+			if(address != null && !selectAddress.getAddress().equals(address)) {
+				//更新商户
+				selectAddress.setAddress(address);
+				selectAddress.setMobile(initData.getString("mobile", null));
+				selectAddress.setUserName(initData.getString("username", null));
+				mHandler.sendEmptyMessage(1);
+			}
+		}
 	}
 
 	public void findWidget() {
@@ -230,7 +248,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				shopListView.setAdapter(null);
 				shopData.clear();
 				
-				LoadShopListThread listThread = new LoadShopListThread(0, 0, 0, orderType);
+				LoadShopListThread listThread = new LoadShopListThread(orderType, false);
 				listThread.start();
 				break;
 				
@@ -293,29 +311,38 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		int did;
 		int searchType;
 		String orderType;
+		boolean isNeedLogin;
 		
-		public LoadShopListThread(int userId) {
+		public LoadShopListThread(int userId, boolean isNeedLogin) {
 			this.userId = userId;
+			this.isNeedLogin = isNeedLogin;
 			searchType = 0;
 		}
 		
-		public LoadShopListThread(int aid, int sid, int did, String orderType) {
+		public LoadShopListThread(String orderType, boolean isNeedLogin) {
 			this.aid = aid;
 			this.sid = sid;
 			this.did = did;
 			this.orderType = orderType;
 			searchType = 1;
+			this.isNeedLogin = isNeedLogin;
 		}
 
 		@Override
 		public void run() {
-			UserLogin mLogin = new UserLogin();
-			isLogin = UserState.autoLogin(SearchActivity.this, mLogin, mHandler); 
+			if(isNeedLogin) {
+				UserLogin mLogin = new UserLogin();
+				isLogin = UserState.autoLogin(SearchActivity.this, mLogin, mHandler); 
+				if(isLogin) {
+					mUserInfo = UserState.getUserInfo(mLogin.getUserName(), mLogin.getPasswdMD5());
+					mAddressList = getAddressList(mUserInfo.getUserid());
+					selectAddress = getDefaultAddress(mAddressList);
+				}
+			}
+			
 			if(isLogin) {
-				mUserInfo = UserState.getUserInfo(mLogin.getUserName(), mLogin.getPasswdMD5());
-				mAddress = getDefaultAddress(mUserInfo.getUserid());
-				String[] addressIdList = mAddress.getAddress().split("\\|")[0].split(",");
-				String addressName = mAddress.getAddress().split("\\|")[1];	//用户的默认地址
+				String[] addressIdList = selectAddress.getAddress().split("\\|")[0].split(",");
+				String addressName = selectAddress.getAddress().split("\\|")[1];	//用户的默认地址
 				try{ 
 					aid = Integer.parseInt(addressIdList[0]);
 					sid = Integer.parseInt(addressIdList[1]);
@@ -458,10 +485,15 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		Intent mIntent = new Intent(this, ShopInfoActivity.class);
 		mIntent.putExtra("shopInfo", mInfo);
 		mIntent.putExtra("userInfo", mUserInfo);
-		mIntent.putExtra("userAddress", mAddress);
+		mIntent.putExtra("userAddress", selectAddress);
 		startActivity(mIntent);
 	}
 	
+	/**
+	 * 获取服务器的默认地址
+	 * @param userId
+	 * @return
+	 */
 	public UserAddress getDefaultAddress(int userId) {
 		UserAddress mAddress = new UserAddress();
 		
@@ -481,5 +513,69 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		mAddress.setMobile(mobile);
 		
 		return mAddress;
+	}
+	
+	public UserAddress getDefaultAddress(List<UserAddress> addrssList) {
+		UserAddress userAddress = null;
+		
+		for(int i=0; i<addrssList.size(); i++) {
+
+			if(addrssList.get(i).getIsDefault() > 0) {
+				userAddress = addrssList.get(i);
+				break; 
+			}
+		}
+		
+		return userAddress;
+	}
+	
+	/**
+	 * 获取服务器的用户地址信息
+	 * @param userId
+	 * @return
+	 */
+	public List<UserAddress> getAddressList(int userId) {
+		List<UserAddress> addrssList = new ArrayList<UserAddress>();
+		DBHelper dbHelper = new DBHelper(this);
+		dbHelper.deleteTableContent(DBHelper.USER_ADDRESS_TABLE_NAME, "userid="+userId);
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("userId", userId);
+		String url = WebServiceConfig.url + WebServiceConfig.USER_ADDRESS_WEB_SERVICE;
+		SoapObject addressListObject = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.GET_ADDRESS_LIST_METHOD, params);
+		
+		addressListObject = WebServiceUtil.getChildSoapObject(addressListObject, new int[]{0});
+		for(int i=0; i<addressListObject.getPropertyCount(); i++) {
+			SoapObject chid = (SoapObject) addressListObject.getProperty(i);
+			int id = WebServiceUtil.getSoapObjectInt(chid, "Id");
+			String userName = WebServiceUtil.getSoapObjectString(chid, "UserName");
+			String address = WebServiceUtil.getSoapObjectString(chid, "Address");
+			String mobile = WebServiceUtil.getSoapObjectString(chid, "Mobile");
+			int isDefault = WebServiceUtil.getSoapObjectInt(chid, "IsDefault");
+			
+			UserAddress userAddress = new UserAddress();
+			userAddress.setId(id);
+			userAddress.setUserId(userId);
+			userAddress.setUserName(userName);
+			userAddress.setMobile(mobile);
+			userAddress.setAddress(address);			
+			userAddress.setIsDefault(isDefault);
+			
+			addrssList.add(userAddress);
+			
+			//保存到数据库中
+			ContentValues contentValues = new ContentValues();
+			contentValues.put("id", id);
+			contentValues.put("userid", userId);
+			contentValues.put("username", userName);
+			contentValues.put("mobile", mobile);
+			contentValues.put("address", address);
+			contentValues.put("isdefault", isDefault);			
+			
+			dbHelper.insert(DBHelper.USER_ADDRESS_TABLE_NAME, contentValues);			
+		}
+		
+		dbHelper.close();
+		return addrssList;
 	}
 }

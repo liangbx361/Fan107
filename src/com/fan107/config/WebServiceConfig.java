@@ -2,7 +2,7 @@ package com.fan107.config;
 
 public interface WebServiceConfig {
 	//服务器的IP地址 
-	public static final String SERVER_IP = "192.168.0.105";
+	public static final String SERVER_IP = "192.168.0.23";
 	
 	public static final String RES_URL = "http://" + SERVER_IP + "/";
 	
@@ -39,4 +39,8 @@ public interface WebServiceConfig {
 	public static final String USER_ADDRESS_WEB_SERVICE = "UserAddressInfo.asmx";
 	public static final String GET_DEFAULT_ADDRESS_METHOD = "getDefaultAddress";
 	public static final String GET_ADDRESS_LIST_METHOD = "getList";
+	public static final String DELETE_ADDRESS_METHOD = "deleteAddress";
+	public static final String GET_AREA_METHOD = "getArea";
+	public static final String GET_STREET_METHOD = "getStreet";
+	public static final String GET_DISTRICT_METHOD = "getDistrict";
 }

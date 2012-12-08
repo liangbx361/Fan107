@@ -82,6 +82,57 @@ public class UserState {
 		return initData.getInt("userId", -1);
 	}
 	
+	/**
+	 * 设置刷新状态
+	 * @param context
+	 * @param refreshState
+	 */
+	public static void setRefreshState(Context context, boolean refreshState) {
+		SharedPreferences initData = context.getSharedPreferences("account", Context.MODE_PRIVATE);
+		Editor mEditor = initData.edit();
+		mEditor.putBoolean("refresh", refreshState); 
+		mEditor.commit();	
+	}
+	
+	/**
+	 * 获取刷新状态
+	 * @param context
+	 * @return
+	 */
+	public static boolean getRefreshState(Context context) {
+		SharedPreferences initData = context.getSharedPreferences("account", Activity.MODE_PRIVATE);
+		return initData.getBoolean("refresh", false);
+	}
+	
+	/**
+	 * 设置搜素的地址
+	 * @param context
+	 * @param address
+	 */
+	public static void setSearchAddress(Context context, String address) {
+		SharedPreferences initData = context.getSharedPreferences("account", Context.MODE_PRIVATE);
+		Editor mEditor = initData.edit();
+		mEditor.putString("address", address); 
+		mEditor.commit();	
+	}
+	
+	/**
+	 * 获取搜索的地址
+	 * @param context
+	 * @return
+	 */
+	public static String getSearchAddress(Context context) {
+		SharedPreferences initData = context.getSharedPreferences("account", Activity.MODE_PRIVATE);
+		return initData.getString("address", "");
+	}
+	
+	/**
+	 * 自动登录功能
+	 * @param context
+	 * @param mLogin
+	 * @param mHandler
+	 * @return
+	 */
 	public static boolean autoLogin(Context context, UserLogin mLogin, Handler mHandler) {
 		boolean isAutoLogin = false;
 		if(NetWorkCheck.checkNetWorkStatus(context)) {

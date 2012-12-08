@@ -315,7 +315,7 @@
     <item name="keyword" type="id">false</item>
     <item name="item_shopaddress_layout" type="id">false</item>
     <item name="index" type="id">false</item>
-    <item name="name" type="id">false</item>
+    
     <item name="address" type="id">false</item>
     <item name="item_shopname_layout" type="id">false</item>
     <item name="widget_framelayout" type="id">false</item>
@@ -382,11 +382,11 @@
     <item name="splict_3" type="id">false</item>
     <item name="area_layout" type="id">false</item>
     <item name="area_tv" type="id">false</item>
-    <item name="area_spinner" type="id">false</item>
+    
     <item name="address_tv" type="id">false</item>
     <item name="code_tv" type="id">false</item>
     <item name="phone_tv" type="id">false</item>
-    <item name="add" type="id">false</item>
+    
     <item name="edit_btn" type="id">false</item>
     <item name="del_btn" type="id">false</item>
     <item name="sel_btn" type="id">false</item>
@@ -1311,16 +1311,23 @@
 
     <!-- act_commodity_list -->
     <item name="shop_name_title" type="id">false</item>
-
+	
     <!-- act_user_account -->
 
 
     <!-- address_add_activity -->
-
-
+    <item name="address_add_name" type="id">false</item>
+    <item name="address_add_phone" type="id">false</item>
+	<item name="address_add_area_spinner" type="id">false</item>
+	<item name="address_add_street_spinner" type="id">false</item>
+	<item name="address_add_district_spinner" type="id">false</item>
+	<item name="address_add_confirm" type="id">false</item>
+	
     <!-- address_list_item -->
-
-
+	<item name="address_list_name" type="id">false</item>
+	<item name="address_list_phone" type="id">false</item>
+	<item name="address_list_address" type="id">false</item>
+	
     <!-- change_password -->
 
 
@@ -1341,7 +1348,7 @@
     <item name="sex_radiogroup" type="id">false</item>
     <item name="sex_male_Radio" type="id">false</item>
     <item name="sex_female_radio" type="id">false</item>
-    <item name="phone" type="id">false</item>
+    <item name="member_phone" type="id">false</item>
     <item name="birthday" type="id">false</item>
     <item name="member_info_confirm_btn" type="id">false</item>
     

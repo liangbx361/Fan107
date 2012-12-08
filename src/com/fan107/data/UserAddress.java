@@ -8,12 +8,19 @@ public class UserAddress implements Serializable{
 	 */
 	private static final long serialVersionUID = 5174901323747113547L;
 	
+	private int id;
 	private int userId;
 	private String userName;
 	private String mobile;
 	private String address;
 	private int isDefault;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public int getUserId() {
 		return userId;
 	}

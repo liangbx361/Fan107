@@ -49,7 +49,6 @@
                 android:padding="10.0dip" >
 
                 <TextView
-                    android:id="@id/name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -58,7 +57,7 @@
                     android:textSize="18.0sp" />
 
                 <EditText
-                    android:id="@id/name"
+                    android:id="@id/address_add_name"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -69,7 +68,6 @@
             </RelativeLayout>
 
             <ImageView
-                android:id="@id/splict_1"
                 android:layout_width="fill_parent"
                 android:layout_height="1.0dip"
                 android:background="@color/bg_corners_border" />
@@ -84,7 +82,6 @@
                 android:padding="10.0dip" >
 
                 <TextView
-                    android:id="@id/phone_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -93,7 +90,7 @@
                     android:textSize="18.0sp" />
 
                 <EditText
-                    android:id="@id/phone"
+                    android:id="@id/address_add_phone"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -106,13 +103,11 @@
             </RelativeLayout>
 
             <ImageView
-                android:id="@id/splict_2"
                 android:layout_width="fill_parent"
                 android:layout_height="1.0dip"
                 android:background="@color/bg_corners_border" />
 
             <RelativeLayout
-                android:id="@id/area_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="1.0dip"
@@ -124,7 +119,6 @@
                 android:paddingTop="8.0dip" >
 
                 <TextView
-                    android:id="@id/area_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -133,7 +127,7 @@
                     android:textSize="18.0sp" />
 
                 <Spinner
-                    android:id="@id/area_spinner"
+                    android:id="@id/address_add_area_spinner"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -143,13 +137,11 @@
             </RelativeLayout>
 
             <ImageView
-                android:id="@id/splict_3"
                 android:layout_width="fill_parent"
                 android:layout_height="1.0dip"
                 android:background="@color/bg_corners_border" />
 
             <RelativeLayout
-                android:id="@id/area_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="1.0dip"
@@ -161,7 +153,6 @@
                 android:paddingTop="8.0dip" >
 
                 <TextView
-                    android:id="@id/area_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -170,7 +161,7 @@
                     android:textSize="18.0sp" />
 
                 <Spinner
-                    android:id="@id/area_spinner"
+                    android:id="@id/address_add_street_spinner"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -185,7 +176,6 @@
                 android:background="@color/bg_corners_border" />
 
             <RelativeLayout
-                android:id="@id/area_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="1.0dip"
@@ -197,7 +187,6 @@
                 android:paddingTop="8.0dip" >
 
                 <TextView
-                    android:id="@id/area_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -206,7 +195,7 @@
                     android:textSize="18.0sp" />
 
                 <Spinner
-                    android:id="@id/area_spinner"
+                    android:id="@id/address_add_district_spinner"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -220,18 +209,10 @@
                 android:layout_height="1.0dip"
                 android:background="@color/bg_corners_border" />
 
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="1.0dip"
-                android:background="@color/bg_corners_border" />
 
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="1.0dip"
-                android:background="@color/bg_corners_border" />
 
             <Button
-                android:id="@id/add"
+                android:id="@id/address_add_confirm"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
