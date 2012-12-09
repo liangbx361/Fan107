@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 
 import com.fan107.R;
+import com.fan107.common.UserState;
 import com.fan107.config.UrlConfig;
 import com.fan107.config.WebServiceConfig;
 import com.fan107.data.UserInfo;
@@ -115,7 +116,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 		@Override
 		public void run() {
 			mHandler.sendMessage(mHandler.obtainMessage(DIALOG_SHOW));
-//			boolean state = getLoginState(userName, password);
 			boolean state = getLoginStateByWebService(userName, password);
 			Boolean mBoolean = Boolean.valueOf(state);				
 			mHandler.sendMessage(mHandler.obtainMessage(CHECK_STATE, mBoolean));
@@ -168,7 +168,14 @@ public class LoginActivity extends Activity implements OnClickListener {
 				String passwordMD5 = parseSoapObject(result); //获得MD5密码
 				saveLoginUser(userName, passwordMD5);
 				saveUserInfo(userName, passwordMD5);
+				
+				SharedPreferences initData = LoginActivity.this.getSharedPreferences("account", Context.MODE_PRIVATE);
+				Editor mEditor = initData.edit();
+				mEditor.putString("username", userName);
+				mEditor.putString("password", passwordMD5);
+				mEditor.commit();
 				return true;
+				
 			} else {
 				return false;
 			}
@@ -302,6 +309,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 //					mIntent.putExtra("userInfo", mUserInfo);
 //					startActivity(mIntent);
 					
+					UserState.setLoginState(LoginActivity.this, true);
+					UserState.setRefreshState(LoginActivity.this, true);
+								
 					// 跳转到之前的页面
 					onBackPressed();
 				} else {

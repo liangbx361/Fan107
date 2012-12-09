@@ -49,6 +49,7 @@
                 android:padding="10.0dip" >
 
                 <TextView
+                    android:id="@id/address_add_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -62,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/name_tv"
+                    android:layout_toRightOf="@id/address_add_name_tv"
                     android:textColor="@color/content_color"
                     android:textSize="18.0sp" />
             </RelativeLayout>
@@ -82,6 +83,7 @@
                 android:padding="10.0dip" >
 
                 <TextView
+                    android:id="@id/address_add_phone_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -95,9 +97,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/phone_tv"
-                    android:inputType="number"
-                    android:numeric="integer"
+                    android:layout_toRightOf="@id/address_add_phone_tv"
+                    android:inputType="phone"
                     android:textColor="@color/content_color"
                     android:textSize="18.0sp" />
             </RelativeLayout>
@@ -119,6 +120,7 @@
                 android:paddingTop="8.0dip" >
 
                 <TextView
+                    android:id="@id/address_add_area_spinner_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -132,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/area_tv"
+                    android:layout_toRightOf="@id/address_add_area_spinner_tv"
                     android:textColor="@color/content_color" />
             </RelativeLayout>
 
@@ -153,6 +155,7 @@
                 android:paddingTop="8.0dip" >
 
                 <TextView
+                    android:id="@id/address_add_street_spinner_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -166,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/area_tv"
+                    android:layout_toRightOf="@id/address_add_street_spinner_tv"
                     android:textColor="@color/content_color" />
             </RelativeLayout>
 
@@ -187,6 +190,7 @@
                 android:paddingTop="8.0dip" >
 
                 <TextView
+                    android:id="@id/address_add_district_spinner_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -200,7 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/area_tv"
+                    android:layout_toRightOf="@id/address_add_district_spinner_tv"
                     android:textColor="@color/content_color" />
             </RelativeLayout>
 

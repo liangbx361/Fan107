@@ -39,6 +39,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -65,6 +66,9 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	private static final String LOGIN_MESSAGE = "登录";
 	private static final String ACCOUNT_MESSAGE = "帐户";
 	
+	private static final int SHOW_SHOP = 100;
+	private static final int NO_SHOW_SHOP = 101;
+	
 	private Button orderDistanceButton;
 	private Button orderPopularityButton;
 	private Button orderPriceButton;
@@ -72,6 +76,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	private Button loginButton;
 	private ImageView mImageView;
 	private TextView mAddressTextView;
+	private TextView noShopView;
 	
 	private ListView shopListView;
 	private ProgressBar loadingBar;
@@ -103,6 +108,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		orderType = "hit";
 		isFirst = true;
 		
+		UserState.setLoginState(this, false);
 		LoadShopListThread listThread = new LoadShopListThread(orderType, true);
 		listThread.start();
 	}
@@ -115,14 +121,21 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 			UserState.setRefreshState(this, false);
 			SharedPreferences initData = this.getSharedPreferences("account", Activity.MODE_PRIVATE);
 			String address = initData.getString("address", null);
+			Editor mEditor = initData.edit();
+			mEditor.putString("address", null);
 			
-			if(address != null && !selectAddress.getAddress().equals(address)) {
+			if(address == null) {
+				mHandler.sendEmptyMessage(4);
+			}
+			else if(!selectAddress.getAddress().equals(address)) {
 				//更新商户
 				selectAddress.setAddress(address);
 				selectAddress.setMobile(initData.getString("mobile", null));
-				selectAddress.setUserName(initData.getString("username", null));
+				selectAddress.setUserName(initData.getString("username", null));	
 				mHandler.sendEmptyMessage(1);
 			}
+			
+			
 		}
 	}
 
@@ -137,6 +150,8 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				
 		shopListView = (ListView) findViewById(R.id.shopListView);
 		loadingBar = (ProgressBar) findViewById(R.id.loading);		
+		
+		noShopView = (TextView) findViewById(R.id.no_shop_tv);
 	}
 	
 	public void setWidgetListenter() {
@@ -166,6 +181,8 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 
 		mAddressTextView.setText("");
 		loginButton.setText(LOGIN_MESSAGE);
+		
+		noShopView.setVisibility(View.GONE);
 	}
 
 	public void onClick(View v) {
@@ -218,7 +235,8 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		case R.id.setAddress:
 			Intent mIntent2 = new Intent();
 			if(isLogin) {
-				mIntent2.setClass(this, RecevoirAddressActivity.class);				
+				mIntent2.setClass(this, RecevoirAddressActivity.class);	
+				mIntent2.putExtra("activityName", "SearchActivity");
 			} else {
 				mIntent2.setClass(this, LoginActivity.class);
 			}
@@ -248,8 +266,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				shopListView.setAdapter(null);
 				shopData.clear();
 				
-				LoadShopListThread listThread = new LoadShopListThread(orderType, false);
-				listThread.start();
+				new LoadShopListThread(orderType, false).start();				
 				break;
 				
 			case 2:
@@ -265,6 +282,16 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				loadingBar.setVisibility(View.GONE);
 				mAddressTextView.setText(NO_LOGIN_MESSAGE);
 				loginButton.setText(LOGIN_MESSAGE);
+				break;
+				
+			case 4:
+				loadingBar.setVisibility(View.VISIBLE);
+				shopListView.removeAllViewsInLayout();
+				shopListView.requestLayout();
+				shopListView.setAdapter(null);
+				shopData.clear();
+				
+				new LoadShopListThread(orderType, true).start();
 				break;
 				
 			case UserState.HANDLER_AUTO_LOGIN_SUCCESS:
@@ -294,6 +321,14 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 					isFirst = false;
 				}
 				break;
+				
+			case SHOW_SHOP:
+				noShopView.setVisibility(View.VISIBLE);
+				break;
+				
+			case NO_SHOW_SHOP:
+				noShopView.setVisibility(View.GONE);
+				break;
 			}
 		}
 	};	
@@ -320,9 +355,6 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		}
 		
 		public LoadShopListThread(String orderType, boolean isNeedLogin) {
-			this.aid = aid;
-			this.sid = sid;
-			this.did = did;
 			this.orderType = orderType;
 			searchType = 1;
 			this.isNeedLogin = isNeedLogin;
@@ -332,21 +364,33 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		public void run() {
 			if(isNeedLogin) {
 				UserLogin mLogin = new UserLogin();
-				isLogin = UserState.autoLogin(SearchActivity.this, mLogin, mHandler); 
-				if(isLogin) {
-					mUserInfo = UserState.getUserInfo(mLogin.getUserName(), mLogin.getPasswdMD5());
+				
+				if(!UserState.getLoginState(SearchActivity.this)) {
+					isLogin = UserState.autoLogin(SearchActivity.this, mLogin, mHandler); 
+					if(isLogin) {
+						mUserInfo = UserState.getUserInfo(mLogin.getUserName(), mLogin.getPasswdMD5());
+						mAddressList = getAddressList(mUserInfo.getUserid());
+						selectAddress = getDefaultAddress(mAddressList);
+					}
+				} else {
+					isLogin = true;
+					SharedPreferences initData = SearchActivity.this.getSharedPreferences("account", Activity.MODE_PRIVATE);
+					String username = initData.getString("username", "");
+					String password = initData.getString("password", "");
+					mUserInfo = UserState.getUserInfo(username, password);
 					mAddressList = getAddressList(mUserInfo.getUserid());
 					selectAddress = getDefaultAddress(mAddressList);
-				}
+				}				
 			}
 			
 			if(isLogin) {
-				String[] addressIdList = selectAddress.getAddress().split("\\|")[0].split(",");
-				String addressName = selectAddress.getAddress().split("\\|")[1];	//用户的默认地址
 				try{ 
+					String[] addressIdList = selectAddress.getAddress().split("\\|")[0].split(",");
+					String addressName = selectAddress.getAddress().split("\\|")[1];	//用户的默认地址
 					aid = Integer.parseInt(addressIdList[0]);
 					sid = Integer.parseInt(addressIdList[1]);
 					did = Integer.parseInt(addressIdList[2]);
+					mHandler.sendMessage(mHandler.obtainMessage(2, addressName));
 				}catch (Exception e) {
 					aid = 0;
 					sid = 0;
@@ -354,8 +398,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				}
 				searchType = 1;
 				getShotList();
-				mHandler.sendEmptyMessage(0);
-				mHandler.sendMessage(mHandler.obtainMessage(2, addressName));
+				mHandler.sendEmptyMessage(0);				
 			} else {
 				getShotList();
 				mHandler.sendEmptyMessage(3);
@@ -378,7 +421,11 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				params.put("orderType", orderType);
 				shopInfo = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.GET_SHOP_LIST_BY_ADDRESS_ID_METHOD, params);
 			}
-			parseShopInfo(shopInfo);
+			
+			if(shopInfo != null) {
+				parseShopInfo(shopInfo);
+				mHandler.sendEmptyMessage(NO_SHOW_SHOP);
+			} else mHandler.sendEmptyMessage(SHOW_SHOP);
 		}
 		
 		private void parseShopInfo(SoapObject shopInfo) {

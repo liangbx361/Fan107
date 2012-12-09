@@ -112,6 +112,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminateDrawable="@drawable/progressbar" />
+        
+        <TextView 
+            android:id="@id/no_shop_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="抱歉，此地址暂无商户信息"
+            android:textSize="20sp"
+            android:textColor="@color/content_color"
+            android:visibility="gone"/>
 
         <ListView
             android:id="@id/shopListView"

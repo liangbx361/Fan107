@@ -387,9 +387,6 @@
     <item name="code_tv" type="id">false</item>
     <item name="phone_tv" type="id">false</item>
     
-    <item name="edit_btn" type="id">false</item>
-    <item name="del_btn" type="id">false</item>
-    <item name="sel_btn" type="id">false</item>
     <item name="update" type="id">false</item>
     <item name="rl_account_main" type="id">false</item>
     <item name="rl_body_account" type="id">false</item>
@@ -1311,15 +1308,21 @@
 
     <!-- act_commodity_list -->
     <item name="shop_name_title" type="id">false</item>
+    <item name="no_shop_tv" type="id">false</item>
 	
     <!-- act_user_account -->
 
 
     <!-- address_add_activity -->
+    <item name="address_add_name_tv" type="id">false</item>
     <item name="address_add_name" type="id">false</item>
+    <item name="address_add_phone_tv" type="id">false</item>
     <item name="address_add_phone" type="id">false</item>
+    <item name="address_add_area_spinner_tv" type="id">false</item>
 	<item name="address_add_area_spinner" type="id">false</item>
+	<item name="address_add_street_spinner_tv" type="id">false</item>
 	<item name="address_add_street_spinner" type="id">false</item>
+	<item name="address_add_district_spinner_tv" type="id">false</item>
 	<item name="address_add_district_spinner" type="id">false</item>
 	<item name="address_add_confirm" type="id">false</item>
 	
@@ -1327,6 +1330,9 @@
 	<item name="address_list_name" type="id">false</item>
 	<item name="address_list_phone" type="id">false</item>
 	<item name="address_list_address" type="id">false</item>
+	<item name="address_list_edit" type="id">false</item>
+	<item name="address_list_del" type="id">false</item>
+	<item name="address_list_default" type="id">false</item>
 	
     <!-- change_password -->
 

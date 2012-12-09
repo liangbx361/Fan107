@@ -1,5 +1,6 @@
 package com.fan107.activity;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,10 +11,14 @@ import org.ksoap2.serialization.SoapObject;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -38,6 +43,8 @@ import common.connection.net.WebServiceUtil;
 public class MemberInformationActivity extends Activity implements
 		ActivityTemplete, OnCheckedChangeListener, OnClickListener {
 	
+	private static final int DIALOG_SHOW = 100;
+	
 	private TextView usernameText;
 	private EditText emailText;
 	private EditText nicknameText;
@@ -52,11 +59,16 @@ public class MemberInformationActivity extends Activity implements
 	private int mYear;
 	private int mMonth;
 	private int mDay;
+	
+	public ProgressDialog mProgressDialog;
+	MyHandler mHandler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.member_info_layout);
+		
+		mHandler = new MyHandler(this);
 
 		findWidget();
 		setWidgetListenter();
@@ -99,6 +111,8 @@ public class MemberInformationActivity extends Activity implements
 
 		phoneText.setText(mUserInfo.getMobile());
 		birthdayText.setText(mUserInfo.getBirthday());
+		
+		initProgressDialog(this);
 	}
 
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -116,12 +130,39 @@ public class MemberInformationActivity extends Activity implements
 
 		case R.id.member_info_confirm_btn:
 			if (check()) {
-				sendMemberInfo();
+				new Thread() {
+					@Override
+					public void run() {
+						mHandler.sendEmptyMessage(DIALOG_SHOW);
+						sendMemberInfo();
+						mProgressDialog.dismiss();
+						onBackPressed();
+					}
+				}.start();
 			}
 			break;
 		}
 	}
+	
+	static class MyHandler extends Handler {
+		
+		WeakReference<MemberInformationActivity> mActivity;
+		
+		MyHandler(MemberInformationActivity activity) {  
+            mActivity = new WeakReference<MemberInformationActivity>(activity);  
+		}  
 
+		@Override
+		public void handleMessage(Message msg) {
+			MemberInformationActivity activity = mActivity.get();
+			switch(msg.what) {
+			case DIALOG_SHOW:
+				activity.mProgressDialog.show();
+				break;
+			}
+		}
+	};
+	
 	@Override
 	protected Dialog onCreateDialog(int id) {
 
@@ -235,9 +276,7 @@ public class MemberInformationActivity extends Activity implements
 				DBHelper mDbHelper = new DBHelper(this);
 				mDbHelper.updateTable(DBHelper.USER_TABLE_NAME, content, "userid="+mUserInfo.getUserid(), null);
 				mDbHelper.close();
-				
-				onBackPressed();
-				
+					
 				ToastHelper.showToastInBottom(this, "修改成功", 0, 100);
 			} else {
 				ToastHelper.showToastInBottom(this, "修改失败", 0, 100);
@@ -246,6 +285,14 @@ public class MemberInformationActivity extends Activity implements
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void initProgressDialog(Context mContext) {
+		mProgressDialog = new ProgressDialog(mContext);
+		mProgressDialog.setTitle("数据保存中");
+		mProgressDialog.setMessage("请稍等...");
+		mProgressDialog.setCancelable(false);
+		mProgressDialog.setIndeterminate(true);
 	}
 	
 }
