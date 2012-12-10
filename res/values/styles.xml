@@ -19,4 +19,8 @@
         <item name="android:isIndicator" >true</item>
     </style>
     
+    <style name="myDialogTheme" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
+    
 </resources>

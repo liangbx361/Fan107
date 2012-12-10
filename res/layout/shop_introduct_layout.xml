@@ -39,7 +39,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
+                    android:layout_margin="5dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -269,6 +269,29 @@
                         android:textSize="17sp" />
                     
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal" >
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="地址："
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+                    
+                    <TextView
+                        android:id="@id/shop_detail_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="#696969"
+                        android:textSize="17sp" />
+                    
+                </LinearLayout>                
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

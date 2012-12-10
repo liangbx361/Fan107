@@ -1417,6 +1417,7 @@
     <item name="shop_detail_open_time" type="id">false</item>
     <item name="shop_detail_scheduled_time" type="id">false</item>
     <item name="shop_detail_phone" type="id">false</item>
+    <item name="shop_detail_address" type="id">false</item>
 
     <!-- shop_list_item -->
     <item name="shop_pic" type="id">false</item>

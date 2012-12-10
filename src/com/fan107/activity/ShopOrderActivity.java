@@ -135,7 +135,7 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 			mOrderDish.setNewPrice(mProduct.getPrice2());
 			mOrderDish.setProductId(mProduct.getId());
 
-			OrderDishDialog mDialog = new OrderDishDialog(this, mOrderDish);
+			OrderDishDialog mDialog = new OrderDishDialog(this, R.style.myDialogTheme, mOrderDish);
 			mDialog.setOnDismissListener(this);
 			mDialog.show();
 

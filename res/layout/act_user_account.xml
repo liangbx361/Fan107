@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_title_bar" >
-        
+
         <Button
             android:id="@id/returnList"
             android:layout_width="wrap_content"
@@ -150,7 +150,7 @@
                             android:text="积分余额:"
                             android:textColor="@color/content_color"
                             android:textSize="18.0sp" />
-                        
+
                         <TextView
                             android:id="@id/money"
                             android:layout_width="wrap_content"
@@ -161,7 +161,6 @@
                             android:text=""
                             android:textColor="@color/content_color"
                             android:textSize="18.0sp" />
-                       	
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -295,7 +294,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ico_account_editpass" />
+                        android:src="@drawable/feedback" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -337,7 +336,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ico_account_adress" />
+                        android:src="@drawable/ico_account_editpass" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -354,14 +353,15 @@
                     android:layout_width="fill_parent"
                     android:layout_height="1.0dip"
                     android:background="@color/bg_corners_border" />
-                
+
                 <RelativeLayout
                     android:id="@id/my_send_address"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="1.0dip"
                     android:layout_marginLeft="1.0dip"
                     android:layout_marginRight="1.0dip"
-                    android:background="@drawable/bg_corners_center"
+                    android:background="@drawable/bg_corners_bottom"
                     android:clickable="true"
                     android:orientation="horizontal"
                     android:padding="10.0dip" >
@@ -388,49 +388,6 @@
                         android:layout_marginLeft="6.0dip"
                         android:layout_toRightOf="@id/lsq_ico"
                         android:text="收餐地址"
-                        android:textColor="@color/content_color"
-                        android:textSize="17.0sp" />
-                </RelativeLayout>
-                
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="1.0dip"
-                    android:background="@color/bg_corners_border" />
-
-                <RelativeLayout
-                    android:id="@id/income_manager"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1.0dip"
-                    android:layout_marginLeft="1.0dip"
-                    android:layout_marginRight="1.0dip"
-                    android:background="@drawable/bg_corners_bottom"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:padding="10.0dip" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="5.0dip"
-                        android:src="@drawable/arrow_right" />
-
-                    <ImageView
-                        android:id="@id/send_address_ico"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/send_address" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="6.0dip"
-                        android:layout_toRightOf="@id/send_address_ico"
-                        android:text="收益管理"
                         android:textColor="@color/content_color"
                         android:textSize="17.0sp" />
                 </RelativeLayout>

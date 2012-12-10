@@ -15,7 +15,9 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnDismissListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -134,9 +136,9 @@ public class MemberInformationActivity extends Activity implements
 					@Override
 					public void run() {
 						mHandler.sendEmptyMessage(DIALOG_SHOW);
-						sendMemberInfo();
+						if(sendMemberInfo())
+							onBackPressed();
 						mProgressDialog.dismiss();
-						onBackPressed();
 					}
 				}.start();
 			}
@@ -231,7 +233,9 @@ public class MemberInformationActivity extends Activity implements
 		return true;
 	}
 	
-	private void sendMemberInfo() {
+	private boolean sendMemberInfo() {
+		boolean isSuccess = false;
+		
 		String phone;
 		String nickName;
 		String email;
@@ -276,15 +280,17 @@ public class MemberInformationActivity extends Activity implements
 				DBHelper mDbHelper = new DBHelper(this);
 				mDbHelper.updateTable(DBHelper.USER_TABLE_NAME, content, "userid="+mUserInfo.getUserid(), null);
 				mDbHelper.close();
-					
-				ToastHelper.showToastInBottom(this, "修改成功", 0, 100);
+				
+				isSuccess = true;	
 			} else {
-				ToastHelper.showToastInBottom(this, "修改失败", 0, 100);
+				ToastHelper.showToastInBottom(this, "信息提交失败, 请重试", 0, 100);
 			}
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		
+		return isSuccess;
 	}
 	
 	private void initProgressDialog(Context mContext) {

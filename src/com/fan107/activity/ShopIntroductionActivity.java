@@ -32,6 +32,7 @@ public class ShopIntroductionActivity extends Activity implements ActivityTemple
 	private TextView scheduledTime;
 	
 	private TextView phone;
+	private TextView addressView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class ShopIntroductionActivity extends Activity implements ActivityTemple
 		scheduledTime = (TextView) findViewById(R.id.shop_detail_scheduled_time);
 		
 		phone = (TextView) findViewById(R.id.shop_detail_phone);
+		addressView = (TextView) findViewById(R.id.shop_detail_address);
 		
 	}
 
@@ -101,6 +103,7 @@ public class ShopIntroductionActivity extends Activity implements ActivityTemple
 		scheduledTime.setText(mInfo.getOrdertime());		
 		
 		phone.setText(mInfo.getPhone());
+		addressView.setText(mInfo.getAddress());
 	}
 	
 }

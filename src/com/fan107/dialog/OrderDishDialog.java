@@ -30,6 +30,11 @@ public class OrderDishDialog extends Dialog implements ActivityTemplete,
 		super(context);
 		this.mOrderDish = mOrderDish;
 	}
+	
+	public OrderDishDialog(Context context, int theme, OrderDish mOrderDish) {
+		super(context, theme);
+		this.mOrderDish = mOrderDish;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -296,28 +296,28 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				
 			case UserState.HANDLER_AUTO_LOGIN_SUCCESS:
 				if(isFirst) {
-					ToastHelper.showToastInBottom(SearchActivity.this, UserState.AUTO_LOGIN_SUCCESS);
+					ToastHelper.showToastInBottom(SearchActivity.this, UserState.AUTO_LOGIN_SUCCESS, 0, 100);
 					isFirst = false;
 				}
 				break;
 				
 			case UserState.HANDLER_LOGIN_FAIL:
 				if(isFirst) {
-					ToastHelper.showToastInBottom(SearchActivity.this, UserState.LOGIN_FAIL);
+					ToastHelper.showToastInBottom(SearchActivity.this, UserState.LOGIN_FAIL, 0, 100);
 					isFirst = false;
 				}
 				break;
 				
 			case UserState.HANDLER_LOGIN_SUCCESS:
 				if(isFirst) {
-					ToastHelper.showToastInBottom(SearchActivity.this, UserState.LOGIN_SUCCESS);
+					ToastHelper.showToastInBottom(SearchActivity.this, UserState.LOGIN_SUCCESS, 0, 100);
 					isFirst = false;
 				}
 				break;
 				
 			case UserState.HANDLER_NO_NETWORK:
 				if(isFirst) {
-					ToastHelper.showToastInBottom(SearchActivity.this, UserState.NO_NETWORK);
+					ToastHelper.showToastInBottom(SearchActivity.this, UserState.NO_NETWORK, 0, 100);
 					isFirst = false;
 				}
 				break;
