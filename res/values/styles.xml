@@ -14,8 +14,8 @@
     <style name="ShopRatingBarStyle" parent="android:Widget.RatingBar">
         <item name="android:progressDrawable" >@drawable/ratingbar</item>
         <item name="android:indeterminateDrawable" >@drawable/ratingbar</item>        
-        <item name="android:minHeight" >30dip </item>
-        <item name="android:maxHeight" >30dip </item>
+        <item name="android:minHeight" >22px </item>
+        <item name="android:maxHeight" >22px </item>
         <item name="android:isIndicator" >true</item>
     </style>
     

@@ -30,6 +30,7 @@ public interface WebServiceConfig {
 	public static final String SHOP_INFO_WEB_SERVICE = "ShopInfo.asmx";
 	public static final String GET_PRODUCT_LIST_METHOD = "getProductList";
 	public static final String GET_PRODUCT_METHOD = "getProduct";
+	public static final String GET_SHOP_COMMENT_METHOD = "getShopComment";
 
 	//提交定单信息
 	public static final String ORDER_CHECK_WEB_SERVICE = "Ordercheck.asmx";

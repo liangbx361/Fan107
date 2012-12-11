@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@id/shop_comment_list_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="liangbx361"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="口味:"
+                android:textColor="#696969"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@id/shop_comment_lsit_flavor_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="4 "
+                android:textColor="#FF6347"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="环境:"
+                android:textColor="#696969"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@id/shop_comment_lsit_environment_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="4 "
+                android:textColor="#FF6347"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="服务:"
+                android:textColor="#696969"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@id/shop_comment_lsit_server_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="4 "
+                android:textColor="#FF6347"
+                android:textSize="16sp" />
+
+            <RatingBar
+                android:id="@id/shop_comment_lsit_point_ratingbar"
+                style="@style/ShopRatingBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_vertical" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@id/shop_comment_list_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="很好,不错"
+            android:textColor="#696969"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@id/shop_comment_list_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="12-12-10 10:42"
+            android:textColor="#696969"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

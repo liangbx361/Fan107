@@ -124,6 +124,9 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         .putExtra("shopInfo", mInfo)                        )                        
                 .getDecorView());
+		
+		cleanTabBtnBackground();
+		shopInfo.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_btn_bg_detail));
 	}
 	
 	public void onClick(View v) {
@@ -136,6 +139,9 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                             .putExtra("shopInfo", mInfo))
                     .getDecorView());
+			
+			cleanTabBtnBackground();
+			shopInfo.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_btn_bg_detail));
 			break;
 			
 		case R.id.shop_order:
@@ -147,6 +153,9 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
                             .putExtra("shopInfo", mInfo)
                             .putExtra("orderCar", mCar))
                     .getDecorView());
+			
+			cleanTabBtnBackground();
+			shopOrder.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_btn_bg_detail));
 			break;
 			
 		case R.id.shop_comment:
@@ -157,6 +166,9 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                             .putExtra("shopInfo", mInfo))
                     .getDecorView());
+			
+			cleanTabBtnBackground();
+			shopComment.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_btn_bg_detail));
 			break;
 			
 		case R.id.my_order:			
@@ -168,6 +180,7 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 			} else {
 				ToastHelper.showToastInBottom(this, "非订餐时段,请自行电话定餐", 0, 100);
 			}
+	
 			break;
 		}
 	}
@@ -246,9 +259,13 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 				pList.add(product);
 			}
 			return pList;
-		}
-		
+		}		
 	}
-
+	
+	private void cleanTabBtnBackground() {
+		shopInfo.setBackgroundDrawable(null);
+		shopOrder.setBackgroundDrawable(null);
+		shopComment.setBackgroundDrawable(null);
+	}
 
 }

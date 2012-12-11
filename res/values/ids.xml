@@ -1398,8 +1398,19 @@
     <item name="add_adress_btn" type="id">false</item>
 
     <!-- register_activity -->
-
-
+	
+	<!-- shop_comment_layout -->
+	<item name="shop_comment_list" type="id">false</item>
+	
+	<!-- shop_comment_list -->
+	<item name="shop_comment_list_username" type="id">false</item>
+	<item name="shop_comment_lsit_flavor_point" type="id">false</item>
+	<item name="shop_comment_lsit_environment_point" type="id">false</item>
+	<item name="shop_comment_lsit_server_point" type="id">false</item>
+	<item name="shop_comment_lsit_point_ratingbar" type="id">false</item>
+	<item name="shop_comment_list_comment" type="id">false</item>
+	<item name="shop_comment_list_time" type="id">false</item>
+	
     <!-- shop_introduct_layout -->
     <item name="shop_detail_pic" type="id">false</item>
     <item name="shop_detail_name" type="id">false</item>

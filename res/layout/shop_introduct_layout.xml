@@ -44,62 +44,63 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:singleLine="true"
                         android:text="口味:"
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@id/shop_detail_flavor_point"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="4 "
                         android:textColor="#FF6347"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="环境:"
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@id/shop_detail_environment_point"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="4 "
                         android:textColor="#FF6347"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="服务:"
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@id/shop_detail_server_point"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="4 "
                         android:textColor="#FF6347"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <RatingBar
                         android:id="@id/shop_detail_point_ratingbar"
                         style="@style/ShopRatingBarStyle"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical" />
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical" 
+                        android:layout_gravity="center"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -119,14 +120,14 @@
                         android:layout_height="wrap_content"
                         android:text="30.0"
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="元起送 "
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
                     
                     <ImageView
                         android:layout_width="wrap_content"
@@ -138,7 +139,7 @@
                         android:layout_height="wrap_content"
                         android:text="外送费:"
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@id/shop_detail_sendPrice"
@@ -146,14 +147,14 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="元"
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -172,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:text="约"
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@id/shop_detail_send_time"
@@ -180,14 +181,14 @@
                         android:layout_height="wrap_content"
                         android:text="30"
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="分种到达 "
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
                     
                     <ImageView
                         android:layout_width="wrap_content"
@@ -200,7 +201,7 @@
                         android:layout_height="wrap_content"
                         android:text="餐到付款"
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -214,7 +215,7 @@
                         android:layout_height="wrap_content"
                         android:text="营业时间："
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@id/shop_detail_open_time"
@@ -222,7 +223,7 @@
                         android:layout_height="wrap_content"
                         android:text="09:00-21:00"
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -236,7 +237,7 @@
                         android:layout_height="wrap_content"
                         android:text="预定时间："
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@id/shop_detail_scheduled_time"
@@ -244,7 +245,7 @@
                         android:layout_height="wrap_content"
                         android:text="09:00-11:30|11:30-23:30"
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -258,7 +259,7 @@
                         android:layout_height="wrap_content"
                         android:text="联系电话："
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
                     
                     <TextView
                         android:id="@id/shop_detail_phone"
@@ -266,7 +267,7 @@
                         android:layout_height="wrap_content"
                         android:text="0591-87550466"
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
                     
                 </LinearLayout>
 
@@ -281,7 +282,7 @@
                         android:layout_height="wrap_content"
                         android:text="地址："
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
                     
                     <TextView
                         android:id="@id/shop_detail_address"
@@ -289,7 +290,7 @@
                         android:layout_height="wrap_content"
                         android:text=""
                         android:textColor="#696969"
-                        android:textSize="17sp" />
+                        android:textSize="16sp" />
                     
                 </LinearLayout>                
             </LinearLayout>
