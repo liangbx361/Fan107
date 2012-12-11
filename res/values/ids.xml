@@ -186,7 +186,7 @@
     <item name="uname" type="id">false</item>
     <item name="money_icon" type="id">false</item>
     <item name="money" type="id">false</item>
-    <item name="order_layout" type="id">false</item>
+    
     <item name="ticket_layout" type="id">false</item>
     <item name="collect_layout" type="id">false</item>
     <item name="change_my_password" type="id">false</item>
@@ -1311,7 +1311,7 @@
     <item name="no_shop_tv" type="id">false</item>
 	
     <!-- act_user_account -->
-
+	<item name="order_layout" type="id">false</item>
 
     <!-- address_add_activity -->
     <item name="address_add_name_tv" type="id">false</item>
@@ -1392,6 +1392,15 @@
     <item name="order_dish_new_price" type="id">false</item>
     <item name="order_dish_ok" type="id">false</item>
     <item name="order_dish_cancel" type="id">false</item>
+    
+    <!-- order_layout -->
+    <item name="order_list" type="id">false</item>
+    
+    <!-- order_list -->
+    <item name="order_list_orderno" type="id">false</item>
+    <item name="order_list_shop_name" type="id">false</item>
+    <item name="order_list_totalprice" type="id">false</item>
+    <item name="order_list_time" type="id">false</item>
 
     <!-- recevoir_address -->
     <item name="addressListView" type="id">false</item>

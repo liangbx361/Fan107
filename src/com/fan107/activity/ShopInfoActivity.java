@@ -53,6 +53,8 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 	private Button myOrder;
 	private TextView shopName;
 	
+	private boolean isLogin;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,6 +64,7 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		mInfo = (ShopInfo) mIntent.getSerializableExtra("shopInfo");
 		mUserInfo = (UserInfo) mIntent.getSerializableExtra("userInfo");
 		mAddress = (UserAddress) mIntent.getSerializableExtra("userAddress");
+		isLogin = UserState.getLoginState(this);
 		
 		if(UserState.getLoginState(this)) {
 			mCar = OrderCarInit();
@@ -172,13 +175,17 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 			break;
 			
 		case R.id.my_order:			
-			if(OrderState.checkTime(mInfo.getOrdertime())) {			
-				Intent orderCar = new Intent(ShopInfoActivity.this, OrderCarActivity.class);
-				orderCar.putExtra("shopInfo", mInfo);
-				orderCar.putExtra("orderCar", mCar);
-				startActivity(orderCar);
+			if(isLogin) {
+				if(OrderState.checkTime(mInfo.getOrdertime())) {			
+					Intent orderCar = new Intent(ShopInfoActivity.this, OrderCarActivity.class);
+					orderCar.putExtra("shopInfo", mInfo);
+					orderCar.putExtra("orderCar", mCar);
+					startActivity(orderCar);
+				} else {
+					ToastHelper.showToastInBottom(this, "非订餐时段,请自行电话定餐", 0, 100);
+				}
 			} else {
-				ToastHelper.showToastInBottom(this, "非订餐时段,请自行电话定餐", 0, 100);
+				ToastHelper.showToastInBottom(this, "请先登录, 再进行订餐", 0, 100);
 			}
 	
 			break;
