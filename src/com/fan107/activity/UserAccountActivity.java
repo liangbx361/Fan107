@@ -100,6 +100,7 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 		chanagePasswordLayout.setOnClickListener(this);
 		userInfoLayout.setOnClickListener(this);
 		my_send_address.setOnClickListener(this);
+		order_layout.setOnClickListener(this);
 	}
 
 	public void setWidgetPosition() {
@@ -165,6 +166,9 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 
 		// 我的订单
 		case R.id.order_layout:
+			Intent orderIntent = new Intent(this, OrderListActivity.class);
+			orderIntent.putExtra("userInfo", mUserInfo);
+			startActivity(orderIntent);
 			break;
 
 		//送餐地址
