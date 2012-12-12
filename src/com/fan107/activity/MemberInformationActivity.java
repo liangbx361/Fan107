@@ -215,21 +215,15 @@ public class MemberInformationActivity extends Activity implements
 	}
 
 	private boolean check() {
-		FormatCheck formatCheck = new FormatCheck();
-		try {
-			if (!formatCheck.checkEmail(emailText.getText().toString())) {
-				ToastHelper.showToastInBottom(this, "邮箱格式不正确", 0, 100);
-				return false;
+		if (!FormatCheck.checkEmail(emailText.getText().toString())) {
+			ToastHelper.showToastInBottom(this, "邮箱格式不正确", 0, 100);
+			return false;
 				
-			} else if(formatCheck.checkPhoto(phoneText.getText().toString()) == null) {
-				ToastHelper.showToastInBottom(this, "电话号码格式不正确", 0, 100);
-				return false;
-			}
-			
-		} catch (DNSLookupException e) {
-			e.printStackTrace();
+		} else if(FormatCheck.checkPhoto(phoneText.getText().toString()) == null) {
+			ToastHelper.showToastInBottom(this, "电话号码格式不正确", 0, 100);
+			return false;
 		}
-
+		
 		return true;
 	}
 	

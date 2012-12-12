@@ -56,7 +56,7 @@
                 android:src="@drawable/account_icon" />
 
             <EditText
-                android:id="@id/username"
+                android:id="@id/reg_username"
                 android:layout_width="fill_parent"
                 android:layout_height="30.0dip"
                 android:layout_marginLeft="5.0dip"
@@ -90,16 +90,91 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5.0dip"
                 android:gravity="center_vertical"
+                android:src="@drawable/phone_icon" />
+
+            <EditText
+                android:id="@id/reg_phone"
+                android:layout_width="fill_parent"
+                android:layout_height="30.0dip"
+                android:layout_marginLeft="5.0dip"
+                android:background="#00000000"
+                android:gravity="center_vertical"
+                android:hint="手机"
+                android:scrollHorizontally="true" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:background="@color/bg_corners_border" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_corners_center"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10.0dip" >
+
+            <ImageView
+                android:id="@id/username_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:gravity="center_vertical"
                 android:src="@drawable/youxiang" />
 
             <EditText
-                android:id="@id/email"
+                android:id="@id/reg_email"
                 android:layout_width="fill_parent"
                 android:layout_height="30.0dip"
                 android:layout_marginLeft="5.0dip"
                 android:background="#00000000"
                 android:gravity="center_vertical"
                 android:hint="邮箱"
+                android:scrollHorizontally="true" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:background="@color/bg_corners_border" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_corners_center"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10.0dip" >
+
+            <ImageView
+                android:id="@id/secret_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5.0dip"
+                android:gravity="center_vertical"
+                android:src="@drawable/mima" />
+
+            <EditText
+                android:id="@id/reg_password"
+                android:layout_width="fill_parent"
+                android:layout_height="30.0dip"
+                android:layout_marginLeft="5.0dip"
+                android:background="#00000000"
+                android:gravity="center_vertical"
+                android:hint="密码(至少6位)  "
+                android:password="true"
                 android:scrollHorizontally="true" />
         </LinearLayout>
 
@@ -130,20 +205,20 @@
                 android:src="@drawable/mima" />
 
             <EditText
-                android:id="@id/password"
+                android:id="@id/reg_password_confirm"
                 android:layout_width="fill_parent"
                 android:layout_height="30.0dip"
                 android:layout_marginLeft="5.0dip"
                 android:background="#00000000"
                 android:gravity="center_vertical"
-                android:hint="密码(至少6位)  "
+                android:hint="确认密码(至少6位)  "
                 android:password="true"
                 android:scrollHorizontally="true" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@id/reg_btn"
+        android:id="@id/reg_confirm"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10.0dip"

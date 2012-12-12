@@ -1398,6 +1398,12 @@
     <item name="add_adress_btn" type="id">false</item>
 
     <!-- register_activity -->
+    <item name="reg_username" type="id">false</item>
+    <item name="reg_phone" type="id">false</item>
+    <item name="reg_email" type="id">false</item>
+    <item name="reg_password" type="id">false</item>
+    <item name="reg_password_confirm" type="id">false</item>
+    <item name="reg_confirm" type="id">false</item>
 	
 	<!-- shop_comment_layout -->
 	<item name="shop_comment_list" type="id">false</item>

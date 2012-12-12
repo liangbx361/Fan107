@@ -12,7 +12,7 @@ public class FormatCheck {
 	 * @return
 	 * @throws DNSLookupException
 	 */
-	public boolean checkEmail(String email) throws DNSLookupException {
+	public static boolean checkEmail(String email){
 		if (!email.matches("[\\w\\.\\-]+@([\\w\\-]+\\.)+[\\w\\-]+")) {
 			return false;
 		} else {
@@ -37,7 +37,7 @@ public class FormatCheck {
 	 * @param photo
 	 * @return
 	 */
-	public String checkPhoto(String photo) {
+	public static String checkPhoto(String photo) {
 		if (null != photo) {
 			String reisphoto = photo.replace("£¬", ",").replace(";", ",")
 					.replace("£»", ",").replace("¡¡", ",").replace(" ", ",")

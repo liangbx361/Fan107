@@ -20,6 +20,7 @@ public interface WebServiceConfig {
 	public static final String USER_ACCOUNT_WEB_SERVICE = "UserAccount.asmx";
 	public static final String CHANAGER_PASSWORD_METHOD = "chanagePassword";
 	public static final String CHANAGER_MEMBER_INFO_METHOD = "changeMemberInfo"; 
+	public static final String REGISTER_ACCOUNT_METHOD = "registerAccount";
 	
 	//商品列表
 	public static final String SHOP_LIST_WEB_SERVICE = "ShopList.asmx";
