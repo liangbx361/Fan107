@@ -63,6 +63,7 @@
                 android:background="#00000000"
                 android:gravity="center_vertical"
                 android:hint="用户名(4-20个字符)"
+                android:singleLine="true"
                 android:scrollHorizontally="true" />
         </LinearLayout>
 
@@ -100,6 +101,8 @@
                 android:background="#00000000"
                 android:gravity="center_vertical"
                 android:hint="手机"
+                android:inputType="phone"
+                android:singleLine="true"
                 android:scrollHorizontally="true" />
         </LinearLayout>
 
@@ -137,6 +140,8 @@
                 android:background="#00000000"
                 android:gravity="center_vertical"
                 android:hint="邮箱"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
                 android:scrollHorizontally="true" />
         </LinearLayout>
 
@@ -174,7 +179,8 @@
                 android:background="#00000000"
                 android:gravity="center_vertical"
                 android:hint="密码(至少6位)  "
-                android:password="true"
+                android:inputType="textPassword"
+                android:singleLine="true"
                 android:scrollHorizontally="true" />
         </LinearLayout>
 
@@ -212,7 +218,8 @@
                 android:background="#00000000"
                 android:gravity="center_vertical"
                 android:hint="确认密码(至少6位)  "
-                android:password="true"
+                android:inputType="textPassword"
+                android:singleLine="true"
                 android:scrollHorizontally="true" />
         </LinearLayout>
     </LinearLayout>

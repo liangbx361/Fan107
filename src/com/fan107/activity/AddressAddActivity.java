@@ -146,11 +146,17 @@ public class AddressAddActivity extends Activity implements ActivityTemplete, On
 	public void setWidgetAttribute() {
 		
 		if(mAddress != null) {
-			String[] id = mAddress.getAddress().split("\\|")[0].split(",");
-			aid = Integer.valueOf(id[0]);
-			sid = Integer.valueOf(id[1]);
-			did = Integer.valueOf(id[2]);			
-			
+			try {
+				String[] id = mAddress.getAddress().split("\\|")[0].split(",");
+				aid = Integer.valueOf(id[0]);
+				sid = Integer.valueOf(id[1]);
+				did = Integer.valueOf(id[2]);			
+			} catch (Exception e) {
+				aid = 0;
+				sid = 0;
+				did = 0;
+				isInitSate = false;
+			}
 			nameText.setText(mAddress.getUserName());
 			telephoneText.setText(mAddress.getMobile());
 		}

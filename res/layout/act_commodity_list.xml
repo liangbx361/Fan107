@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/main_act_bottom_tab_today_gp"
+            android:text="餐厅"
             android:textColor="@color/white"
             android:textSize="20.0sp" />
     </RelativeLayout>

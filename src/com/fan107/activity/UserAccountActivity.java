@@ -116,7 +116,7 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 			login_layout.setVisibility(View.VISIBLE);
 			logout_layout.setVisibility(View.GONE);
 			login.setText(R.string.user_loginout);
-			uname.setText(mUserInfo.getNickname());
+			uname.setText(mUserInfo.getUsername());
 			point.setText(mUserInfo.getCurrentpoint() + "");
 		} else {
 			login_layout.setVisibility(View.GONE);
@@ -157,7 +157,7 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 		case R.id.change_password:
 			if(loginState) {
 				Intent changePasswordIntent = new Intent(this, ChangePasswordActivity.class);
-				changePasswordIntent.putExtra("username", userName);
+				changePasswordIntent.putExtra("username", mUserInfo.getUsername());
 				startActivity(changePasswordIntent);		
 			} else {
 				ToastHelper.showToastInBottom(this, MESSAGE_1);

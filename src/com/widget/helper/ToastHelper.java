@@ -6,15 +6,23 @@ import android.widget.Toast;
 
 public class ToastHelper {
 	
-	public static void showToastInBottom(Context mContext, String toast) {
-		Toast mToast = Toast.makeText(mContext, toast, 500);
+	public static final int BUTTOM_OFFER = 100;
+	
+	public static void showToastInBottom(Context context, String toast) {
+		Toast mToast = Toast.makeText(context, toast, 500);
 		mToast.setGravity(Gravity.BOTTOM, 0, 0);
 		mToast.show();
 	}
 	
-	public static void showToastInBottom(Context mContext, String toast, int xOffer, int yOffer) {
-		Toast mToast = Toast.makeText(mContext, toast, 500);
+	public static void showToastInBottom(Context context, String toast, int xOffer, int yOffer) {
+		Toast mToast = Toast.makeText(context, toast, 500);
 		mToast.setGravity(Gravity.BOTTOM, xOffer, yOffer);
+		mToast.show();
+	}
+	
+	public static void showToastInBottom(Context context, String toast, int xOffer) {
+		Toast mToast = Toast.makeText(context, toast, 500);
+		mToast.setGravity(Gravity.BOTTOM, xOffer, BUTTOM_OFFER);
 		mToast.show();
 	}
 

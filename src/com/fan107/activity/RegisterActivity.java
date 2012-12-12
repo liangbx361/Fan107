@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 public class RegisterActivity extends Activity implements ActivityTemplete, OnClickListener{
 		
@@ -31,7 +32,7 @@ public class RegisterActivity extends Activity implements ActivityTemplete, OnCl
 	private EditText emailView;
 	private EditText passwordView;
 	private EditText passwordConfirmView;
-	private Button regButton;
+	private LinearLayout regButton;
 	
 	private ProgressDialog mProgressDialog;
 	
@@ -53,7 +54,7 @@ public class RegisterActivity extends Activity implements ActivityTemplete, OnCl
 		emailView = (EditText) findViewById(R.id.reg_email);
 		passwordView = (EditText) findViewById(R.id.reg_password);
 		passwordConfirmView = (EditText) findViewById(R.id.reg_password_confirm);
-		regButton = (Button) findViewById(R.id.reg_confirm);
+		regButton = (LinearLayout) findViewById(R.id.reg_confirm);
 	}
 
 	public void setWidgetListenter() {
@@ -84,11 +85,12 @@ public class RegisterActivity extends Activity implements ActivityTemplete, OnCl
 				} else if(!FormatCheck.checkEmail(email)) {
 					
 					mHandler.sendEmptyMessage(MessageCode.EMAIL_FORMAT_ERROR);
-				} else if(password.equals(passwordConfirm)) {
+				} else if(!password.equals(passwordConfirm)) {
 					
 					mHandler.sendEmptyMessage(MessageCode.TWICE_PASSWORD_DIFF);
 				} else {
 					
+					new ConfirmThread(userName, phone, email, password).start();
 				}
 				break;
 		}
@@ -100,8 +102,41 @@ public class RegisterActivity extends Activity implements ActivityTemplete, OnCl
 		@Override
 		public void handleMessage(Message msg) {
 			switch(msg.what) {
+			case MessageCode.SHOW_DIALOT:
+				mProgressDialog.show();
+				break;
+				
 			case MessageCode.TWICE_PASSWORD_DIFF:
-				ToastHelper.showToastInBottom(RegisterActivity.this, "两次密码不同", 0, 100);
+				ToastHelper.showToastInBottom(RegisterActivity.this, "两次密码不同", 0);
+				break;
+				
+			case MessageCode.PHONE_FORMAT_ERROR:
+				ToastHelper.showToastInBottom(RegisterActivity.this, "手机号错误", 0);
+				break;
+				
+			case MessageCode.EMAIL_FORMAT_ERROR:
+				ToastHelper.showToastInBottom(RegisterActivity.this, "邮箱格式错误", 0);
+				break;
+										
+			case MessageCode.USER_NAME_USED:
+				ToastHelper.showToastInBottom(RegisterActivity.this, "用户名已被使用", 0);
+				break;
+				
+			case MessageCode.PHONE_USED:
+				ToastHelper.showToastInBottom(RegisterActivity.this, "手机号已被使用", 0);
+				break;
+				
+			case MessageCode.EMAIL_USED:
+				ToastHelper.showToastInBottom(RegisterActivity.this, "邮箱已被使用", 0);
+				break;
+				
+			case MessageCode.REGISTER_SUCCESS:
+				ToastHelper.showToastInBottom(RegisterActivity.this, "注册成功", 0);
+				onBackPressed();
+				break;
+				
+			case MessageCode.UNKONW_ERROR:
+				ToastHelper.showToastInBottom(RegisterActivity.this, "未知错误", 0);
 				break;
 			}
 		}
@@ -123,6 +158,8 @@ public class RegisterActivity extends Activity implements ActivityTemplete, OnCl
 		
 		@Override
 		public void run() {
+			mHandler.sendEmptyMessage(MessageCode.SHOW_DIALOT);
+			
 			Map<String, Object> data = new HashMap<String, Object>();
 			data.put("username", username);
 			data.put("mobile", phone);
@@ -132,6 +169,26 @@ public class RegisterActivity extends Activity implements ActivityTemplete, OnCl
 			SoapObject result = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.REGISTER_ACCOUNT_METHOD, data);
 			
 			int code = Integer.valueOf(result.getPropertyAsString(0));
+			switch(code) {
+			case 0:
+				mHandler.sendEmptyMessage(MessageCode.REGISTER_SUCCESS);
+				break;
+			case 1:
+				mHandler.sendEmptyMessage(MessageCode.USER_NAME_USED);
+				break;
+			case 2:
+				mHandler.sendEmptyMessage(MessageCode.PHONE_USED);
+				break;
+			case 3:
+				mHandler.sendEmptyMessage(MessageCode.EMAIL_USED);
+				break;
+				
+			default:
+				mHandler.sendEmptyMessage(MessageCode.UNKONW_ERROR);
+				break;
+			}
+			
+			mProgressDialog.dismiss();
 		}
 	}
 	

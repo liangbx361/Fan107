@@ -8,4 +8,22 @@ public interface MessageCode {
 	final int EMAIL_FORMAT_ERROR = 1;
 	//电话格式不正确
 	final int PHONE_FORMAT_ERROR = 2;
+	//用户名已注册
+	final int USER_NAME_USED = 3;
+	//手机已经被注册
+	final int PHONE_USED = 4;
+	//邮箱已经被注册
+	final int EMAIL_USED = 5;
+	//注册成功
+	final int REGISTER_SUCCESS = 6;
+	//未知错误
+	final int UNKONW_ERROR = 7;
+	
+	//显示对话框
+	final int SHOW_DIALOT = 8;
+	
+	//密码修改成功
+	final int PASSWORD_CHANGE_SUCCESS = 9;
+	//密码修改失败, 请重试
+	final int PASSWORD_CHANGE_ERROR = 10;
 }
