@@ -145,6 +145,14 @@ public class DBHelper extends SQLiteOpenHelper {
 		return c;
 	}
 	
+	public Cursor query(String tableName, String[] columns, String where, String orderBy) {
+		
+		mDatabase = getReadableDatabase();
+		Cursor c = mDatabase
+				.query(tableName, columns, where, null, null, null, orderBy);
+		return c;
+	}
+	
 	/**
 	 * 通过sql语句查询表中的数�?
 	 * @param sql

@@ -121,7 +121,7 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 			int groupPosition, int childPosition, long id) {
 		
 		if(mCar == null) {
-			ToastHelper.showToastInBottom(this, "请先登录, 再进行订餐", 0, 100);
+			ToastHelper.showToastInBottom(this, "请先登录, 再进行订餐", 0);
 			
 		} else if (OrderState.checkTime(mInfo.getOrdertime())) {
 			OrderDish mOrderDish = new OrderDish();
@@ -146,7 +146,7 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 							.get("dishName")
 							+ " 一份");
 		} else {
-			ToastHelper.showToastInBottom(this, "非订餐时段,请自行电话定餐", 0, 100);
+			ToastHelper.showToastInBottom(this, "非订餐时段,请自行电话定餐", 0);
 		}
 		return false;
 	}
@@ -267,11 +267,11 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 	public void onDismiss(DialogInterface dialog) {
 		OrderDishDialog mDialog = (OrderDishDialog) dialog;
 		OrderDish mOrderDish = mDialog.getOrderDish();
-		if (mOrderDish != null) {
+		if (mDialog.isConfirm()) {
 			mCar.addItem(mOrderDish);
 			String message = "已点" + mOrderDish.getDishName() + " "
 					+ mOrderDish.getOrderNum() + "份";
-			ToastHelper.showToastInBottom(this, message, 0, 40);
+			ToastHelper.showToastInBottom(this, message, 0);
 		}
 	}
 

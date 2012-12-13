@@ -1309,6 +1309,7 @@
     <!-- act_commodity_list -->
     <item name="shop_name_title" type="id">false</item>
     <item name="no_shop_tv" type="id">false</item>
+    <item name="address_tab" type="id">false</item>
 	
     <!-- act_user_account -->
 	<item name="order_layout" type="id">false</item>
@@ -1345,7 +1346,7 @@
     <item name="dishs_name" type="id">false</item>
 
     <!-- login_activity -->
-
+	<item name="login_auto_login" type="id">false</item>
 
     <!-- member_info_layout id -->
     <item name="username" type="id">false</item>

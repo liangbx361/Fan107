@@ -182,10 +182,10 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 					orderCar.putExtra("orderCar", mCar);
 					startActivity(orderCar);
 				} else {
-					ToastHelper.showToastInBottom(this, "非订餐时段,请自行电话定餐", 0, 100);
+					ToastHelper.showToastInBottom(this, "非订餐时段,请自行电话定餐", 0);
 				}
 			} else {
-				ToastHelper.showToastInBottom(this, "请先登录, 再进行订餐", 0, 100);
+				ToastHelper.showToastInBottom(this, "请先登录, 再进行订餐", 0);
 			}
 	
 			break;

@@ -216,11 +216,11 @@ public class MemberInformationActivity extends Activity implements
 
 	private boolean check() {
 		if (!FormatCheck.checkEmail(emailText.getText().toString())) {
-			ToastHelper.showToastInBottom(this, "邮箱格式不正确", 0, 100);
+			ToastHelper.showToastInBottom(this, "邮箱格式不正确", 0);
 			return false;
 				
 		} else if(FormatCheck.checkPhoto(phoneText.getText().toString()) == null) {
-			ToastHelper.showToastInBottom(this, "电话号码格式不正确", 0, 100);
+			ToastHelper.showToastInBottom(this, "电话号码格式不正确", 0);
 			return false;
 		}
 		
@@ -277,7 +277,7 @@ public class MemberInformationActivity extends Activity implements
 				
 				isSuccess = true;	
 			} else {
-				ToastHelper.showToastInBottom(this, "信息提交失败, 请重试", 0, 100);
+				ToastHelper.showToastInBottom(this, "信息提交失败, 请重试", 0);
 			}
 			
 		} catch (JSONException e) {

@@ -56,6 +56,7 @@ public class RecevoirAddressActivity extends Activity implements
 	private List<UserAddress> addressList;
 	
 	private String activityName;
+	int userId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class RecevoirAddressActivity extends Activity implements
 
 		setContentView(R.layout.recevoir_address);
 		activityName = getIntent().getStringExtra("activityName");
+		userId = getIntent().getIntExtra("userId", -1);
 		
 		findWidget();
 		setWidgetListenter();
@@ -113,10 +115,9 @@ public class RecevoirAddressActivity extends Activity implements
 			if(addressList.size() < 3) {
 				Intent mIntent = new Intent();
 				mIntent.setClass(this, AddressAddActivity.class);
-				mIntent.putExtra("userid", addressList.get(0).getUserId());
 				startActivity(mIntent);
 			} else {
-				ToastHelper.showToastInBottom(this, "添加地址不能超过3个", 0, 100);
+				ToastHelper.showToastInBottom(this, "添加地址不能超过3个");
 			}
 			break;
 		
@@ -128,7 +129,6 @@ public class RecevoirAddressActivity extends Activity implements
 					
 					Intent mIntent2 = new Intent(this, AddressAddActivity.class);
 					mIntent2.putExtra("useraddress", addressList.get(i));
-					mIntent2.putExtra("userid", addressList.get(0).getUserId());
 					startActivity(mIntent2);
 					Log.d(TAG, "edit_btn: " + i);
 					break;
@@ -261,7 +261,8 @@ public class RecevoirAddressActivity extends Activity implements
 	public void setAddressData() {		
 		DBHelper dbHelper = new DBHelper(this);
 		
-		Cursor cursor = dbHelper.query(DBHelper.USER_ADDRESS_TABLE_NAME, new String[]{"id, userid, username, mobile, address"}, "isdefault desc");
+		Cursor cursor = dbHelper.query(DBHelper.USER_ADDRESS_TABLE_NAME, new String[]{"id, userid, username, mobile, address, isdefault"}, 
+				"userid="+userId, "isdefault desc");
 		addressList = new ArrayList<UserAddress>();
 		cursor.moveToFirst();
 		do{
@@ -271,6 +272,7 @@ public class RecevoirAddressActivity extends Activity implements
 			userAddress.setUserName(cursor.getString(cursor.getColumnIndex("username")));
 			userAddress.setMobile(cursor.getString(cursor.getColumnIndex("mobile")));
 			userAddress.setAddress(cursor.getString(cursor.getColumnIndex("address")));
+			userAddress.setIsDefault(cursor.getInt(cursor.getColumnIndex("isdefault")));
 			addressList.add(userAddress);
 		} while(cursor.moveToNext());
 		
@@ -294,24 +296,33 @@ public class RecevoirAddressActivity extends Activity implements
 			LinearLayout v = (LinearLayout) view;
 			TextView addressView = (TextView)v.findViewById(R.id.address_list_address);
 			String address = addressView.getText().toString();
+			
+			if(address == null || address.equals("")) {
+				
+				Intent mIntent2 = new Intent(this, AddressAddActivity.class);
+				mIntent2.putExtra("useraddress", addressList.get(0));
+				startActivity(mIntent2);
+				
+				ToastHelper.showToastInBottom(this, "请先完善默认地址", 0);
+			} else {
+				UserState.setRefreshState(this, true);
 		
-			UserState.setRefreshState(this, true);
-		
-			for(int i=0; i<addressList.size(); i++) {
-				UserAddress userAddress = addressList.get(i);
-				if(address.equals(userAddress.getAddress().split("\\|")[1])) {
-					SharedPreferences initData = this.getSharedPreferences("account", Context.MODE_PRIVATE);
-					Editor mEditor = initData.edit();
-					mEditor.putString("mobile", userAddress.getMobile()); 
-					mEditor.putString("username", userAddress.getUserName());
-					mEditor.putString("address", userAddress.getAddress());
-					mEditor.commit();
-					break;
+				for(int i=0; i<addressList.size(); i++) {
+					UserAddress userAddress = addressList.get(i);
+					if(address.equals(userAddress.getAddress().split("\\|")[1])) {
+						SharedPreferences initData = this.getSharedPreferences("account", Context.MODE_PRIVATE);
+						Editor mEditor = initData.edit();
+						mEditor.putString("mobile", userAddress.getMobile()); 
+						mEditor.putString("username", userAddress.getUserName());
+						mEditor.putString("address", userAddress.getAddress());
+						mEditor.commit();
+						break;
+					}
 				}
+				
+				onBackPressed();
 			}
 		
-			onBackPressed();
-			
 //			Log.d(TAG, addressListView.getChildCount()+"");
 //			Log.d(TAG, view.toString());
 //			Log.d(TAG, addressView.getText().toString());

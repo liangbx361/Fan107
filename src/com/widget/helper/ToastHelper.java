@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 public class ToastHelper {
 	
-	public static final int BUTTOM_OFFER = 100;
+	public static final int BUTTOM_OFFER = 80;
 	
 	public static void showToastInBottom(Context context, String toast) {
 		Toast mToast = Toast.makeText(context, toast, 500);

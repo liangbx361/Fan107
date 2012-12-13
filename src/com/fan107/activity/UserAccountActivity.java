@@ -128,14 +128,18 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 	public void onClick(View v) {
 
 		switch (v.getId()) {
+		//登出
 		case R.id.login:
 			if(loginState) {
 				ContentValues contentValues = new ContentValues();
 				contentValues.put("auto_login", 0);
 				mDbHelper.updateTable(DBHelper.USER_LOGIN_TABLE_NAME, contentValues, "auto_login=1", null);
 			} 
+			UserState.setLoginState(this, false);	//设置为登出
+			UserState.setRefreshState(this, true); 	//首页需要重新刷新
 			Intent loginIntent = new Intent(this, LoginActivity.class);
 			startActivity(loginIntent);
+			finish();
 			break;
 			
 		case R.id.returnList:
@@ -174,6 +178,7 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 		//送餐地址
 		case R.id.my_send_address:
 			Intent addressIntent = new Intent(this, RecevoirAddressActivity.class);
+			addressIntent.putExtra("userId", mUserInfo.getUserid());
 			startActivity(addressIntent);
 			break;
 

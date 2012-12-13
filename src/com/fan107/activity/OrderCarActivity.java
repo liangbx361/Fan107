@@ -129,7 +129,7 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 	public void onDismiss(DialogInterface dialog) {
 		OrderAddressDialog orderDialog = (OrderAddressDialog)dialog;
 		if(orderDialog.isConfirm()) {
-			ToastHelper.showToastInBottom(this, "订单提交成功, 请等待商定送餐", 0, 100);
+			ToastHelper.showToastInBottom(this, "订单提交成功, 请等待商定送餐", 0);
 		}
 	}
 	
@@ -140,13 +140,13 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 				return true;
 			} else {
 				String toast = "您的积分不足, 请充值";
-				ToastHelper.showToastInBottom(this, toast, 0, 100);
+				ToastHelper.showToastInBottom(this, toast, 0);
 				return false;
 			}			
 			
 		} else {
 			String toast = "抱歉,本店" + mInfo.getLimitprice() + "元起送";
-			ToastHelper.showToastInBottom(this, toast, 0, 100);
+			ToastHelper.showToastInBottom(this, toast, 0);
 		}
 		
 		return false;

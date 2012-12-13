@@ -19,7 +19,7 @@
             android:layout_marginLeft="5.0dip"
             android:background="@drawable/universal_btn"
             android:gravity="center_horizontal"
-            android:text="返回"
+            android:text="订餐"
             android:textColor="@color/white"
             android:textSize="14.0sp"
             android:textStyle="bold" />

@@ -74,9 +74,9 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	private Button orderPriceButton;
 	
 	private Button loginButton;
-	private ImageView mImageView;
 	private TextView mAddressTextView;
 	private TextView noShopView;
+	private LinearLayout addressTab;
 	
 	private ListView shopListView;
 	private ProgressBar loadingBar;
@@ -119,24 +119,32 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		
 		if(UserState.getRefreshState(this)) {
 			UserState.setRefreshState(this, false);
-			SharedPreferences initData = this.getSharedPreferences("account", Activity.MODE_PRIVATE);
-			String address = initData.getString("address", null);
-			Editor mEditor = initData.edit();
-			mEditor.putString("address", null);
 			
-			if(address == null) {
-				mHandler.sendEmptyMessage(4);
+			if(UserState.getLoginState(this)) {
+				isLogin = true;
+				SharedPreferences initData = this.getSharedPreferences("account", Activity.MODE_PRIVATE);
+				String address = initData.getString("address", null);
+				Editor mEditor = initData.edit();
+				mEditor.putString("address", null);
+			
+				String addressName = address.split("\\|")[1];	//用户的默认地址
+			
+				if(address == null || addressName.equals("") || selectAddress == null ) {
+					mHandler.sendEmptyMessage(4);
+				}
+				else if(!selectAddress.getAddress().equals(address)) {
+					//更新商户
+					selectAddress.setAddress(address);
+					selectAddress.setMobile(initData.getString("mobile", null));
+					selectAddress.setUserName(initData.getString("username", null));	
+					mHandler.sendEmptyMessage(1);
+				}	
+			} else {
+				isLogin = false;
+				loadingBar.setVisibility(View.VISIBLE);
+				new LoadShopListThread(orderType, false).start();
 			}
-			else if(!selectAddress.getAddress().equals(address)) {
-				//更新商户
-				selectAddress.setAddress(address);
-				selectAddress.setMobile(initData.getString("mobile", null));
-				selectAddress.setUserName(initData.getString("username", null));	
-				mHandler.sendEmptyMessage(1);
-			}
-			
-			
-		}
+		} 
 	}
 
 	public void findWidget() {
@@ -145,13 +153,14 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		orderPriceButton = (Button) findViewById(R.id.class_3);
 		
 		loginButton = (Button) findViewById(R.id.userAccount);
-		mImageView = (ImageView) findViewById(R.id.setAddress);
 		mAddressTextView = (TextView) findViewById(R.id.search_address);
 				
 		shopListView = (ListView) findViewById(R.id.shopListView);
 		loadingBar = (ProgressBar) findViewById(R.id.loading);		
 		
 		noShopView = (TextView) findViewById(R.id.no_shop_tv);
+		
+		addressTab = (LinearLayout) findViewById(R.id.address_tab);
 	}
 	
 	public void setWidgetListenter() {
@@ -160,9 +169,9 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		orderPriceButton.setOnClickListener(this);
 		
 		loginButton.setOnClickListener(this);
-		mImageView.setOnClickListener(this);	
 		
 		shopListView.setOnItemClickListener(this);
+		addressTab.setOnClickListener(this);
 	}
 
 	public void setWidgetPosition() {
@@ -230,13 +239,14 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 			}
 			startActivity(mIntent);
 			break;
-		
+			
 		//更改收餐地址
-		case R.id.setAddress:
+		case R.id.address_tab:
 			Intent mIntent2 = new Intent();
 			if(isLogin) {
 				mIntent2.setClass(this, RecevoirAddressActivity.class);	
 				mIntent2.putExtra("activityName", "SearchActivity");
+				mIntent2.putExtra("userId", mUserInfo.getUserid());
 			} else {
 				mIntent2.setClass(this, LoginActivity.class);
 			}
@@ -294,30 +304,34 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				new LoadShopListThread(orderType, true).start();
 				break;
 				
+			case 5:
+				mAddressTextView.setText("请先点击这里,完善一个收餐地址");
+				break;
+				
 			case UserState.HANDLER_AUTO_LOGIN_SUCCESS:
 				if(isFirst) {
-					ToastHelper.showToastInBottom(SearchActivity.this, UserState.AUTO_LOGIN_SUCCESS, 0, 100);
+					ToastHelper.showToastInBottom(SearchActivity.this, UserState.AUTO_LOGIN_SUCCESS, 0);
 					isFirst = false;
 				}
 				break;
 				
 			case UserState.HANDLER_LOGIN_FAIL:
 				if(isFirst) {
-					ToastHelper.showToastInBottom(SearchActivity.this, UserState.LOGIN_FAIL, 0, 100);
+					ToastHelper.showToastInBottom(SearchActivity.this, UserState.LOGIN_FAIL, 0);
 					isFirst = false;
 				}
 				break;
 				
 			case UserState.HANDLER_LOGIN_SUCCESS:
 				if(isFirst) {
-					ToastHelper.showToastInBottom(SearchActivity.this, UserState.LOGIN_SUCCESS, 0, 100);
+					ToastHelper.showToastInBottom(SearchActivity.this, UserState.LOGIN_SUCCESS, 0);
 					isFirst = false;
 				}
 				break;
 				
 			case UserState.HANDLER_NO_NETWORK:
 				if(isFirst) {
-					ToastHelper.showToastInBottom(SearchActivity.this, UserState.NO_NETWORK, 0, 100);
+					ToastHelper.showToastInBottom(SearchActivity.this, UserState.NO_NETWORK, 0);
 					isFirst = false;
 				}
 				break;
@@ -371,6 +385,8 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 						mUserInfo = UserState.getUserInfo(mLogin.getUserName(), mLogin.getPasswdMD5());
 						mAddressList = getAddressList(mUserInfo.getUserid());
 						selectAddress = getDefaultAddress(mAddressList);
+						//保存用户登录状态
+						UserState.setLoginState(SearchActivity.this, true);
 					}
 				} else {
 					isLogin = true;
@@ -395,6 +411,8 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 					aid = 0;
 					sid = 0;
 					did = 0;
+					
+					mHandler.sendEmptyMessage(5);
 				}
 				searchType = 1;
 				getShotList();
@@ -528,12 +546,24 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		ShopInfo mInfo = shopInfoList.get(position);
-		Intent mIntent = new Intent(this, ShopInfoActivity.class);
-		mIntent.putExtra("shopInfo", mInfo);
-		mIntent.putExtra("userInfo", mUserInfo);
-		mIntent.putExtra("userAddress", selectAddress);
-		startActivity(mIntent);
+		
+		if(isLogin && (selectAddress == null || selectAddress.getAddress().split("\\|")[1].equals(""))) {
+			Intent mIntent2 = new Intent();
+			mIntent2.setClass(this, RecevoirAddressActivity.class);	
+			mIntent2.putExtra("activityName", "SearchActivity");
+			mIntent2.putExtra("userId", mUserInfo.getUserid());
+			startActivity(mIntent2);
+			
+			ToastHelper.showToastInBottom(this, "请先设置一个送餐地址", 0);
+			
+		} else {		
+			ShopInfo mInfo = shopInfoList.get(position);
+			Intent mIntent = new Intent(this, ShopInfoActivity.class);
+			mIntent.putExtra("shopInfo", mInfo);
+			mIntent.putExtra("userInfo", mUserInfo);
+			mIntent.putExtra("userAddress", selectAddress);
+			startActivity(mIntent);
+		}
 	}
 	
 	/**

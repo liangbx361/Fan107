@@ -73,7 +73,8 @@
                 android:layout_marginLeft="6.0dip"
                 android:layout_toRightOf="@id/username_icon"
                 android:background="#00000000"
-                android:hint="请输入用户名或邮箱"
+                android:hint="请输入用户名"
+                android:singleLine="true"
                 android:scrollHorizontally="true" />
         </RelativeLayout>
 
@@ -107,7 +108,8 @@
                 android:layout_toRightOf="@id/secret_icon"
                 android:background="#00000000"
                 android:hint="@string/password_hint"
-                android:password="true"
+                android:singleLine="true"
+                android:inputType="textPassword"
                 android:scrollHorizontally="true" />
         </RelativeLayout>
     </LinearLayout>
@@ -131,141 +133,14 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
+    <CheckBox
+        android:id="@id/login_auto_login"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10.0dip"
-        android:layout_marginLeft="10.0dip"
-        android:layout_marginRight="10.0dip" >
-
-        <TextView
-            android:id="@id/tv_find_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/btn_password_hover"
-            android:padding="4.0dip"
-            android:text=" 忘记密码，现在找回  >> "
-            android:textColor="@color/content_color"
-            android:textSize="15.0sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10.0dip"
-        android:layout_marginTop="10.0dip"
-        android:gravity="center"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="1.0dip"
-            android:layout_weight="5.0"
-            android:background="@color/bg_corners_border" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.0"
-            android:gravity="center"
-            android:text="或者用以下合作网站账号登陆"
-            android:textColor="@color/content_color"
-            android:textSize="15.0sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="1.0dip"
-            android:layout_weight="5.0"
-            android:background="@color/bg_corners_border" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8.0dip"
-        android:background="@drawable/bg_corners"
-        android:orientation="vertical"
-        android:padding="1.0dip" >
-
-        <RelativeLayout
-            android:id="@id/xinlang_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_corners_top"
-            android:gravity="center"
-            android:padding="12.0dip" >
-
-            <ImageView
-                android:id="@id/sina_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="4.0dip"
-                android:src="@drawable/ico_sina" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10.0dip"
-                android:layout_toRightOf="@id/sina_icon"
-                android:text="用新浪微博账号登陆"
-                android:textColor="@color/content_color"
-                android:textSize="17.0sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10.0dip"
-                android:src="@drawable/arrow_right" />
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="1.0dip"
-            android:background="@color/bg_corners_border" />
-
-        <RelativeLayout
-            android:id="@id/tengxun_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_corners_bottom"
-            android:gravity="center"
-            android:padding="12.0dip" >
-
-            <ImageView
-                android:id="@id/qq_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="4.0dip"
-                android:src="@drawable/ico_qq" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10.0dip"
-                android:layout_toRightOf="@id/qq_icon"
-                android:text="用腾讯微博账号登陆"
-                android:textColor="@color/content_color"
-                android:textSize="17.0sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10.0dip"
-                android:src="@drawable/arrow_right" />
-        </RelativeLayout>
-    </LinearLayout>
+        android:layout_gravity="right"
+        android:layout_marginRight="10.0dip"
+        android:text="自动登录"
+        android:textColor="#696969"
+        android:textSize="16sp" />
 
 </LinearLayout>

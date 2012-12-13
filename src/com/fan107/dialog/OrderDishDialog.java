@@ -25,6 +25,8 @@ public class OrderDishDialog extends Dialog implements ActivityTemplete,
 	private EditText numEditText;
 	private Button okButton;
 	private Button cancleButton;
+	
+	private boolean isConfirm = false;
 
 	public OrderDishDialog(Context context, OrderDish mOrderDish) {
 		super(context);
@@ -97,11 +99,11 @@ public class OrderDishDialog extends Dialog implements ActivityTemplete,
 			break;
 			
 		case R.id.order_dish_ok:
+			isConfirm = true;
 			dismiss();
 			break;
 			
 		case R.id.order_dish_cancel:
-			setOrderDishNull();
 			dismiss();
 			break;
 		}
@@ -110,9 +112,8 @@ public class OrderDishDialog extends Dialog implements ActivityTemplete,
 	public OrderDish getOrderDish() {
 		return mOrderDish;
 	}
-	
-	public void setOrderDishNull() {
-		mOrderDish = null;
-	}
 
+	public boolean isConfirm() {
+		return isConfirm;
+	}
 }

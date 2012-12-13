@@ -17,6 +17,7 @@ import com.fan107.config.UrlConfig;
 import com.fan107.config.WebServiceConfig;
 import com.fan107.data.UserInfo;
 import com.fan107.db.DBHelper;
+import com.widget.helper.ToastHelper;
 
 import common.connection.net.HttpClientUtil;
 import common.connection.net.NetWorkCheck;
@@ -38,6 +39,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -51,6 +53,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private LinearLayout loginButton;
 	private EditText userNameText;
 	private EditText passwordText;
+	private CheckBox mAutoLoginCheckView;
 	
 	private DBHelper dbHelper;
 
@@ -76,6 +79,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		loginButton = (LinearLayout) findViewById(R.id.loginbtn);
 		userNameText = (EditText) findViewById(R.id.email);
 		passwordText = (EditText) findViewById(R.id.password);
+		mAutoLoginCheckView = (CheckBox) findViewById(R.id.login_auto_login);
 	}
 
 	private void setListenter() {
@@ -208,8 +212,10 @@ public class LoginActivity extends Activity implements OnClickListener {
 			contentValues.put("username", username);
 			contentValues.put("userpass", passwordMD5);
 			contentValues.put("login_time", currentTime);
-			contentValues.put("auto_login", 1);
-			
+			if(mAutoLoginCheckView.isChecked())
+				contentValues.put("auto_login", 1);
+			else 
+				contentValues.put("auto_login", 0);
 			dbHelper.insertOrUpdate(DBHelper.USER_LOGIN_TABLE_NAME, contentValues, "username", "String");
 		}
 		
@@ -302,15 +308,15 @@ public class LoginActivity extends Activity implements OnClickListener {
 			switch (msg.what) {
 			case CHECK_STATE:
 				boolean state = ((Boolean) msg.obj).booleanValue();
-				if (state) {
-					showToast(LoginActivity.this, "登录成功");
-					// 跳转到用户帐户页面
-//					Intent mIntent = new Intent(LoginActivity.this, UserAccountActivity.class);
-//					mIntent.putExtra("userInfo", mUserInfo);
-//					startActivity(mIntent);
+				if (state) {					
+					SharedPreferences initData = LoginActivity.this.getSharedPreferences("account", Activity.MODE_PRIVATE);
+					Editor mEditor = initData.edit();
+					mEditor.putString("address", mUserInfo.getAddress());
+					mEditor.commit();
 					
 					UserState.setLoginState(LoginActivity.this, true);
 					UserState.setRefreshState(LoginActivity.this, true);
+					ToastHelper.showToastInBottom(LoginActivity.this, "登录成功", 0);
 								
 					// 跳转到之前的页面
 					onBackPressed();

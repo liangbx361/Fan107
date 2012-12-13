@@ -68,7 +68,6 @@ public class AddressAddActivity extends Activity implements ActivityTemplete, On
 	private int aid;
 	private int sid;
 	private int did;
-	private int userid;
 	
 	private ProgressDialog mProgressDialog;
 	
@@ -79,7 +78,6 @@ public class AddressAddActivity extends Activity implements ActivityTemplete, On
 		setContentView(R.layout.address_add_activity);
 		
 		mAddress = (UserAddress) getIntent().getSerializableExtra("useraddress");
-		userid = getIntent().getIntExtra("userid", -1);
 		if(mAddress != null) isInitSate = true;
 
 		findWidget();
@@ -423,7 +421,7 @@ public class AddressAddActivity extends Activity implements ActivityTemplete, On
 		
 		JSONObject jObject = new JSONObject();
 		try {
-			jObject.put("userid", userid);
+			jObject.put("userid", mAddress.getUserId());
 			jObject.put("username", nameStr);
 			jObject.put("mobile", telephoneStr);
 			jObject.put("address", addressBuilder.toString());
@@ -440,7 +438,7 @@ public class AddressAddActivity extends Activity implements ActivityTemplete, On
 		if(result.getPropertyAsString(0).equals("ok")) {
 			//存储到本地数据库中
 			ContentValues contentValues = new ContentValues();
-			contentValues.put("userid", userid);
+			contentValues.put("userid", mAddress.getUserId());
 			contentValues.put("username", nameStr);
 			contentValues.put("mobile", telephoneStr);
 			contentValues.put("address", addressBuilder.toString());
@@ -465,7 +463,7 @@ public class AddressAddActivity extends Activity implements ActivityTemplete, On
 		JSONObject jObject = new JSONObject();
 		try {
 			jObject.put("id", mAddress.getId());
-			jObject.put("userid", userid);
+			jObject.put("userid", mAddress.getUserId());
 			jObject.put("username", nameStr);
 			jObject.put("mobile", telephoneStr);
 			jObject.put("address", addressBuilder.toString());
