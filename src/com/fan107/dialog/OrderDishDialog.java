@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class OrderDishDialog extends Dialog implements ActivityTemplete,
@@ -22,9 +23,9 @@ public class OrderDishDialog extends Dialog implements ActivityTemplete,
 	private TextView newPriceTextView;
 	private Button addButton;
 	private Button subButton;
-	private EditText numEditText;
-	private Button okButton;
-	private Button cancleButton;
+	private TextView numEditText;
+	private LinearLayout okButton;
+	private LinearLayout cancleButton;
 	
 	private boolean isConfirm = false;
 
@@ -55,10 +56,10 @@ public class OrderDishDialog extends Dialog implements ActivityTemplete,
 
 		addButton = (Button) findViewById(R.id.order_dish_add_num);
 		subButton = (Button) findViewById(R.id.order_dish_sub_num);
-		okButton = (Button) findViewById(R.id.order_dish_ok);
-		cancleButton = (Button) findViewById(R.id.order_dish_cancel);
+		okButton = (LinearLayout) findViewById(R.id.order_dish_ok);
+		cancleButton = (LinearLayout) findViewById(R.id.order_dish_cancel);
 
-		numEditText = (EditText) findViewById(R.id.order_dish_num);
+		numEditText = (TextView) findViewById(R.id.order_dish_num);
 	}
 
 	public void setWidgetListenter() {
