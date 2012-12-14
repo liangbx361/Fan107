@@ -45,6 +45,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:gravity="center_vertical"
                         android:singleLine="true"
                         android:text="口味:"
@@ -55,6 +56,7 @@
                         android:id="@id/shop_detail_flavor_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:gravity="center_vertical"
                         android:text="4 "
                         android:textColor="#FF6347"
@@ -63,6 +65,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:gravity="center_vertical"
                         android:text="环境:"
                         android:textColor="#696969"
@@ -72,6 +75,7 @@
                         android:id="@id/shop_detail_environment_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:gravity="center_vertical"
                         android:text="4 "
                         android:textColor="#FF6347"
@@ -80,6 +84,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:gravity="center_vertical"
                         android:text="服务:"
                         android:textColor="#696969"
@@ -89,18 +94,19 @@
                         android:id="@id/shop_detail_server_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:gravity="center_vertical"
                         android:text="4 "
                         android:textColor="#FF6347"
                         android:textSize="16sp" />
 
-                    <RatingBar
-                        android:id="@id/shop_detail_point_ratingbar"
-                        style="@style/ShopRatingBarStyle"
+                    <ImageView
+                        android:id="@id/shop_detail_star"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical" 
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/star0" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -128,7 +134,7 @@
                         android:text="元起送 "
                         android:textColor="#696969"
                         android:textSize="16sp" />
-                    
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -162,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:orientation="horizontal" >
-                    
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -189,7 +195,7 @@
                         android:text="分种到达 "
                         android:textColor="#696969"
                         android:textSize="16sp" />
-                    
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -253,14 +259,14 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:orientation="horizontal" >
-                    
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="联系电话："
                         android:textColor="#696969"
                         android:textSize="16sp" />
-                    
+
                     <TextView
                         android:id="@id/shop_detail_phone"
                         android:layout_width="wrap_content"
@@ -268,7 +274,6 @@
                         android:text="0591-87550466"
                         android:textColor="#696969"
                         android:textSize="16sp" />
-                    
                 </LinearLayout>
 
                 <LinearLayout
@@ -276,14 +281,14 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:orientation="horizontal" >
-                    
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="地址："
                         android:textColor="#696969"
                         android:textSize="16sp" />
-                    
+
                     <TextView
                         android:id="@id/shop_detail_address"
                         android:layout_width="wrap_content"
@@ -291,8 +296,7 @@
                         android:text=""
                         android:textColor="#696969"
                         android:textSize="16sp" />
-                    
-                </LinearLayout>                
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

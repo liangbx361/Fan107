@@ -5,8 +5,8 @@
     android:orientation="horizontal" >
 
     <RelativeLayout 
-        android:layout_width="180px"
-        android:layout_height="120px" 
+        android:layout_width="120dp"
+        android:layout_height="80dp" 
         android:background="@drawable/default_pic_bg"
         android:clipChildren="true"
         android:clipToPadding="true"
@@ -24,14 +24,15 @@
     
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="120px"
+        android:layout_height="80dp"
         android:layout_margin="5dp"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/shop_name"
             android:layout_width="wrap_content"
-            android:layout_height="60px"
+            android:layout_height="wrap_content"
+            android:lines="2"
             android:text="TextView" 
             android:textSize="16sp"
             android:textColor="#696969"/>

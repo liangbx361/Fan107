@@ -1341,6 +1341,7 @@
     <!-- dish_list -->
     <item name="dish_name" type="id">false</item>
     <item name="dish_price" type="id">fase</item>
+    <item name="dish_price_util" type="id">false</item>
 
     <!-- dishes_lst -->
     <item name="dishs_name" type="id">false</item>
@@ -1440,7 +1441,6 @@
     <item name="shop_detail_flavor_point" type="id">false</item>
     <item name="shop_detail_environment_point" type="id">false</item>
     <item name="shop_detail_server_point" type="id">false</item>
-    <item name="shop_detail_point_ratingbar" type="id">false</item>
     <item name="shop_detail_limitPrice" type="id">false</item>
     <item name="shop_detail_sendPrice" type="id">false</item>
     <item name="shop_detail_send_time" type="id">false</item>
@@ -1449,6 +1449,7 @@
     <item name="shop_detail_scheduled_time" type="id">false</item>
     <item name="shop_detail_phone" type="id">false</item>
     <item name="shop_detail_address" type="id">false</item>
+    <item name="shop_detail_star" type="id">false</item>
 
     <!-- shop_list_item -->
     <item name="shop_pic" type="id">false</item>

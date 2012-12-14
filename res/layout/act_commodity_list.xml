@@ -103,7 +103,7 @@
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@id/main_tab"
+        android:layout_above="@id/address_tab"
         android:layout_below="@id/table_row" >
 
         <ProgressBar

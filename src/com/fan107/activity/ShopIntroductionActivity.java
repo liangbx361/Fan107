@@ -21,7 +21,7 @@ public class ShopIntroductionActivity extends Activity implements ActivityTemple
 	private TextView flavorPoint;
 	private TextView environmentPoint;
 	private TextView serverPoint;
-	private RatingBar mPointBar;
+	private ImageView mStarView;
 	
 	private TextView limitPrice;
 	private TextView sendPrice;
@@ -33,6 +33,14 @@ public class ShopIntroductionActivity extends Activity implements ActivityTemple
 	
 	private TextView phone;
 	private TextView addressView;
+	
+	private static final int[] starId = {
+		R.drawable.star0, R.drawable.star10,
+		R.drawable.star15, R.drawable.star20,
+		R.drawable.star25, R.drawable.star30,
+		R.drawable.star35, R.drawable.star40,
+		R.drawable.star45, R.drawable.star50,
+	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +63,7 @@ public class ShopIntroductionActivity extends Activity implements ActivityTemple
 		flavorPoint = (TextView) findViewById(R.id.shop_detail_flavor_point);
 		environmentPoint = (TextView) findViewById(R.id.shop_detail_environment_point);
 		serverPoint = (TextView) findViewById(R.id.shop_detail_server_point);
-		mPointBar = (RatingBar) findViewById(R.id.shop_detail_point_ratingbar);
+		mStarView = (ImageView) findViewById(R.id.shop_detail_star);
 		
 		limitPrice = (TextView) findViewById(R.id.shop_detail_limitPrice);
 		sendPrice = (TextView) findViewById(R.id.shop_detail_sendPrice);
@@ -91,8 +99,8 @@ public class ShopIntroductionActivity extends Activity implements ActivityTemple
 		flavorPoint.setText(mInfo.getSumtastepoint() + " ");
 		environmentPoint.setText(mInfo.getSummilieupoint() + " ");
 		serverPoint.setText(mInfo.getSumservicepoint() + " ");		
-		float rate = (mInfo.getSumtastepoint() + mInfo.getSummilieupoint() + mInfo.getSumservicepoint())/3;
-		mPointBar.setRating(rate); 
+		int rate = (mInfo.getSumtastepoint() + mInfo.getSummilieupoint() + mInfo.getSumservicepoint())/3;
+		mStarView.setImageDrawable(getResources().getDrawable(starId[rate]));
 		
 		limitPrice.setText(mInfo.getLimitprice() + "");
 		sendPrice.setText(mInfo.getSendprice() + "");

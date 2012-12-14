@@ -445,112 +445,14 @@
                     android:layout_width="fill_parent"
                     android:layout_height="1.0dip"
                     android:background="@color/bg_corners_border" />
-
-                <RelativeLayout
-                    android:id="@id/pingjia_layout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="1.0dip"
-                    android:layout_marginRight="1.0dip"
-                    android:background="@drawable/bg_corners_center"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="10.0dip" >
-
-                    <ImageView
-                        android:id="@id/ico_more_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="5.0dip"
-                        android:src="@drawable/arrow_right" />
-
-                    <ImageView
-                        android:id="@id/pingjia_ico"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ico_account_grade" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="6.0dip"
-                        android:layout_toRightOf="@id/pingjia_ico"
-                        android:text="推荐评分"
-                        android:textColor="@color/content_color"
-                        android:textSize="17.0sp" />
-                </RelativeLayout>
-
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="1.0dip"
-                    android:background="@color/bg_corners_border" />
-
-                <RelativeLayout
-                    android:id="@id/kefu_layout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="1.0dip"
-                    android:layout_marginRight="1.0dip"
-                    android:background="@drawable/bg_corners_center"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="10.0dip" >
-
-                    <ImageView
-                        android:id="@id/kefu_icom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="5.0dip"
-                        android:src="@drawable/arrow_right" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="5.0dip"
-                        android:layout_toLeftOf="@id/kefu_icom"
-                        android:text="4000-517-317"
-                        android:textColor="@color/content_color"
-                        android:textSize="17.0sp" />
-
-                    <ImageView
-                        android:id="@id/pingjia_ico"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ico_account_tel" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="6.0dip"
-                        android:layout_toRightOf="@id/pingjia_ico"
-                        android:text="拉手客服"
-                        android:textColor="@color/content_color"
-                        android:textSize="17.0sp" />
-                </RelativeLayout>
-
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="1.0dip"
-                    android:background="@color/bg_corners_border" />
-
+          
                 <RelativeLayout
                     android:id="@id/about_us_layout"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="1.0dip"
                     android:layout_marginRight="1.0dip"
-                    android:background="@drawable/bg_corners_center"
+                    android:background="@drawable/bg_corners_bottom"
                     android:clickable="true"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -583,50 +485,6 @@
                         android:textSize="17.0sp" />
                 </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="1.0dip"
-                    android:background="@color/bg_corners_border" />
-
-                <RelativeLayout
-                    android:id="@id/more_soft_layout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1.0dip"
-                    android:layout_marginLeft="1.0dip"
-                    android:layout_marginRight="1.0dip"
-                    android:background="@drawable/bg_corners_bottom"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:padding="10.0dip" >
-
-                    <ImageView
-                        android:id="@id/ico_more_soft"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="5.0dip"
-                        android:src="@drawable/arrow_right" />
-
-                    <ImageView
-                        android:id="@id/tuijian_ico"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/more_app" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="6.0dip"
-                        android:layout_toLeftOf="@id/ico_more_soft"
-                        android:layout_toRightOf="@id/tuijian_ico"
-                        android:text="精彩应用"
-                        android:textColor="@color/content_color"
-                        android:textSize="17.0sp" />
-                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

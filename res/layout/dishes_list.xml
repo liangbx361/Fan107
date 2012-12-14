@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:text="川菜"
-        android:textSize="22sp" 
+        android:textSize="20sp" 
         android:textColor="#696969"/>
 
 </LinearLayout>

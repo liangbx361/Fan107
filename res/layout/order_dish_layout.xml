@@ -31,7 +31,7 @@
                 android:singleLine="true"
                 android:text="香菇青菜粥"
                 android:textColor="#696969"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
             
             <TextView
                 android:id="@id/order_dish_untis"
@@ -43,7 +43,7 @@
                 android:singleLine="true"
                 android:text="/份"
                 android:textColor="#696969"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
             
             <TextView
                 android:id="@id/order_dish_old_price"
@@ -53,7 +53,7 @@
                 android:layout_toLeftOf="@id/order_dish_untis"
                 android:text="20"
                 android:textColor="#CD5C5C"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
             
             <TextView
                 android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
                 android:layout_toLeftOf="@id/order_dish_old_price"
                 android:text="￥"
                 android:textColor="#CD5C5C"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
             
         </RelativeLayout>
 
@@ -81,7 +81,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="小计："
                 android:textColor="#696969"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
             
             <TextView
                 android:id="@id/order_dish_total_symbol"
@@ -91,7 +91,7 @@
                 android:layout_toRightOf="@id/order_dish_total"
                 android:text="￥"
                 android:textColor="#CD5C5C"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
             
             <TextView
                 android:id="@id/order_dish_total_price"
@@ -101,7 +101,7 @@
                 android:layout_toRightOf="@id/order_dish_total_symbol"
                 android:text="20"
                 android:textColor="#CD5C5C"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@id/order_dish_add_num"
@@ -121,7 +121,7 @@
                 android:layout_toLeftOf="@id/order_dish_add_num"
                 android:text="20"
                 android:textColor="#696969"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@id/order_dish_sub_num"

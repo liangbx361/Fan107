@@ -15,8 +15,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="10.0dip" >
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -36,25 +35,26 @@
 
                 <TextView
                     android:id="@id/order_address_1"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5.0dip"
                     android:background="#00000000"
                     android:gravity="center_vertical"
                     android:scrollHorizontally="true"
                     android:text="鼓楼区五四路国泰大厦"
-                    android:textSize="17.0sp" />
+                    android:textSize="16.0sp" 
+                    android:textColor="#696969"/>
 
                 <EditText
                     android:id="@id/order_address_2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5.0dip"
-                    android:background="#00000000"
                     android:gravity="center_vertical"
                     android:inputType="text"
-                    android:text=""
-                    android:textSize="17.0sp" />
+                    android:hint="请填写楼层信息"
+                    android:textColor="#696969"
+                    android:textSize="16.0sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -62,8 +62,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="10.0dip" >
+            android:orientation="horizontal" 
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
                 android:gravity="center_vertical"
                 android:text="联系人："
                 android:textColor="#ffb4b4b4"
-                android:textSize="17.0sp"
+                android:textSize="16.0sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -80,18 +80,18 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5.0dip"
-                android:background="#00000000"
                 android:gravity="center_vertical"
                 android:scrollHorizontally="true"
-                android:textSize="17.0sp" />
+                android:textSize="16.0sp" 
+                android:textColor="#696969"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="10.0dip" >
+            android:orientation="horizontal" 
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
                 android:gravity="center_vertical"
                 android:text="手机号："
                 android:textColor="#ffb4b4b4"
-                android:textSize="17.0sp"
+                android:textSize="16.0sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -108,18 +108,18 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5.0dip"
-                android:background="#00000000"
                 android:gravity="center_vertical"
                 android:scrollHorizontally="true"
-                android:textSize="17.0sp" />
+                android:textSize="16.0sp" 
+                android:textColor="#696969"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="10.0dip" >
+            android:orientation="horizontal" 
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -128,7 +128,7 @@
                 android:gravity="center_vertical"
                 android:text="送餐时间："
                 android:textColor="#ffb4b4b4"
-                android:textSize="17.0sp"
+                android:textSize="16.0sp"
                 android:textStyle="bold" />
 
             <Spinner
@@ -151,24 +151,24 @@
 
             <Button
                 android:id="@+id/order_address_confirm"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginRight="5dp"
                 android:background="@drawable/btn_bg"
                 android:text="确认"
                 android:textColor="@color/white"
-                android:textSize="17.0sp"
+                android:textSize="16.0sp"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/order_address_cancle"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
                 android:background="@drawable/btn_bg"
                 android:text="取消"
                 android:textColor="@color/white"
-                android:textSize="17.0sp"
+                android:textSize="16.0sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
