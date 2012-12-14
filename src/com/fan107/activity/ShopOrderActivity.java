@@ -24,9 +24,12 @@ import common.connection.net.WebServiceUtil;
 
 import android.app.Activity;
 import android.app.ExpandableListActivity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -77,9 +80,12 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 		// new String[]{"dishName", }, new int[]{R.id.dish_name});
 
 		setWidgetAttribute();
+		
+		IntentFilter intentFilter = new IntentFilter("fan107.orderCar_1");
+		registerReceiver(mReceiver, intentFilter);  
 
 	}
-
+	
 	public void findWidget() {
 		mListView = getExpandableListView();
 	}
@@ -272,7 +278,21 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 			String message = "已点" + mOrderDish.getDishName() + " "
 					+ mOrderDish.getOrderNum() + "份";
 			ToastHelper.showToastInBottom(this, message, 0);
+			
+			//发送一个广播更新餐车信息
+			Intent intent = new Intent();
+			intent.putExtra("orderCar", mCar);
+			intent.setAction("fan107.orderCar_1");
+			sendBroadcast(intent);
 		}
 	}
+	
+	BroadcastReceiver mReceiver = new BroadcastReceiver() {
+		
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			mCar = (OrderCar) intent.getSerializableExtra("orderCar");
+		}
+	};
 
 }

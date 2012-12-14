@@ -20,7 +20,7 @@ public class OrderDishDialog extends Dialog implements ActivityTemplete,
 
 	private TextView orderNameTextView;
 	private TextView oldPriceTextView;
-	private TextView newPriceTextView;
+	private TextView totalPriceView;
 	private Button addButton;
 	private Button subButton;
 	private TextView numEditText;
@@ -52,7 +52,7 @@ public class OrderDishDialog extends Dialog implements ActivityTemplete,
 	public void findWidget() {
 		orderNameTextView = (TextView) findViewById(R.id.order_dish_name);
 		oldPriceTextView = (TextView) findViewById(R.id.order_dish_old_price);
-		newPriceTextView = (TextView) findViewById(R.id.order_dish_new_price);
+		totalPriceView = (TextView) findViewById(R.id.order_dish_total_price);
 
 		addButton = (Button) findViewById(R.id.order_dish_add_num);
 		subButton = (Button) findViewById(R.id.order_dish_sub_num);
@@ -76,9 +76,8 @@ public class OrderDishDialog extends Dialog implements ActivityTemplete,
 	public void setWidgetAttribute() {
 		if (mOrderDish != null) {
 			orderNameTextView.setText(mOrderDish.getDishName());
-			oldPriceTextView.setText(mOrderDish.getOldPrice()
-					* mOrderDish.getOrderNum() + "");
-			newPriceTextView.setText(mOrderDish.getNewPrice()
+			oldPriceTextView.setText(mOrderDish.getOldPrice() + "");
+			totalPriceView.setText(mOrderDish.getOldPrice()
 					* mOrderDish.getOrderNum() + "");
 
 			numEditText.setText(mOrderDish.getOrderNum() + "");
@@ -95,7 +94,8 @@ public class OrderDishDialog extends Dialog implements ActivityTemplete,
 			break;
 			
 		case R.id.order_dish_sub_num:
-			mOrderDish.setOrderNum(mOrderDish.getOrderNum() - 1);
+			if(mOrderDish.getOrderNum() > 1) 
+				mOrderDish.setOrderNum(mOrderDish.getOrderNum() - 1);
 			setWidgetAttribute();
 			break;
 			

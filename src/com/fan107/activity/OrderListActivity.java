@@ -1,6 +1,5 @@
 package com.fan107.activity;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,19 +7,19 @@ import java.util.Map;
 
 import org.ksoap2.serialization.SoapObject;
 
-import com.fan107.R;
-import com.fan107.config.WebServiceConfig;
-import com.fan107.data.OrderInfo;
-import com.fan107.data.UserInfo;
-import com.lbx.templete.ActivityTemplete;
-import common.connection.net.WebServiceUtil;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.fan107.R;
+import com.fan107.config.WebServiceConfig;
+import com.fan107.data.OrderInfo;
+import com.fan107.data.UserInfo;
+import com.lbx.templete.ActivityTemplete;
+import common.connection.net.WebServiceUtil;
 
 public class OrderListActivity extends Activity implements ActivityTemplete {
 	

@@ -47,6 +47,23 @@ public class OrderCar implements Serializable{
 		if(isNew) mCar.add(dish);
 	}
 	
+	public void addItemNum(int location) {
+		OrderDish chiDish = mCar.get(location);
+		chiDish.setOrderNum(chiDish.getOrderNum()+1);
+	}
+	
+	/**
+	 * 删除订单数, 如果为0则删除
+	 * @param location
+	 */
+	public void subItemNum(int location) {
+		OrderDish chiDish = mCar.get(location);
+		if(chiDish.getOrderNum() > 1) 
+			chiDish.setOrderNum(chiDish.getOrderNum()-1);
+		else
+			removeItem(location);
+	}
+	
 	public void removeItem(int location) {
 		mCar.remove(location);
 	}

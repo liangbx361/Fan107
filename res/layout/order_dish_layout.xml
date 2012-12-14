@@ -14,126 +14,137 @@
         android:background="@drawable/btn_clean_a"
         android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/default_pic_bg" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/textview_bg"
             android:orientation="horizontal" >
 
             <TextView
                 android:id="@id/order_dish_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
                 android:singleLine="true"
                 android:text="香菇青菜粥"
                 android:textColor="#696969"
-                android:textSize="16sp" />
+                android:textSize="20sp" />
+            
+            <TextView
+                android:id="@id/order_dish_untis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:singleLine="true"
+                android:text="/份"
+                android:textColor="#696969"
+                android:textSize="20sp" />
+            
+            <TextView
+                android:id="@id/order_dish_old_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/order_dish_untis"
+                android:text="20"
+                android:textColor="#CD5C5C"
+                android:textSize="20sp" />
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/order_dish_old_price"
+                android:text="￥"
+                android:textColor="#CD5C5C"
+                android:textSize="20sp" />
+            
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_bg" 
+            android:layout_gravity="center_vertical">
+            
+            <TextView
+                android:id="@id/order_dish_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:text="小计："
+                android:textColor="#696969"
+                android:textSize="20sp" />
+            
+            <TextView
+                android:id="@id/order_dish_total_symbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/order_dish_total"
+                android:text="￥"
+                android:textColor="#CD5C5C"
+                android:textSize="20sp" />
+            
+            <TextView
+                android:id="@id/order_dish_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/order_dish_total_symbol"
+                android:text="20"
+                android:textColor="#CD5C5C"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@id/order_dish_add_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/diancan_commit_btn_plus_selector" />
+
+            <TextView
+                android:id="@id/order_dish_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@id/order_dish_add_num"
+                android:text="20"
+                android:textColor="#696969"
+                android:textSize="20sp" />
 
             <Button
                 android:id="@id/order_dish_sub_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/jianhao" />
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:layout_toLeftOf="@id/order_dish_num"
+                android:background="@drawable/diancan_commit_btn_minus_selector" />
 
-            <TextView
-                android:id="@id/order_dish_num"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="20"
-                android:textColor="#696969"
-                android:textSize="16sp" >
-            </TextView>
-
-            <Button
-                android:id="@id/order_dish_add_num"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/jiahao" />
-            
-            <TextView
-                android:id="@id/order_dish_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="份"
-                android:textColor="#696969"
-                android:textSize="16sp" />
-            
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" 
-            android:layout_gravity="center"
-            android:padding="5dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="原价: "
-                    android:textColor="@color/lightgray" />
-
-                <TextView
-                    android:id="@id/order_dish_old_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="20.0" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="元" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="会员价: " />
-
-                <TextView
-                    android:id="@id/order_dish_new_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="20.0" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="元" />
-            </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
 
             <LinearLayout
                 android:id="@id/order_dish_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10.0dip"
                 android:layout_marginLeft="10.0dip"
                 android:layout_marginRight="10.0dip"
                 android:background="@drawable/btn_bg"
@@ -152,7 +163,6 @@
                 android:id="@id/order_dish_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10.0dip"
                 android:layout_marginLeft="10.0dip"
                 android:layout_marginRight="10.0dip"
                 android:background="@drawable/btn_bg"

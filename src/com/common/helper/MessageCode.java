@@ -26,4 +26,11 @@ public interface MessageCode {
 	final int PASSWORD_CHANGE_SUCCESS = 9;
 	//密码修改失败, 请重试
 	final int PASSWORD_CHANGE_ERROR = 10;
+	
+	//删除个数
+	final int ADD_NUM = 11;
+	//增加个娄
+	final int SUB_NUM = 12;
+	//回传的ordercar
+	final int RETURN_ORDER_CAR = 13;
 }

@@ -1,43 +1,38 @@
 package com.fan107.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.ksoap2.serialization.SoapObject;
 
-import com.common.helper.TimeHelp;
-import com.fan107.R;
-import com.fan107.common.OrderState;
-import com.fan107.common.UserState;
-import com.fan107.config.WebServiceConfig;
-import com.fan107.data.OrderCar;
-import com.fan107.data.ShopInfo;
-import com.fan107.data.Product;
-import com.fan107.data.ProductType;
-import com.fan107.data.UserAddress;
-import com.fan107.data.UserInfo;
-import com.fan107.db.DBHelper;
-import com.lbx.templete.ActivityTemplete;
-import com.widget.helper.ToastHelper;
-
-import common.connection.net.WebServiceUtil;
-
-import android.app.Activity;
 import android.app.ActivityGroup;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.LabeledIntent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.common.helper.MessageCode;
+import com.fan107.R;
+import com.fan107.common.OrderState;
+import com.fan107.common.UserState;
+import com.fan107.config.WebServiceConfig;
+import com.fan107.data.OrderCar;
+import com.fan107.data.Product;
+import com.fan107.data.ProductType;
+import com.fan107.data.ShopInfo;
+import com.fan107.data.UserAddress;
+import com.fan107.data.UserInfo;
+import com.lbx.templete.ActivityTemplete;
+import com.widget.helper.ToastHelper;
+import common.connection.net.WebServiceUtil;
 
 public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete, OnClickListener{
 	private List<Map<String, List<Product>>> ProductList;
@@ -79,6 +74,9 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		
 		LoadProductThread mThread = new LoadProductThread();
 		mThread.start();
+		
+		IntentFilter intentFilter = new IntentFilter("fan107.orderCar_1");
+		registerReceiver(mReceiver, intentFilter);  
 	}
 	
 	private OrderCar OrderCarInit() {
@@ -180,7 +178,7 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 					Intent orderCar = new Intent(ShopInfoActivity.this, OrderCarActivity.class);
 					orderCar.putExtra("shopInfo", mInfo);
 					orderCar.putExtra("orderCar", mCar);
-					startActivity(orderCar);
+					startActivityForResult(orderCar, MessageCode.RETURN_ORDER_CAR); 
 				} else {
 					ToastHelper.showToastInBottom(this, "非订餐时段,请自行电话定餐", 0);
 				}
@@ -192,6 +190,24 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		}
 	}
 			
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if(requestCode == MessageCode.RETURN_ORDER_CAR && resultCode == MessageCode.RETURN_ORDER_CAR 
+				&& data != null) {
+			mCar = (OrderCar) data.getSerializableExtra("orderCar");
+			
+			//发送一个广播更新餐车信息
+			Intent intent = new Intent();
+			intent.putExtra("orderCar", mCar);
+			intent.setAction("fan107.orderCar");
+			sendBroadcast(intent);
+		}
+	}
+	
+	
+	
 	class LoadProductThread extends Thread {
 
 		@Override
@@ -274,5 +290,13 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		shopOrder.setBackgroundDrawable(null);
 		shopComment.setBackgroundDrawable(null);
 	}
-
+	
+	
+	BroadcastReceiver mReceiver = new BroadcastReceiver() {
+		
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			mCar = (OrderCar) intent.getSerializableExtra("orderCar");
+		}
+	};
 }

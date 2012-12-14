@@ -10,6 +10,7 @@ import org.ksoap2.serialization.SoapObject;
 import com.fan107.R;
 import com.fan107.config.WebServiceConfig;
 import com.fan107.data.OrderCar;
+import com.fan107.data.OrderDish;
 import com.lbx.templete.ActivityTemplete;
 import common.connection.net.WebServiceUtil;
 
@@ -51,6 +52,12 @@ public class OrderAddressDialog extends Dialog implements ActivityTemplete, andr
 	
 	public OrderAddressDialog(Context context, OrderCar orderCar) {
 		super(context);
+		mCar = orderCar;
+		this.context = context;
+	}
+	
+	public OrderAddressDialog(Context context, int theme, OrderCar orderCar) {
+		super(context, theme);
 		mCar = orderCar;
 		this.context = context;
 	}

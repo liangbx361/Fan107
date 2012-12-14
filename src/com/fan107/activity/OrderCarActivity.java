@@ -1,46 +1,40 @@
 package com.fan107.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.ksoap2.serialization.SoapObject;
-
-import com.fan107.R;
-import com.fan107.activity.RecevoirAddressActivity.MyAdapter;
-import com.fan107.config.WebServiceConfig;
-import com.fan107.data.OrderCar;
-import com.fan107.data.OrderDish;
-import com.fan107.data.ShopInfo;
-import com.fan107.dialog.OrderAddressDialog;
-import com.lbx.templete.ActivityTemplete;
-import com.widget.helper.ToastHelper;
-import common.connection.net.WebServiceUtil;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.common.helper.MessageCode;
+import com.fan107.R;
+import com.fan107.data.OrderCar;
+import com.fan107.data.OrderDish;
+import com.fan107.data.ShopInfo;
+import com.fan107.dialog.OrderAddressDialog;
+import com.lbx.templete.ActivityTemplete;
+import com.widget.helper.ToastHelper;
+
 public class OrderCarActivity extends Activity implements ActivityTemplete, OnClickListener, OnDismissListener{
+	
 	private ListView orderList;
 	private Button orderButton;
 	private TextView totalOldPrice;
@@ -49,7 +43,6 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 	private List<List<Button>> mList;
 	List<Map<String, String>> listData;
 	
-	private SimpleAdapter adapter;
 	private ShopInfo mInfo;
 	private OrderCar mCar;
 		
@@ -101,27 +94,34 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 	public void onClick(View v) {
 		
 		switch(v.getId()) {
+		//增加
 		case R.id.order_list_dish_add_num:
+			for(int i=0; i<mList.size(); i++) {
+				List<Button> mData = mList.get(i);
+				if(v.equals( mData.get(0) ) ) {
+					mCar.addItemNum(i);
+					mHandler.sendEmptyMessage(MessageCode.ADD_NUM);
+				}
+			}
 			break;
-			
+		
+		//删除
 		case R.id.order_list_dish_sub_num:
+			for(int i=0; i<mList.size(); i++) {
+				List<Button> mData = mList.get(i);
+				if(v.equals( mData.get(1) ) ) {
+					mCar.subItemNum(i);
+					mHandler.sendEmptyMessage(MessageCode.SUB_NUM);
+				}
+			}
 			break;
 			
 		case R.id.order_car_order_btn:
 			if( checkOrder() ) {
-				Dialog dialog = new OrderAddressDialog(this, mCar);
+				Dialog dialog = new OrderAddressDialog(this, R.style.myDialogTheme, mCar);
 				dialog.setOnDismissListener(this);
 				dialog.show();
 			}
-			
-			//生成订单, 向服务器发送订单
-//			if( checkOrder() ) {
-//				String carJson = mCar.getJsonString();
-//				Map<String, Object> data = new HashMap<String, Object>();
-//				data.put("orderMesage", carJson);
-//				String url = WebServiceConfig.url + WebServiceConfig.ORDER_CHECK_WEB_SERVICE;
-//				SoapObject result = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.GENERATE_ORDER_METHOD, data);
-//			}
 			break;
 		}
 	}
@@ -133,6 +133,16 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 		}
 	}
 	
+	
+	
+	@Override
+	public void onBackPressed() {
+		Intent intent=new Intent();  
+        intent.putExtra("orderCar", mCar);  
+        setResult(MessageCode.RETURN_ORDER_CAR, intent);
+        finish();
+	}
+
 	private boolean checkOrder() {
 		if(mCar.getTotalOldPrice() >= mInfo.getLimitprice()) {				
 			//判断是否拥有足够的积分			
@@ -156,12 +166,32 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 
 		@Override
 		public void handleMessage(Message msg) {
-
+			
+			switch(msg.what) {
+			case MessageCode.ADD_NUM:
+			case MessageCode.SUB_NUM:
+				layoutView.clear();
+				mList.clear();
+				listData.clear();
+				listData = getCarListData(mCar);
+				
+				orderList.setAdapter(new MyAdapter(OrderCarActivity.this, listData, 
+						R.layout.order_car_list, 
+						new String[]{"disName", "dishNum"}, 
+						new int[]{R.id.order_list_dish_name, R.id.order_list_dish_num}));
+				
+				orderList.removeAllViewsInLayout();
+				orderList.requestLayout();
+				
+				totalOldPrice.setText(mCar.getTotalOldPrice()+"");
+				totalNewPrice.setText(mCar.getTotalNewPrice()+"");
+				break;
+			}
 		}
 		
 	};
 	
-	private class MyAdapter extends SimpleAdapter {
+	public class MyAdapter extends SimpleAdapter {
 
 		public MyAdapter(Context context, List<? extends Map<String, ?>> data,
 				int resource, String[] from, int[] to) {

@@ -1393,6 +1393,10 @@
     <item name="order_dish_new_price" type="id">false</item>
     <item name="order_dish_ok" type="id">false</item>
     <item name="order_dish_cancel" type="id">false</item>
+    <item name="order_dish_total" type="id">false</item>
+    <item name="order_dish_total_symbol" type="id">false</item>
+    <item name="order_dish_total_price" type="id">false</item>
+    <item name="order_dish_untis" type="id">false</item>
     
     <!-- order_layout -->
     <item name="order_list" type="id">false</item>
