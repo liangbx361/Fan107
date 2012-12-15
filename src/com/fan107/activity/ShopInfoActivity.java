@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -47,6 +48,7 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 	private LinearLayout containerBody;
 	private Button myOrder;
 	private TextView shopName;
+	private ImageButton backButton;
 	
 	private boolean isLogin;
 	
@@ -101,6 +103,7 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		containerBody = (LinearLayout) findViewById(R.id.containerBody);
 		myOrder = (Button) findViewById(R.id.my_order);
 		shopName = (TextView) findViewById(R.id.shop_name_title);
+		backButton = (ImageButton) findViewById(R.id.back_shop_list);
 	}
 
 	public void setWidgetListenter() {
@@ -108,6 +111,7 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		shopOrder.setOnClickListener(this);
 		shopComment.setOnClickListener(this);
 		myOrder.setOnClickListener(this);
+		backButton.setOnClickListener(this);
 	}
 
 	public void setWidgetPosition() {
@@ -186,6 +190,10 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 				ToastHelper.showToastInBottom(this, "请先登录, 再进行订餐", 0);
 			}
 	
+			break;
+			
+		case R.id.back_shop_list:
+			onBackPressed();
 			break;
 		}
 	}
@@ -299,4 +307,12 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 			mCar = (OrderCar) intent.getSerializableExtra("orderCar");
 		}
 	};
+
+	@Override
+	protected void onDestroy() {
+		unregisterReceiver(mReceiver);
+		super.onDestroy();
+	}
+	
+	
 }

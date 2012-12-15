@@ -58,4 +58,8 @@
     <color name="cate_bg_b">#ffb5b5b5</color>
     
     <color name="fan107_font">#696969</color>
+    <!-- 订单号的颜色 -->
+    <color name="order_no">#00BFFF</color>
+    <!-- 价格颜色 -->
+    <color name="price">#CD5C5C</color>
 </resources>

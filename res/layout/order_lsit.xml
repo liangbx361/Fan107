@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="horizontal" 
+    android:background="@drawable/my_order_list_btn">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_marginLeft="5dp"
         android:orientation="vertical" >
 
@@ -21,7 +23,7 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="订单号："
+                android:text="订  单  号："
                 android:textColor="#696969"
                 android:textSize="16sp" />
 
@@ -33,7 +35,7 @@
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:text="350262595"
-                android:textColor="#696969"
+                android:textColor="@color/order_no"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -48,7 +50,7 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="餐厅名称："
+                android:text="餐        厅："
                 android:textColor="#696969"
                 android:textSize="16sp" />
 
@@ -75,8 +77,18 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="金额："
+                android:text="消费金额："
                 android:textColor="#696969"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="￥"
+                android:textColor="@color/price"
                 android:textSize="16sp" />
 
             <TextView
@@ -87,20 +99,52 @@
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:text="130"
-                android:textColor="#696969"
+                android:textColor="@color/price"
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <TextView
-            android:id="@id/order_list_time"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" 
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="下单时间："
+                android:textColor="#696969"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@id/order_list_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="2012-10-20"
+                android:textColor="#696969"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:text="2012-10-20"
-            android:textColor="#696969"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/arrow_right" />
+             
+    </RelativeLayout>
 
 </LinearLayout>

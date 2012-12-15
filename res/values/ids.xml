@@ -99,7 +99,7 @@
     <item name="sv" type="id">false</item>
     <item name="shadow_image" type="id">false</item>
     <item name="radio_button3" type="id">false</item>
-    <item name="comment_btn" type="id">false</item>
+    
     <item name="to_detail_layout" type="id">false</item>
     <item name="text_1" type="id">false</item>
     <item name="trade_no" type="id">false</item>
@@ -1310,6 +1310,14 @@
     <item name="shop_name_title" type="id">false</item>
     <item name="no_shop_tv" type="id">false</item>
     <item name="address_tab" type="id">false</item>
+    
+    <!-- act_order_detail -->
+    <item name="comment_btn" type="id">false</item>
+    <item name="" type="id">false</item>
+    <item name="" type="id">false</item>
+    <item name="" type="id">false</item>
+    <item name="" type="id">false</item>
+    <item name="" type="id">false</item>
 	
     <!-- act_user_account -->
 	<item name="order_layout" type="id">false</item>

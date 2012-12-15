@@ -226,32 +226,6 @@
                             android:textColor="#ff62646a"
                             android:textSize="16.0sp" />
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@id/collect_layout"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16.0dip"
-                        android:layout_marginLeft="4.0dip"
-                        android:layout_marginRight="8.0dip"
-                        android:layout_marginTop="20.0dip"
-                        android:layout_weight="1.0"
-                        android:background="@drawable/btn_account_bg"
-                        android:clickable="true"
-                        android:orientation="vertical"
-                        android:paddingBottom="8.0dip"
-                        android:paddingTop="8.0dip" >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:drawableTop="@drawable/shouchang"
-                            android:gravity="center_horizontal"
-                            android:text="收藏"
-                            android:textColor="#ff62646a"
-                            android:textSize="16.0sp" />
-                    </LinearLayout>
                 </LinearLayout>
 
                 <ImageView
@@ -450,6 +424,7 @@
                     android:id="@id/about_us_layout"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="1.0dip"
                     android:layout_marginLeft="1.0dip"
                     android:layout_marginRight="1.0dip"
                     android:background="@drawable/bg_corners_bottom"

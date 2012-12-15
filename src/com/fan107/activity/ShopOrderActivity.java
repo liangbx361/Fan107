@@ -81,7 +81,7 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 
 		setWidgetAttribute();
 		
-		IntentFilter intentFilter = new IntentFilter("fan107.orderCar_1");
+		IntentFilter intentFilter = new IntentFilter("fan107.orderCar");
 		registerReceiver(mReceiver, intentFilter);  
 
 	}
@@ -294,5 +294,11 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 			mCar = (OrderCar) intent.getSerializableExtra("orderCar");
 		}
 	};
+	
+	@Override
+	protected void onDestroy() {
+		unregisterReceiver(mReceiver);
+		super.onDestroy();
+	}
 
 }
