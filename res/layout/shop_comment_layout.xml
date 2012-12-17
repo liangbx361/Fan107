@@ -6,6 +6,7 @@
 
     <ListView
         android:id="@id/shop_comment_list"
+        style="@style/ShopListViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>

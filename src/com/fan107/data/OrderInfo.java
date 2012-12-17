@@ -1,6 +1,13 @@
 package com.fan107.data;
 
-public class OrderInfo {
+import java.io.Serializable;
+
+public class OrderInfo implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1375790656246570136L;
 	
 	public int id;
 	public String orderNo;

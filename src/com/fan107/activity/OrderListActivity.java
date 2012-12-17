@@ -8,9 +8,13 @@ import java.util.Map;
 import org.ksoap2.serialization.SoapObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -21,7 +25,7 @@ import com.fan107.data.UserInfo;
 import com.lbx.templete.ActivityTemplete;
 import common.connection.net.WebServiceUtil;
 
-public class OrderListActivity extends Activity implements ActivityTemplete {
+public class OrderListActivity extends Activity implements ActivityTemplete, OnItemClickListener {
 	
 	private UserInfo mInfo;
 	private List<OrderInfo> orderList;
@@ -47,7 +51,7 @@ public class OrderListActivity extends Activity implements ActivityTemplete {
 	}
 
 	public void setWidgetListenter() {
-		
+		mListView.setOnItemClickListener(this);
 	}
 
 	public void setWidgetPosition() {
@@ -127,5 +131,12 @@ public class OrderListActivity extends Activity implements ActivityTemplete {
 		}
 		
 		return ordeList;
+	}
+
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		Intent intent = new Intent(this, OrderDetailActivity.class);
+		intent.putExtra("orderInfo", orderList.get(position));
+		startActivity(intent);
 	}
 }

@@ -108,7 +108,7 @@ public class ChangePasswordActivity extends Activity implements
 		public void handleMessage(Message msg) {
 			
 			switch(msg.what) {
-			case MessageCode.SHOW_DIALOT:
+			case MessageCode.SHOW_DIALOG:
 				mProgressDialog.show();
 				break;			
 				
@@ -162,7 +162,7 @@ public class ChangePasswordActivity extends Activity implements
 
 		@Override
 		public void run() {
-			mHandler.sendEmptyMessage(MessageCode.SHOW_DIALOT);
+			mHandler.sendEmptyMessage(MessageCode.SHOW_DIALOG);
 			
 			//修改服务器的密码 
 			Map<String, Object> params = new HashMap<String, Object>();

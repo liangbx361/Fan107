@@ -102,7 +102,7 @@ public class RegisterActivity extends Activity implements ActivityTemplete, OnCl
 		@Override
 		public void handleMessage(Message msg) {
 			switch(msg.what) {
-			case MessageCode.SHOW_DIALOT:
+			case MessageCode.SHOW_DIALOG:
 				mProgressDialog.show();
 				break;
 				
@@ -158,7 +158,7 @@ public class RegisterActivity extends Activity implements ActivityTemplete, OnCl
 		
 		@Override
 		public void run() {
-			mHandler.sendEmptyMessage(MessageCode.SHOW_DIALOT);
+			mHandler.sendEmptyMessage(MessageCode.SHOW_DIALOG);
 			
 			Map<String, Object> data = new HashMap<String, Object>();
 			data.put("username", username);

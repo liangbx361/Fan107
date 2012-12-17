@@ -25,5 +25,4 @@ public class ToastHelper {
 		mToast.setGravity(Gravity.BOTTOM, xOffer, BUTTOM_OFFER);
 		mToast.show();
 	}
-
 }

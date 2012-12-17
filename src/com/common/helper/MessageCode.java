@@ -20,7 +20,7 @@ public interface MessageCode {
 	final int UNKONW_ERROR = 7;
 	
 	//显示对话框
-	final int SHOW_DIALOT = 8;
+	final int SHOW_DIALOG = 8;
 	
 	//密码修改成功
 	final int PASSWORD_CHANGE_SUCCESS = 9;
@@ -33,4 +33,9 @@ public interface MessageCode {
 	final int SUB_NUM = 12;
 	//回传的ordercar
 	final int RETURN_ORDER_CAR = 13;
+	
+	//显示菜单
+	final int DIS_ORDER_ITEM = 14;
+	
+	final int SEND_OPINIONS = 15;
 }

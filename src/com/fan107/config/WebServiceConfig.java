@@ -22,6 +22,7 @@ public interface WebServiceConfig {
 	public static final String CHANAGER_MEMBER_INFO_METHOD = "changeMemberInfo"; 
 	public static final String REGISTER_ACCOUNT_METHOD = "registerAccount";
 	public static final String GET_ORDER_LIST_METHOD = "getOrderList";
+	public static final String GET_ORDER_ITEM_LIST_METHOD = "getOrderItemList";
 	
 	//商品列表
 	public static final String SHOP_LIST_WEB_SERVICE = "ShopList.asmx";

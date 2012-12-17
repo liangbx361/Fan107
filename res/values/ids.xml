@@ -1312,16 +1312,34 @@
     <item name="address_tab" type="id">false</item>
     
     <!-- act_order_detail -->
-    <item name="comment_btn" type="id">false</item>
-    <item name="" type="id">false</item>
-    <item name="" type="id">false</item>
-    <item name="" type="id">false</item>
-    <item name="" type="id">false</item>
-    <item name="" type="id">false</item>
+    <item name="order_detail_comment_btn" type="id">false</item>
+    <item name="order_detail_order_number_view" type="id">false</item>
+    <item name="order_detail_order_number" type="id">false</item>
+    <item name="order_detail_shop_name_view" type="id">false</item>
+    <item name="order_detail_shop_name" type="id">false</item>
+    <item name="order_detail_money_view" type="id">false</item>
+    <item name="order_detail_money" type="id">false</item>
+    <item name="order_detail_point_view" type="id">false</item>
+    <item name="order_detail_point" type="id">false</item>
+    <item name="order_detail_time_view" type="id">false</item>
+    <item name="order_detail_time" type="id">false</item>
+    <item name="order_detail_name_view" type="id">false</item>
+    <item name="order_detail_name" type="id">false</item>
+    <item name="order_detail_tel_view" type="id">false</item>
+    <item name="order_detail_tel" type="id">false</item>    
+    <item name="order_detail_send_time_view" type="id">false</item>
+    <item name="order_detail_send_time" type="id">false</item>
+    <item name="order_detail_address_view" type="id">false</item>
+    <item name="order_detail_address" type="id">false</item>
+    <item name="order_detail_states_view" type="id">false</item>
+    <item name="order_detail_states" type="id">false</item>
+    <item name="dish_detail" type="id">false</item>
 	
     <!-- act_user_account -->
 	<item name="order_layout" type="id">false</item>
-
+	<item name="user_account_opinion" type="id">false</item>
+	<item name="user_account_about" type="id">false</item>
+    
     <!-- address_add_activity -->
     <item name="address_add_name_tv" type="id">false</item>
     <item name="address_add_name" type="id">false</item>
@@ -1345,7 +1363,9 @@
 	
     <!-- change_password -->
 
-
+	<!-- dish_detail_layout -->
+	<item name="dish_detail_dish_list" type="id">false</item>
+	
     <!-- dish_list -->
     <item name="dish_name" type="id">false</item>
     <item name="dish_price" type="id">fase</item>
@@ -1367,6 +1387,11 @@
     <item name="member_phone" type="id">false</item>
     <item name="birthday" type="id">false</item>
     <item name="member_info_confirm_btn" type="id">false</item>
+    
+    <!-- opinions_activity -->
+    <item name="opinions_submit" type="id">false</item>
+    <item name="opinions_comment" type="id">false</item>
+    <item name="opinions_contect" type="id">false</item>
     
     <!-- order_address_layout -->	
 	<item name="order_address_1" type="id">false</item>
@@ -1406,6 +1431,11 @@
     <item name="order_dish_total_symbol" type="id">false</item>
     <item name="order_dish_total_price" type="id">false</item>
     <item name="order_dish_untis" type="id">false</item>
+    
+    <!-- order_item_list -->
+    <item name="order_item_prouct_name" type="id">false</item>
+    <item name="order_item_buy_num" type="id">false</item>
+    <item name="order_item_price" type="id">false</item>
     
     <!-- order_layout -->
     <item name="order_list" type="id">false</item>

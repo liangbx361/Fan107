@@ -4,8 +4,9 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:orientation="vertical" >
-
+    
     <RelativeLayout
+        android:id="@id/title_bar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_title_bar" >
@@ -13,25 +14,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="我的订单"
+            android:layout_centerInParent="true"
+            android:text="菜单详情"
             android:textColor="@color/white"
-            android:textSize="20.0sp"
-            android:textStyle="bold" />
+            android:textSize="20.0sp" />
     </RelativeLayout>
-
+    
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_title_bar_splict" />
-
+    
     <ListView
-        android:id="@id/order_list"
+        android:id="@id/dish_detail_dish_list"
         style="@style/ShopListViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_marginTop="5dp">
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/login_bg1" >
     </ListView>
 
 </LinearLayout>

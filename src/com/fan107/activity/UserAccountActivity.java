@@ -41,6 +41,9 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 	RelativeLayout chanagePasswordLayout;
 	RelativeLayout sendAddressLayout;
 	
+	RelativeLayout opinionsLayout;
+	RelativeLayout aboutLayout;
+	
 	private String userName;
 	private String nickName;
 	private String passwordMD5;
@@ -83,14 +86,17 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 		logout_layout = (RelativeLayout) findViewById(R.id.logout_layout);
 		login_layout = (RelativeLayout) findViewById(R.id.login_layout);
 		order_layout = (LinearLayout) findViewById(R.id.order_layout);
-
-		my_send_address = (RelativeLayout) findViewById(R.id.my_send_address);
+		
 		share_config_layout = (RelativeLayout) findViewById(R.id.share_config_layout);
 		uname = (TextView) findViewById(R.id.uname);
 		point = (TextView) findViewById(R.id.money);
 		
 		userInfoLayout = (RelativeLayout) findViewById(R.id.user_information);
 		chanagePasswordLayout = (RelativeLayout) findViewById(R.id.change_password);
+		my_send_address = (RelativeLayout) findViewById(R.id.my_send_address);
+		
+		opinionsLayout = (RelativeLayout) findViewById(R.id.user_account_opinion);
+		aboutLayout = (RelativeLayout) findViewById(R.id.user_account_about);
 		
 	}
 
@@ -101,6 +107,9 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 		userInfoLayout.setOnClickListener(this);
 		my_send_address.setOnClickListener(this);
 		order_layout.setOnClickListener(this);
+		
+		opinionsLayout.setOnClickListener(this);
+		aboutLayout.setOnClickListener(this);
 	}
 
 	public void setWidgetPosition() {
@@ -184,6 +193,17 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 
 		// 系统设置
 		case R.id.share_config_layout:
+			break;
+			
+		//意见反馈
+		case R.id.user_account_opinion:
+			Intent opinionIntent = new Intent(this, OpinionActivity.class);
+			opinionIntent.putExtra("userInfo", mUserInfo);
+			startActivity(opinionIntent);
+			break;
+			
+		//关于我们
+		case R.id.user_account_about:
 			break;
 		}
 

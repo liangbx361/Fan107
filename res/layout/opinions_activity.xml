@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@id/title_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_title_bar" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="意见反馈"
+            android:textColor="@color/white"
+            android:textSize="20.0sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@id/opinions_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5.0dip"
+            android:background="@drawable/universal_btn"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:textSize="14.0sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@id/title_bar_splict"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_bar"
+        android:background="@drawable/bg_title_bar_splict" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10.0dip"
+            android:background="@drawable/bg_corners"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="1.0dip" >
+
+            <EditText
+                android:id="@id/opinions_comment"
+                android:layout_width="fill_parent"
+                android:layout_height="160.0dip"
+                android:background="@null"
+                android:gravity="top|left|center"
+                android:hint="请描述您在客户端使用中遇到的问题，我们很期待您的意见与建议"
+                android:padding="8.0dip" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/bg_corners_border" />
+
+            <EditText
+                android:id="@id/opinions_contect"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="联系电话、QQ或电子邮箱(选填)"
+                android:padding="8.0dip" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -22,12 +22,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 
 public class ShopCommentActivity extends Activity implements ActivityTemplete {
+	private static final int[] starId = {
+		R.drawable.star0, R.drawable.star10, R.drawable.star20, R.drawable.star30, R.drawable.star40, R.drawable.star50,
+	};
+	
 	private ShopInfo mInfo;
 	private ListView mListView;
 	private List<Map<String, String>> mData;
@@ -130,8 +135,8 @@ public class ShopCommentActivity extends Activity implements ActivityTemplete {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View v = super.getView(position, convertView, parent);
 			LinearLayout layout = (LinearLayout) v;
-			RatingBar ratingBar = (RatingBar) layout.findViewById(R.id.shop_comment_lsit_point_ratingbar);	
-			ratingBar.setRating(commentList.get(position).totalPoint);
+			ImageView ratingBar = (ImageView) layout.findViewById(R.id.shop_comment_lsit_point_ratingbar);	
+			ratingBar.setImageDrawable(getResources().getDrawable(starId[commentList.get(position).totalPoint]));
 			
 			return v;
 		}

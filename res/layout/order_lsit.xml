@@ -3,56 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal" 
-    android:background="@drawable/my_order_list_btn">
+    android:layout_margin="5dp"
+>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="10dp"
         android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="center_vertical"
-                android:singleLine="true"
-                android:text="订  单  号："
-                android:textColor="#696969"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@id/order_list_orderno"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="center_vertical"
-                android:singleLine="true"
-                android:text="350262595"
-                android:textColor="@color/order_no"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="center_vertical"
-                android:singleLine="true"
-                android:text="餐        厅："
-                android:textColor="#696969"
-                android:textSize="16sp" />
 
             <TextView
                 android:id="@id/order_list_shop_name"
@@ -62,8 +26,8 @@
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:text="台湾贯一牛肉店"
-                android:textColor="#696969"
-                android:textSize="16sp" />
+                android:textColor="#404040"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -77,7 +41,7 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="消费金额："
+                android:text="消费金额"
                 android:textColor="#696969"
                 android:textSize="16sp" />
 
@@ -108,16 +72,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" 
             android:layout_marginBottom="4dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="center_vertical"
-                android:singleLine="true"
-                android:text="下单时间："
-                android:textColor="#696969"
-                android:textSize="16sp" />
 
             <TextView
                 android:id="@id/order_list_time"

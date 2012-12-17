@@ -46,6 +46,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -58,6 +59,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SearchActivity extends Activity implements OnClickListener, OnItemClickListener, ActivityTemplete {
 	private static final String TAG = "SearchActivity";
@@ -93,7 +95,9 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	private UserInfo mUserInfo;
 	private UserAddress selectAddress;	
 	private List<UserAddress> mAddressList;
-
+	
+	private int exitCount;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -192,6 +196,8 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		loginButton.setText(LOGIN_MESSAGE);
 		
 		noShopView.setVisibility(View.GONE);
+		
+		exitCount = 0;
 	}
 
 	public void onClick(View v) {
@@ -655,4 +661,33 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		dbHelper.close();
 		return addrssList;
 	}
+
+	@Override
+	public void onBackPressed() {
+		if(exitCount==0) {
+			Toast mToast = Toast.makeText(this, "再按一次退出程序", 1000);
+			mToast.setGravity(Gravity.BOTTOM, 0, ToastHelper.BUTTOM_OFFER);
+			mToast.show();
+			
+			new Thread() {
+
+				@Override
+				public void run() {
+					try {
+						sleep(1000);
+						exitCount = 0;
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				
+			}.start();
+			
+			exitCount++;
+		} else {
+			finish();
+		}
+	}
+	
+	
 }

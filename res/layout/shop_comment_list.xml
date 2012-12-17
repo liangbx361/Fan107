@@ -18,7 +18,7 @@
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="liangbx361"
-            android:textColor="@color/black"
+            android:textColor="#404040"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -79,13 +79,13 @@
                 android:textColor="#FF6347"
                 android:textSize="16sp" />
 
-            <RatingBar
+            <ImageView
                 android:id="@id/shop_comment_lsit_point_ratingbar"
-                style="@style/ShopRatingBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center_vertical" />
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/star0" />
         </LinearLayout>
 
         <TextView

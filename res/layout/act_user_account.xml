@@ -377,7 +377,7 @@
                 android:orientation="vertical" >
 
                 <RelativeLayout
-                    android:id="@id/yijian"
+                    android:id="@id/user_account_opinion"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="1.0dip"
@@ -421,7 +421,7 @@
                     android:background="@color/bg_corners_border" />
           
                 <RelativeLayout
-                    android:id="@id/about_us_layout"
+                    android:id="@id/user_account_about"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="1.0dip"
