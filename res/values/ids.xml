@@ -7,7 +7,7 @@
     <item name="sevice_email_ico" type="id">false</item>
     <item name="sevice_help_layout" type="id">false</item>
     <item name="sevice_help_ico" type="id">false</item>
-    <item name="version" type="id">false</item>
+    
     <item name="delete_all" type="id">false</item>
     <item name="act_collect_listview" type="id">false</item>
     <item name="loading" type="id">false</item>
@@ -1295,6 +1295,9 @@
     <item name="btn_change_password" type="id">false</item>
     <item name="shopListView" type="id">false</item>
     <item name="search_address" type="id">false</item>
+    
+    <!-- act_about_us -->
+    <item name="version" type="id">false</item>
 
     <!-- act_commodity_introduct -->
     <item name="title_bar" type="id">false</item>

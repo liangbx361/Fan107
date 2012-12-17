@@ -204,6 +204,8 @@ public class UserAccountActivity extends Activity implements ActivityTemplete,
 			
 		//关于我们
 		case R.id.user_account_about:
+			Intent aboutIntent = new Intent(this, AboutActivity.class);
+			startActivity(aboutIntent);
 			break;
 		}
 
