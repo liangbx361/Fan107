@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 
@@ -37,6 +38,8 @@ public class ShopCommentActivity extends Activity implements ActivityTemplete {
 	private ListView mListView;
 	private List<Map<String, String>> mData;
 	private List<ShopComment> commentList;
+	
+	private ProgressBar mProgressBar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class ShopCommentActivity extends Activity implements ActivityTemplete {
 	
 	public void findWidget() {
 		mListView = (ListView) findViewById(R.id.shop_comment_list);
+		mProgressBar = (ProgressBar) findViewById(R.id.shop_comment_loading);
 	}
 
 	public void setWidgetListenter() {
@@ -146,6 +150,8 @@ public class ShopCommentActivity extends Activity implements ActivityTemplete {
 
 		@Override
 		public void handleMessage(Message msg) {
+			mProgressBar.setVisibility(View.GONE);
+			
 			mListView.setAdapter( new CommentAdapter(ShopCommentActivity.this, mData, R.layout.shop_comment_list, 
 					new String[]{"username", "flavor", "environment", "server", "comment", "time"},
 					new int[]{R.id.shop_comment_list_username, R.id.shop_comment_lsit_flavor_point, 

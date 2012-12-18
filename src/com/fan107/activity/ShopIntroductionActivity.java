@@ -100,6 +100,7 @@ public class ShopIntroductionActivity extends Activity implements ActivityTemple
 		environmentPoint.setText(mInfo.getSummilieupoint() + " ");
 		serverPoint.setText(mInfo.getSumservicepoint() + " ");		
 		int rate = (mInfo.getSumtastepoint() + mInfo.getSummilieupoint() + mInfo.getSumservicepoint())/3;
+		if(rate > 9) rate = 9;
 		mStarView.setImageDrawable(getResources().getDrawable(starId[rate]));
 		
 		limitPrice.setText(mInfo.getLimitprice() + "");

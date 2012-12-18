@@ -36,6 +36,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleExpandableListAdapter;
 
 public class ShopOrderActivity extends ExpandableListActivity implements
@@ -51,6 +52,8 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 	private ExpandableListView mListView;
 	private ShopInfo mInfo;
 	private OrderCar mCar;
+	
+	private ProgressBar mProgressBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +65,7 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 		mInfo = (ShopInfo) mIntent.getSerializableExtra("shopInfo");
 		mCar = (OrderCar) mIntent.getSerializableExtra("orderCar");
 
-		// findWidget();
+		findWidget();
 		// setWidgetListenter();
 		// setWidgetAttribute();
 
@@ -88,6 +91,7 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 	
 	public void findWidget() {
 		mListView = getExpandableListView();
+		mProgressBar = (ProgressBar) findViewById(R.id.shop_order_loading);
 	}
 
 	public void setWidgetListenter() {
@@ -115,6 +119,7 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 
 			switch (msg.what) {
 			case SET_ADAPTER:
+				mProgressBar.setVisibility(View.GONE);
 				ShopOrderActivity.this.setListAdapter(mAdapter);
 				onContentChanged();
 				break;

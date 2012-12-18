@@ -2,7 +2,7 @@ package com.fan107.config;
 
 public interface WebServiceConfig {
 	//服务器的IP地址 
-	public static final String SERVER_IP = "192.168.0.105";
+	public static final String SERVER_IP = "192.168.0.23";
 	
 	public static final String RES_URL = "http://" + SERVER_IP + "/";
 	
@@ -23,6 +23,8 @@ public interface WebServiceConfig {
 	public static final String REGISTER_ACCOUNT_METHOD = "registerAccount";
 	public static final String GET_ORDER_LIST_METHOD = "getOrderList";
 	public static final String GET_ORDER_ITEM_LIST_METHOD = "getOrderItemList";
+	public static final String FEED_BACK_METHOD = "feedBack";
+	public static final String USER_COMMENT_METHOD= "userComment";
 	
 	//商品列表
 	public static final String SHOP_LIST_WEB_SERVICE = "ShopList.asmx";

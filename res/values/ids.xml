@@ -1342,6 +1342,19 @@
 	<item name="order_layout" type="id">false</item>
 	<item name="user_account_opinion" type="id">false</item>
 	<item name="user_account_about" type="id">false</item>
+	
+	<!-- act_user_comment -->
+	<item name="user_comment_submit" type="id">false</item>
+	<item name="user_comment_totalpoint_tv" type="id">false</item>
+	<item name="user_comment_ratingBar" type="id">false</item>
+	<item name="user_comment_tastepoint_tv" type="id">false</item>
+    <item name="user_comment_tastepoin_spinner" type="id">false</item>
+    <item name="user_comment_milieupoint_tv" type="id">false</item>
+    <item name="user_comment_milieupoint_spinner" type="id">false</item>
+    <item name="user_comment_servicepoint_tv" type="id">false</item>
+    <item name="user_comment_servicepoint_spinner" type="id">false</item>
+    <item name="user_comment_comment_tv" type="id">false</item>
+    <item name="user_comment_comment" type="id">false</item>
     
     <!-- address_add_activity -->
     <item name="address_add_name_tv" type="id">false</item>
@@ -1442,6 +1455,7 @@
     
     <!-- order_layout -->
     <item name="order_list" type="id">false</item>
+    <item name="shop_order_loading" type="id">false</item>
     
     <!-- order_list -->
     <item name="order_list_orderno" type="id">false</item>
@@ -1463,6 +1477,7 @@
 	
 	<!-- shop_comment_layout -->
 	<item name="shop_comment_list" type="id">false</item>
+	<item name="shop_comment_loading" type="id">false</item>
 	
 	<!-- shop_comment_list -->
 	<item name="shop_comment_list_username" type="id">false</item>

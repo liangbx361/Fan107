@@ -24,6 +24,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 
 public class OrderDetailActivity extends Activity implements ActivityTemplete, OnClickListener{
 	private OrderInfo mOrderInfo;
+	private Button mCommentBtn;
 	private TextView mOrderNumberView;
 	private TextView mShopNameView;
 	private TextView mMoneyView;
@@ -60,6 +62,7 @@ public class OrderDetailActivity extends Activity implements ActivityTemplete, O
 	}
 	
 	public void findWidget() {
+		mCommentBtn = (Button) findViewById(R.id.order_detail_comment_btn);
 		mOrderNumberView = (TextView) findViewById(R.id.order_detail_order_number);
 		mShopNameView = (TextView) findViewById(R.id.order_detail_shop_name);
 		mMoneyView = (TextView) findViewById(R.id.order_detail_money);
@@ -75,6 +78,7 @@ public class OrderDetailActivity extends Activity implements ActivityTemplete, O
 	}
 
 	public void setWidgetListenter() {
+		mCommentBtn.setOnClickListener(this);
 		dishDetailLayout.setOnClickListener(this);
 	}
 
@@ -101,6 +105,12 @@ public class OrderDetailActivity extends Activity implements ActivityTemplete, O
 
 	public void onClick(View v) {
 		switch(v.getId()) {
+		case R.id.order_detail_comment_btn:
+			Intent commentIntent = new Intent(this, UserCommentActivity.class);
+			commentIntent.putExtra("orderInfo", mOrderInfo);
+			startActivity(commentIntent);
+			break;
+			
 		case R.id.dish_detail:
 			Intent intent = new Intent(this, DishDetailActivity.class);
 			intent.putExtra("orderInfo", mOrderInfo);

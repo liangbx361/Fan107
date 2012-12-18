@@ -6,6 +6,7 @@
     android:orientation="vertical" >
 
     <RelativeLayout
+        android:id="@id/title_bar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_title_bar" >
@@ -14,26 +15,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="编辑送餐地址"
+            android:text="用户评论"
             android:textColor="@color/white"
-            android:textSize="20.0sp" />
+            android:textSize="20.0sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@id/user_comment_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5.0dip"
+            android:background="@drawable/universal_btn"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:textSize="14.0sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/title_bar"
         android:background="@drawable/bg_title_bar_splict" />
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent" >
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_corners_no_pressed"
-            android:clickable="false"
-            android:focusable="false"
             android:orientation="vertical" >
 
             <RelativeLayout
@@ -47,186 +61,168 @@
                 android:padding="10.0dip" >
 
                 <TextView
-                    android:id="@id/address_add_name_tv"
+                    android:id="@id/user_comment_totalpoint_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="姓名"
+                    android:text="总体评价"
+                    android:textColor="@color/title"
+                    android:textSize="18.0sp" />
+
+                <RatingBar
+                    android:id="@+id/user_comment_ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@id/user_comment_totalpoint_tv"
+                    android:indeterminateDrawable="@drawable/ratingbar"
+                    android:minHeight="30dip"
+                    android:progressDrawable="@drawable/ratingbar" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/bg_corners_border" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1.0dip"
+                android:layout_marginRight="1.0dip"
+                android:background="@drawable/bg_corners_center"
+                android:gravity="center_vertical"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip"
+                android:paddingTop="8.0dip" >
+
+                <TextView
+                    android:id="@id/user_comment_tastepoint_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="口        味"
+                    android:textColor="@color/title"
+                    android:textSize="18.0sp" />
+
+                <Spinner
+                    android:id="@id/user_comment_tastepoin_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@id/user_comment_tastepoint_tv"
+                    android:textColor="@color/content_color" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/bg_corners_border" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1.0dip"
+                android:layout_marginRight="1.0dip"
+                android:background="@drawable/bg_corners_center"
+                android:gravity="center_vertical"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip"
+                android:paddingTop="8.0dip" >
+
+                <TextView
+                    android:id="@id/user_comment_milieupoint_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="环        境"
+                    android:textColor="@color/title"
+                    android:textSize="18.0sp" />
+
+                <Spinner
+                    android:id="@id/user_comment_milieupoint_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@id/user_comment_milieupoint_tv"
+                    android:textColor="@color/content_color" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/bg_corners_border" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1.0dip"
+                android:layout_marginRight="1.0dip"
+                android:background="@drawable/bg_corners_center"
+                android:gravity="center_vertical"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip"
+                android:paddingTop="8.0dip" >
+
+                <TextView
+                    android:id="@id/user_comment_servicepoint_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="服        务"
+                    android:textColor="@color/title"
+                    android:textSize="18.0sp" />
+
+                <Spinner
+                    android:id="@id/user_comment_servicepoint_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:layout_toRightOf="@id/user_comment_servicepoint_tv"
+                    android:textColor="@color/content_color" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/bg_corners_border" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:layout_marginLeft="10dp">
+                
+                <TextView
+                    android:id="@id/user_comment_comment_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:text="评        论"
                     android:textColor="@color/title"
                     android:textSize="18.0sp" />
 
                 <EditText
-                    android:id="@id/address_add_name"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/address_add_name_tv"
-                    android:textColor="@color/content_color"
-                    android:textSize="18.0sp" />
+                        android:id="@id/user_comment_comment"
+                        android:layout_width="fill_parent"
+                        android:layout_height="160.0dip"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/user_comment_comment_tv"
+                        android:gravity="top|left|center"
+                        android:hint="请描述您对商家的意见(选填)"
+                        android:padding="8.0dip" />
+
+                
             </RelativeLayout>
 
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="1.0dip"
-                android:background="@color/bg_corners_border" />
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1.0dip"
-                android:layout_marginRight="1.0dip"
-                android:background="@drawable/bg_corners_center"
-                android:gravity="center_vertical"
-                android:padding="10.0dip" >
-
-                <TextView
-                    android:id="@id/address_add_phone_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="电话"
-                    android:textColor="@color/title"
-                    android:textSize="18.0sp" />
-
-                <EditText
-                    android:id="@id/address_add_phone"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/address_add_phone_tv"
-                    android:inputType="phone"
-                    android:textColor="@color/content_color"
-                    android:textSize="18.0sp" />
-            </RelativeLayout>
-
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="1.0dip"
-                android:background="@color/bg_corners_border" />
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1.0dip"
-                android:layout_marginRight="1.0dip"
-                android:background="@drawable/bg_corners_center"
-                android:gravity="center_vertical"
-                android:paddingLeft="10.0dip"
-                android:paddingRight="10.0dip"
-                android:paddingTop="8.0dip" >
-
-                <TextView
-                    android:id="@id/address_add_area_spinner_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="地区"
-                    android:textColor="@color/title"
-                    android:textSize="18.0sp" />
-
-                <Spinner
-                    android:id="@id/address_add_area_spinner"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/address_add_area_spinner_tv"
-                    android:textColor="@color/content_color" />
-            </RelativeLayout>
-
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="1.0dip"
-                android:background="@color/bg_corners_border" />
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1.0dip"
-                android:layout_marginRight="1.0dip"
-                android:background="@drawable/bg_corners_center"
-                android:gravity="center_vertical"
-                android:paddingLeft="10.0dip"
-                android:paddingRight="10.0dip"
-                android:paddingTop="8.0dip" >
-
-                <TextView
-                    android:id="@id/address_add_street_spinner_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="街道"
-                    android:textColor="@color/title"
-                    android:textSize="18.0sp" />
-
-                <Spinner
-                    android:id="@id/address_add_street_spinner"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/address_add_street_spinner_tv"
-                    android:textColor="@color/content_color" />
-            </RelativeLayout>
-
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="1.0dip"
-                android:background="@color/bg_corners_border" />
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1.0dip"
-                android:layout_marginRight="1.0dip"
-                android:background="@drawable/bg_corners_center"
-                android:gravity="center_vertical"
-                android:paddingLeft="10.0dip"
-                android:paddingRight="10.0dip"
-                android:paddingTop="8.0dip" >
-
-                <TextView
-                    android:id="@id/address_add_district_spinner_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="楼宇"
-                    android:textColor="@color/title"
-                    android:textSize="18.0sp" />
-
-                <Spinner
-                    android:id="@id/address_add_district_spinner"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5.0dip"
-                    android:layout_toRightOf="@id/address_add_district_spinner_tv"
-                    android:textColor="@color/content_color" />
-            </RelativeLayout>
-
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="1.0dip"
-                android:background="@color/bg_corners_border" />
-
-
-
-            <Button
-                android:id="@id/address_add_confirm"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="12.0dip"
-                android:layout_marginLeft="20.0dip"
-                android:layout_marginRight="20.0dip"
-                android:layout_marginTop="12.0dip"
-                android:background="@drawable/btn_bg"
-                android:gravity="center"
-                android:text="确   定"
-                android:textColor="@color/white"
-                android:textSize="18.0sp" />
         </LinearLayout>
     </ScrollView>
 

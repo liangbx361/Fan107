@@ -1,8 +1,18 @@
 package com.fan107.activity;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.ksoap2.serialization.SoapObject;
+
 import com.common.helper.MessageCode;
 import com.fan107.R;
+import com.fan107.config.WebServiceConfig;
+import com.fan107.data.OrderInfo;
+import com.fan107.data.UserInfo;
 import com.lbx.templete.ActivityTemplete;
+import com.widget.helper.ToastHelper;
+import common.connection.net.WebServiceUtil;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -21,11 +31,15 @@ public class OpinionActivity extends Activity implements ActivityTemplete, OnCli
 	private EditText contectView;
 	
 	ProgressDialog mProgressDialog;
+	
+	private UserInfo mUserInfo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.opinions_activity);
+		
+		mUserInfo = (UserInfo) getIntent().getSerializableExtra("userInfo");
 		
 		findWidget();
 		setWidgetListenter();
@@ -54,17 +68,7 @@ public class OpinionActivity extends Activity implements ActivityTemplete, OnCli
 	public void onClick(View v) {		
 		switch(v.getId()) {
 		case R.id.opinions_submit:
-			new Thread() {
-
-				@Override
-				public void run() {
-					mHandler.sendEmptyMessage(MessageCode.SHOW_DIALOG);
-					int messageCode = sendOpinions();
-					mHandler.sendEmptyMessage(messageCode);
-					mProgressDialog.dismiss();					
-				}
-				
-			};
+			sendOpinions();
 			break;
 		}
 	}
@@ -75,9 +79,16 @@ public class OpinionActivity extends Activity implements ActivityTemplete, OnCli
 		public void handleMessage(Message msg) {			
 			switch(msg.what) {
 			case MessageCode.SHOW_DIALOG:
+				mProgressDialog.show();
 				break;
 				
-			case MessageCode.SEND_OPINIONS:
+			case MessageCode.SEND_OPINIONS_SUCCESS:
+				ToastHelper.showToastInBottom(OpinionActivity.this, "提交成功", 0);
+				onBackPressed();
+				break;
+				
+			case MessageCode.SEND_OPINIONS_FAIL:
+				ToastHelper.showToastInBottom(OpinionActivity.this, "提交失败", 0);
 				break;
 			}
 		}
@@ -88,9 +99,46 @@ public class OpinionActivity extends Activity implements ActivityTemplete, OnCli
 		
 		String commentStr = commentView.getText().toString();
 		String contectStr = contectView.getText().toString();
-				
+		
+		if(commentStr != null && !commentStr.equals("")) {
+			new OpinionThread(commentStr, contectStr).start();
+			
+		} else {
+			ToastHelper.showToastInBottom(this, "提交内容不能为空", 0);
+		}
+		
 		return 0;
 	}
+	
+	private class OpinionThread extends Thread {
+		private String comment;
+		private String contect;
+		
+		public OpinionThread(String comment, String contect) {
+			this.comment = comment;
+			this.contect = contect;
+		}
+		
+		@Override
+		public void run() {
+			mHandler.sendEmptyMessage(MessageCode.SHOW_DIALOG);
+			
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("username", mUserInfo.getUsername());
+			data.put("subject", comment);
+			data.put("content", contect);
+			String url = WebServiceConfig.url + WebServiceConfig.USER_ACCOUNT_WEB_SERVICE;
+			SoapObject result = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.FEED_BACK_METHOD, data);
+			
+			if(result.getPropertyAsString(0).equals("ok")) {
+				mHandler.sendEmptyMessage(MessageCode.SEND_OPINIONS_SUCCESS);
+			} else {
+				mHandler.sendEmptyMessage(MessageCode.SEND_OPINIONS_FAIL);
+			}
+			
+			mProgressDialog.dismiss();
+		}
+	};
 	
 	private void initProgressDialog(Context mContext) {
 		mProgressDialog = new ProgressDialog(mContext);

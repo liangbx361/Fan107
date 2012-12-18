@@ -37,5 +37,8 @@ public interface MessageCode {
 	//显示菜单
 	final int DIS_ORDER_ITEM = 14;
 	
-	final int SEND_OPINIONS = 15;
+	//意见发送成功
+	final int SEND_OPINIONS_SUCCESS = 15;
+	//意见发送失败
+	final int SEND_OPINIONS_FAIL = 16;
 }
