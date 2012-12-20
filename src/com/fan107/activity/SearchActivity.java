@@ -16,11 +16,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 
+import com.common.helper.MessageCode;
 import com.fan107.R;
+import com.fan107.common.UpdateState;
 import com.fan107.common.UserState;
 import com.fan107.config.UrlConfig;
 import com.fan107.config.WebServiceConfig;
 import com.fan107.data.ShopInfo;
+import com.fan107.data.UpdateInfo;
 import com.fan107.data.UserAddress;
 import com.fan107.data.UserInfo;
 import com.fan107.data.UserLogin;
@@ -35,8 +38,10 @@ import common.connection.net.WebServiceUtil;
 import common.file.util.FileUtils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -97,6 +102,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	private List<UserAddress> mAddressList;
 	
 	private int exitCount;
+	private AlertDialog mDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +121,8 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		UserState.setLoginState(this, false);
 		LoadShopListThread listThread = new LoadShopListThread(orderType, true);
 		listThread.start();
+		
+		new UpdateThread().start();
 	}
 		
 	@Override
@@ -348,6 +356,24 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				
 			case NO_SHOW_SHOP:
 				noShopView.setVisibility(View.GONE);
+				break;
+				
+			case MessageCode.SHOW_DIALOG:
+				String message = msg.obj.toString();
+				mDialog = new AlertDialog.Builder(SearchActivity.this)
+				.setTitle("有新版本可用")
+				.setMessage(message)
+				.setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						
+					}
+				})
+				.setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						
+					}
+				})
+				.show();
 				break;
 			}
 		}
@@ -689,5 +715,16 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 		}
 	}
 	
-	
+	private class UpdateThread extends Thread {
+
+		@Override
+		public void run() {
+			UpdateInfo updateInfo = UpdateState.getUpdateSate();
+			if(updateInfo != null) {
+				if(updateInfo.versionCode >= UpdateState.getVersionCode(SearchActivity.this)) {	
+					mHandler.sendMessage(mHandler.obtainMessage(MessageCode.SHOW_DIALOG, updateInfo.introduction));
+				}
+			}
+		}
+	}
 }
