@@ -26,8 +26,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:padding="5dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/test" />
+                    android:scaleType="fitXY" />
             </RelativeLayout>
 
             <LinearLayout

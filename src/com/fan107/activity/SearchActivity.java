@@ -1,44 +1,25 @@
 package com.fan107.activity;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
-
-import com.common.helper.MessageCode;
-import com.fan107.R;
-import com.fan107.common.UpdateState;
-import com.fan107.common.UserState;
-import com.fan107.config.UrlConfig;
-import com.fan107.config.WebServiceConfig;
-import com.fan107.data.ShopInfo;
-import com.fan107.data.UpdateInfo;
-import com.fan107.data.UserAddress;
-import com.fan107.data.UserInfo;
-import com.fan107.data.UserLogin;
-import com.fan107.db.DBHelper;
-import com.lbx.cache.FileCache;
-import com.lbx.templete.ActivityTemplete;
-import com.widget.helper.ToastHelper;
-
-import common.connection.net.HttpClientUtil;
-import common.connection.net.HttpDownloader;
-import common.connection.net.WebServiceUtil;
-import common.file.util.FileUtils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -50,7 +31,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -65,6 +45,24 @@ import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.common.helper.MessageCode;
+import com.fan107.R;
+import com.fan107.common.UpdateState;
+import com.fan107.common.UserState;
+import com.fan107.config.WebServiceConfig;
+import com.fan107.data.ShopInfo;
+import com.fan107.data.UpdateInfo;
+import com.fan107.data.UserAddress;
+import com.fan107.data.UserInfo;
+import com.fan107.data.UserLogin;
+import com.fan107.db.DBHelper;
+import com.lbx.cache.FileCache;
+import com.lbx.templete.ActivityTemplete;
+import com.widget.helper.ToastHelper;
+import common.connection.net.HttpDownloader;
+import common.connection.net.WebServiceUtil;
+import common.file.util.FileUtils;
 
 public class SearchActivity extends Activity implements OnClickListener, OnItemClickListener, ActivityTemplete {
 	private static final String TAG = "SearchActivity";
@@ -102,7 +100,9 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 	private List<UserAddress> mAddressList;
 	
 	private int exitCount;
-	private AlertDialog mDialog;
+	private ProgressDialog mProgressDialog;
+	private UpdateInfo updateInfo;
+	private DownloadThread mThread;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -360,12 +360,16 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				
 			case MessageCode.SHOW_DIALOG:
 				String message = msg.obj.toString();
-				mDialog = new AlertDialog.Builder(SearchActivity.this)
+				new AlertDialog.Builder(SearchActivity.this)
+				.setIcon(R.drawable.alert_dialog_icon)
 				.setTitle("有新版本可用")
 				.setMessage(message)
 				.setPositiveButton(R.string.alert_dialog_ok, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
-						
+						initProcress();
+						mThread = new DownloadThread(updateInfo.src);
+						mThread.start();
+						mHandler.sendEmptyMessage(MessageCode.SHOW_UPDATE_DIALOG);						
 					}
 				})
 				.setNegativeButton(R.string.alert_dialog_cancel, new DialogInterface.OnClickListener() {
@@ -375,10 +379,37 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				})
 				.show();
 				break;
+				
+			case MessageCode.SHOW_UPDATE_DIALOG:
+				mProgressDialog.show();
+				break;
+				
+			case MessageCode.INSTALL_APK:
+				String path = (String)msg.obj;
+				Intent i = new Intent(Intent.ACTION_VIEW);
+				i.setDataAndType(Uri.parse("file://" + path), "application/vnd.android.package-archive"); 
+				SearchActivity.this.startActivity(i);
+				break;
 			}
 		}
 	};	
 	
+	 
+	/**
+	 * 初始化进程对话框
+	 */
+	private void initProcress() {
+		mProgressDialog = new ProgressDialog(SearchActivity.this);
+		mProgressDialog.setIcon(R.drawable.alert_dialog_icon);
+		mProgressDialog.setTitle("正在升级");
+		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        mProgressDialog.setButton(getText(R.string.alert_dialog_cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            	if(mThread!= null) mThread.stopThread();
+            }
+        });
+	}
+		
 	public void cleanOrderButtonState() {
 		orderDistanceButton.setBackgroundResource(R.drawable.tab_left_a);
 		orderPopularityButton.setBackgroundResource(R.drawable.tab_middle_a);
@@ -502,7 +533,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				if(mInfo.getShoppic() != null && !mInfo.getShoppic().equals("")) {
 					try {					
 						File picFile = fileCache.getFile(mInfo.getShoppic());
-						if(!picFile.exists()) {
+						if(picFile != null && !picFile.exists()) {
 							InputStream inputStream = HttpDownloader.getInputStreamFromUrl(WebServiceConfig.RES_URL + mInfo.getShoppic());						
 							FileUtils.write2SDFromInput(picFile, inputStream);
 						}
@@ -560,7 +591,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 			String picPath = (String) mData.get(position).get("shoppic");
 			if(picPath != null && !picPath.equals("")) {
 				File picFile = fileCache.getFile(picPath);
-				if(picFile.exists()) {
+				if(picFile != null && picFile.exists()) {
 					String pathStr = picFile.getAbsolutePath();
 					pathStr = pathStr.replace("/mnt", "");
 					Uri uri = Uri.parse("file://" + pathStr);
@@ -719,12 +750,107 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 
 		@Override
 		public void run() {
-			UpdateInfo updateInfo = UpdateState.getUpdateSate();
+			updateInfo = UpdateState.getUpdateSate();
 			if(updateInfo != null) {
-				if(updateInfo.versionCode >= UpdateState.getVersionCode(SearchActivity.this)) {	
+				if(updateInfo.versionCode > UpdateState.getVersionCode(SearchActivity.this)) {	
 					mHandler.sendMessage(mHandler.obtainMessage(MessageCode.SHOW_DIALOG, updateInfo.introduction));
 				}
 			}
+		}
+	}
+	
+	/**
+	 * 下载应用程序的线程
+	 * @author Administrator
+	 *
+	 */
+	public class DownloadThread extends Thread {
+		private boolean stopFlag;
+		private String src;
+		
+		public DownloadThread(String src) {
+			stopFlag = false;
+			this.src = src;
+		}
+		
+		@Override
+		public void run() {
+			download();
+		}
+		
+		public void stopThread() {
+			stopFlag = true;
+		}
+		
+		private void download() {
+			int temp = 0;
+			int count = 0;
+			String httpUrl = WebServiceConfig.RES_URL + src;
+			File file = fileCache.getFile(src);
+			File newFile = null;
+			File tempFile = null;
+			OutputStream output = null;
+			try {
+				tempFile = new File(file.getParent(), file.getName() + ".temp");
+				tempFile.createNewFile();
+				
+				URL url = new URL(getPathUtf(httpUrl));
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				InputStream input = conn.getInputStream();
+				output = new FileOutputStream(tempFile);
+				byte buffer [] = new byte[1024];
+				mProgressDialog.setMax(conn.getContentLength());
+				
+				while((temp = input.read(buffer)) != -1){
+					output.write(buffer, 0, temp);
+					
+					count += temp;
+					mProgressDialog.setProgress(count);
+					
+					if(stopFlag) break;
+				}
+				output.flush();
+				
+				if(!stopFlag) {
+					//下载成功重命名为原来的文件后缀
+					newFile = new File(tempFile.getParent(), FileUtils.replaceExtensions(tempFile.getName(), ""));
+					if(!tempFile.renameTo(newFile)) {
+						tempFile.delete();
+						tempFile = null;
+					} else {
+						mHandler.sendMessage(mHandler.obtainMessage(MessageCode.INSTALL_APK, newFile.getAbsolutePath()));
+					}
+				} else {
+					//用户停止下载
+					tempFile.delete();
+					tempFile = null;
+				}				
+				mProgressDialog.dismiss();
+				
+				
+			} catch (Exception e) {
+				//用户停止下载
+				tempFile.delete();
+				tempFile = null;
+				mProgressDialog.dismiss();
+				e.printStackTrace();
+			} 
+		}
+		
+		public String getPathUtf(String path) {
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < path.length(); i++) {
+				if (path.charAt(i) > 0xa0) {
+					try {
+						sb.append(URLEncoder.encode(path.substring(i, i + 1),
+								"UTF-8"));
+					} catch (UnsupportedEncodingException e) {
+						e.printStackTrace();
+					}
+				} else
+					sb.append(path.charAt(i));
+			}
+			return sb.toString();
 		}
 	}
 }

@@ -22,6 +22,9 @@ public interface MessageCode {
 	//显示对话框
 	final int SHOW_DIALOG = 8;
 	
+	//显示更新对话框
+	final int SHOW_UPDATE_DIALOG = 17;
+	
 	//密码修改成功
 	final int PASSWORD_CHANGE_SUCCESS = 9;
 	//密码修改失败, 请重试
@@ -41,4 +44,7 @@ public interface MessageCode {
 	final int SEND_OPINIONS_SUCCESS = 15;
 	//意见发送失败
 	final int SEND_OPINIONS_FAIL = 16;
+	
+	//安装apk
+	final int INSTALL_APK = 18;
 }

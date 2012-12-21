@@ -89,7 +89,7 @@ public class ShopIntroductionActivity extends Activity implements ActivityTemple
 	public void setWidgetAttribute() {
 		FileCache fileCache = new FileCache(this);
 		File picFile = fileCache.getFile(mInfo.getShoppic());
-		if(picFile.exists()) {
+		if(picFile != null && picFile.exists()) {
 			String pathStr = picFile.getAbsolutePath();
 			pathStr = pathStr.replace("/mnt", "");
 			Uri uri = Uri.parse("file://" + pathStr);

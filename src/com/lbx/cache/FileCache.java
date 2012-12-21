@@ -24,11 +24,11 @@ public class FileCache {
     }
 
     public File getFile(String url) {
-            // 将url的hashCode作为缓存的文件名
-            String filename = String.valueOf(url.split("/")[2]);
-            // Another possible solution
-            // String filename = URLEncoder.encode(url);
-            File f = new File(cacheDir, filename);
+    		File f = null;
+    		if(url != null && !url.equals("")) {
+    			String filename = url.substring(url.lastIndexOf("/"), url.length());
+            	f = new File(cacheDir, filename);
+    		} 
             return f;
 
     }
