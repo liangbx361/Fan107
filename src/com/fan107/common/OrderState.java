@@ -27,15 +27,13 @@ public class OrderState {
 			}
 		}
 		
-//		return false;
-		return true;
+		return false;
+		
 	}
 	
 	public static boolean checkLimitPrice(float totalPrice) {
 		boolean isLimit = true;
-		
-//		if()
-		
+			
 		return isLimit;
 	}
 }

@@ -289,6 +289,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				shopListView.requestLayout();
 				shopListView.setAdapter(null);
 				shopData.clear();
+				shopInfoList.clear();
 				
 				new LoadShopListThread(orderType, false).start();				
 				break;
@@ -314,6 +315,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				shopListView.requestLayout();
 				shopListView.setAdapter(null);
 				shopData.clear();
+				shopInfoList.clear();
 				
 				new LoadShopListThread(orderType, true).start();
 				break;
@@ -596,6 +598,8 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 					pathStr = pathStr.replace("/mnt", "");
 					Uri uri = Uri.parse("file://" + pathStr);
 					pic.setImageURI(uri);
+				} else {
+					pic.setImageURI(null);
 				}
 			} else {
 				pic.setImageResource(R.drawable.default_pic);
