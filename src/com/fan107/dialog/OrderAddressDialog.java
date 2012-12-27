@@ -12,6 +12,8 @@ import com.fan107.config.WebServiceConfig;
 import com.fan107.data.OrderCar;
 import com.fan107.data.OrderDish;
 import com.lbx.templete.ActivityTemplete;
+import com.widget.helper.ToastHelper;
+
 import common.connection.net.WebServiceUtil;
 
 import android.app.Dialog;
@@ -125,12 +127,17 @@ public class OrderAddressDialog extends Dialog implements ActivityTemplete, andr
 	}
 	
 	private void sendOrder() {
-		mCar.remark = (String)hourSpinner.getSelectedItem() + (String)minuteSpinner.getSelectedItem();
-		mCar.remark = mCar.remark.replace("点", ":");
-		mCar.remark = mCar.remark.replace("分", "");
-		mCar.userAddress = address1 + address2View.getText().toString();
+		String delayAddr = address2View.getText().toString();
+		if(delayAddr!= null && !delayAddr.equals("")) {
+			mCar.remark = (String)hourSpinner.getSelectedItem() + (String)minuteSpinner.getSelectedItem();
+			mCar.remark = mCar.remark.replace("点", ":");
+			mCar.remark = mCar.remark.replace("分", "");
+			mCar.userAddress = address1 + address2View.getText().toString();
 		
-		mThread.start();
+			mThread.start();
+		} else {
+			ToastHelper.showToastInBottom(context, "请填写详细地址", 0);
+		}
 	}
 	
 	Thread mThread = new Thread() {
@@ -146,8 +153,10 @@ public class OrderAddressDialog extends Dialog implements ActivityTemplete, andr
 			
 			if(result.getPropertyAsString(0).equals("ok")) {
 				isConfirm = true;
-				dismiss();
-			}	
+				dismiss();				
+			} else {
+				ToastHelper.showToastInBottom(context, "订单提交失败, 请重试", 0);
+			}
 		}
 		
 	};

@@ -154,6 +154,7 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 			} else {
 				isLogin = false;
 				loadingBar.setVisibility(View.VISIBLE);
+				mHandler.sendEmptyMessage(1);
 				new LoadShopListThread(orderType, false).start();
 			}
 		} 
@@ -353,6 +354,8 @@ public class SearchActivity extends Activity implements OnClickListener, OnItemC
 				break;
 				
 			case SHOW_SHOP:
+				shopListView.removeAllViewsInLayout();
+				shopListView.requestLayout();
 				noShopView.setVisibility(View.VISIBLE);
 				break;
 				

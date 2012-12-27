@@ -76,9 +76,8 @@ public class OrderDishDialog extends Dialog implements ActivityTemplete,
 	public void setWidgetAttribute() {
 		if (mOrderDish != null) {
 			orderNameTextView.setText(mOrderDish.getDishName());
-			oldPriceTextView.setText(mOrderDish.getOldPrice() + "");
-			totalPriceView.setText(mOrderDish.getOldPrice()
-					* mOrderDish.getOrderNum() + "");
+			oldPriceTextView.setText(mOrderDish.getNewPrice() + "");
+			totalPriceView.setText(mOrderDish.getNewPrice() * mOrderDish.getOrderNum() + "");
 
 			numEditText.setText(mOrderDish.getOrderNum() + "");
 

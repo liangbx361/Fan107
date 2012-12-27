@@ -29,6 +29,7 @@ import com.fan107.R;
 import com.fan107.data.OrderCar;
 import com.fan107.data.OrderDish;
 import com.fan107.data.ShopInfo;
+import com.fan107.data.UserInfo;
 import com.fan107.dialog.OrderAddressDialog;
 import com.lbx.templete.ActivityTemplete;
 import com.widget.helper.ToastHelper;
@@ -45,6 +46,7 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 	
 	private ShopInfo mInfo;
 	private OrderCar mCar;
+	private UserInfo mUserInfo;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 		
 		mInfo = (ShopInfo) getIntent().getSerializableExtra("shopInfo");
 		mCar = (OrderCar) getIntent().getSerializableExtra("orderCar");
+		mUserInfo = (UserInfo) getIntent().getSerializableExtra("userInfo");
 		
 		findWidget();
 		setWidgetListenter();
@@ -128,8 +131,11 @@ public class OrderCarActivity extends Activity implements ActivityTemplete, OnCl
 	
 	public void onDismiss(DialogInterface dialog) {
 		OrderAddressDialog orderDialog = (OrderAddressDialog)dialog;
-		if(orderDialog.isConfirm()) {
+		if(orderDialog.isConfirm()) {			
 			ToastHelper.showToastInBottom(this, "订单提交成功, 请等待商定送餐", 0);
+			Intent mIntent = new Intent(this, OrderListActivity.class);
+			mIntent.putExtra("userInfo", mUserInfo);
+			startActivity(mIntent);
 		}
 	}
 	

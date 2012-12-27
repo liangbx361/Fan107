@@ -182,6 +182,7 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 					Intent orderCar = new Intent(ShopInfoActivity.this, OrderCarActivity.class);
 					orderCar.putExtra("shopInfo", mInfo);
 					orderCar.putExtra("orderCar", mCar);
+					orderCar.putExtra("userInfo", mUserInfo);
 					startActivityForResult(orderCar, MessageCode.RETURN_ORDER_CAR); 
 				} else {
 					ToastHelper.showToastInBottom(this, "非订餐时段,请自行电话定餐", 0);

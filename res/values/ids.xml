@@ -1385,6 +1385,7 @@
     <!-- dish_list -->
     <item name="dish_name" type="id">false</item>
     <item name="dish_price" type="id">fase</item>
+    <item name="dish_price2" type="id">fase</item>
     <item name="dish_price_util" type="id">false</item>
 
     <!-- dishes_lst -->
@@ -1392,7 +1393,10 @@
 
     <!-- login_activity -->
 	<item name="login_auto_login" type="id">false</item>
-
+	
+	<!-- logo_layout -->
+	<item name="fan107_log" type="id">false</item>
+	
     <!-- member_info_layout id -->
     <item name="username" type="id">false</item>
     <item name="email" type="id">false</item>

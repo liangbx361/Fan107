@@ -117,6 +117,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:src="@drawable/rmb_icon" />
 
                     <TextView
@@ -137,7 +138,10 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/rmb_icon" />
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="3dp"
+                        android:src="@drawable/send_price_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -171,7 +175,9 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/rmb_icon" />
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="3dp"
+                        android:src="@drawable/send_time_icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -198,7 +204,10 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/rmb_icon" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/pay_type_icon" />
 
                     <TextView
                         android:id="@id/shop_detail_payment"

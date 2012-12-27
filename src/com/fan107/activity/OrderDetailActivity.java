@@ -31,6 +31,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 public class OrderDetailActivity extends Activity implements ActivityTemplete, OnClickListener{
+	private static final String[] ORDER_STATES = {"未处理", "处理中", "已完成", "作废"};
+	
 	private OrderInfo mOrderInfo;
 	private Button mCommentBtn;
 	private TextView mOrderNumberView;
@@ -100,7 +102,7 @@ public class OrderDetailActivity extends Activity implements ActivityTemplete, O
 		mTelView.setText(mOrderInfo.userTel);
 		mSendTimeView.setText(mOrderInfo.remark);
 		mAddressView.setText(mOrderInfo.userAddress);
-		mStatesView.setText(mOrderInfo.orderStatus+"");
+		mStatesView.setText(ORDER_STATES[mOrderInfo.orderStatus]);
 	}
 
 	public void onClick(View v) {

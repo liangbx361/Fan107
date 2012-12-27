@@ -2,8 +2,8 @@ package com.fan107.config;
 
 public interface WebServiceConfig {
 	//服务器的IP地址 
-	public static final String SERVER_IP = "192.168.0.105";
-	
+//	public static final String SERVER_IP = "192.168.0.23";
+	public static final String SERVER_IP = "www.107fan.com";
 	public static final String RES_URL = "http://" + SERVER_IP + "/";
 	
 	//命名空间

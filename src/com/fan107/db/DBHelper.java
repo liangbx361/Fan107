@@ -26,6 +26,8 @@ public class DBHelper extends SQLiteOpenHelper {
 	public static final String USER_LOGIN_TABLE_NAME = "users_login";
 	public static final String USER_ADDRESS_TABLE_NAME = "user_address";
 	
+	public static final String PRODUCTS_TABLE_NAME = "products";
+	
 	//创建user数据�?
 	private static final String CREATE_TABLE_USER = "create table if not exists " + USER_TABLE_NAME 
 		+ " (_id integer primary key autoincrement," 
@@ -54,6 +56,10 @@ public class DBHelper extends SQLiteOpenHelper {
 	private static final String CREATE_TABLE_USER_ADDRSS = "create table if not exists " + USER_ADDRESS_TABLE_NAME
 	+ " (_id integer primary key autoincrement, id int, userid int, username varchar(20), mobile varchar(20), address varchar(20), isdefault int)";
 	
+	private static final String CREATE_TABLE_PRODUCT = "create table if not exists " + PRODUCTS_TABLE_NAME 
+	+ " (_id integer primary key autoincrement, id int, typeid int, productname varchar(20), shopid int, imgsrc varchar(255), "
+	+ "price decimal(8, 1), price2 decimal(8, 1), sortid int, sellstatus int)";
+	
 	private SQLiteDatabase mDatabase;
 
 	public DBHelper(Context context) {
@@ -66,6 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		mDatabase.execSQL(CREATE_TABLE_USER);
 		mDatabase.execSQL(CREATE_TABLE_USER_LOGIN);
 		mDatabase.execSQL(CREATE_TABLE_USER_ADDRSS);
+		mDatabase.execSQL(CREATE_TABLE_PRODUCT);
 	}
 	
 	@Override

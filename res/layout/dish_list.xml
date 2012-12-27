@@ -9,23 +9,22 @@
 
     <TextView
         android:id="@id/dish_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
+        android:layout_gravity="center_vertical"
         android:text="红烧原汁牛肉面"
         android:textColor="#808080"
         android:textSize="16sp" 
-        android:layout_weight="1"/>
+        android:layout_weight="3"/>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp" 
-        android:layout_marginRight="40dp"
-        android:layout_weight="1"
-        android:gravity="right">
+        android:layout_weight="1.3"
+        android:gravity="center"
+        android:layout_gravity="center_vertical">
 
         
         <TextView
@@ -43,6 +42,34 @@
             android:layout_toRightOf="@id/dish_price_util"
             android:text="22.0"
             android:textColor="#808080"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.3"
+        android:layout_marginRight="5dp"
+        android:gravity="center"
+        android:layout_gravity="center_vertical">
+
+        
+        <TextView
+            android:id="@id/dish_price_util"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥"
+            android:textColor="@color/price"
+            android:textSize="16sp" />
+        
+        <TextView
+            android:id="@id/dish_price2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/dish_price_util"
+            android:text="22.0"
+            android:textColor="@color/price"
             android:textSize="16sp" />
 
     </RelativeLayout>

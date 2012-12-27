@@ -108,8 +108,8 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 				new int[] { R.id.dishs_name },
 
 				dishList, R.layout.dish_list, new String[] { "dishName",
-						"price", },
-				new int[] { R.id.dish_name, R.id.dish_price });
+						"price", "price2" },
+				new int[] { R.id.dish_name, R.id.dish_price, R.id.dish_price2 });
 	}
 
 	Handler mHandler = new Handler() {
@@ -244,11 +244,7 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 				Product product = new Product();
 				product.setId(WebServiceUtil.getSoapObjectInt(child, "Id"));
 				product.setImgSrc(WebServiceUtil.getSoapObjectString(child,
-						"ImgSrc"));
-				product.setPrice(WebServiceUtil.getSoapObjectFloat(child,
-						"Price"));
-				product.setPrice2(WebServiceUtil.getSoapObjectFloat(child,
-						"Price2"));
+						"ImgSrc"));						
 				product.setProductName(WebServiceUtil.getSoapObjectString(
 						child, "ProductName"));
 				product.setSellStatus(WebServiceUtil.getSoapObjectInt(child,
@@ -259,6 +255,16 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 						"SortId"));
 				product.setTypeId(WebServiceUtil.getSoapObjectInt(child,
 						"TypeId"));
+				
+				float price = WebServiceUtil.getSoapObjectFloat(child, "Price");
+				float price2;
+				if(mInfo.getZk() != 0) {
+					price2 = price - price*mInfo.getZk()/100;
+				} else {
+					price2 = price;
+				}
+				product.setPrice(price);
+				product.setPrice2(price2);
 
 				pList.add(product);
 
@@ -266,6 +272,7 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 				Map<String, String> childMap = new HashMap<String, String>();
 				childMap.put("dishName", product.getProductName());
 				childMap.put("price", String.valueOf(product.getPrice()));
+				childMap.put("price2", String.valueOf(product.getPrice2()));
 				dishChildList.add(childMap);
 			}
 
