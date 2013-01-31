@@ -31,6 +31,7 @@ import com.fan107.data.ProductType;
 import com.fan107.data.ShopInfo;
 import com.fan107.data.UserAddress;
 import com.fan107.data.UserInfo;
+import com.fan107.db.DBHelper;
 import com.lbx.templete.ActivityTemplete;
 import com.widget.helper.ToastHelper;
 import common.connection.net.WebServiceUtil;
@@ -78,7 +79,12 @@ public class ShopInfoActivity extends ActivityGroup implements ActivityTemplete,
 		mThread.start();
 		
 		IntentFilter intentFilter = new IntentFilter("fan107.orderCar_1");
-		registerReceiver(mReceiver, intentFilter);  
+		registerReceiver(mReceiver, intentFilter); 
+		
+		DBHelper dbHelper = new DBHelper(this);
+		dbHelper.deleteTableContent("delete from " + DBHelper.PRODUCT_TYPE_TABLE_NAME);
+		dbHelper.deleteTableContent("delete from " + DBHelper.PRODUCTS_TABLE_NAME);
+		dbHelper.close();
 	}
 	
 	private OrderCar OrderCarInit() {

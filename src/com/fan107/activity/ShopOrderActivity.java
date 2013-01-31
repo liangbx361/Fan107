@@ -16,6 +16,7 @@ import com.fan107.data.OrderDish;
 import com.fan107.data.Product;
 import com.fan107.data.ProductType;
 import com.fan107.data.ShopInfo;
+import com.fan107.db.DBHelper;
 import com.fan107.dialog.OrderDishDialog;
 import com.lbx.templete.ActivityTemplete;
 import com.widget.helper.ToastHelper;
@@ -25,11 +26,13 @@ import common.connection.net.WebServiceUtil;
 import android.app.Activity;
 import android.app.ExpandableListActivity;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -107,8 +110,7 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 				R.layout.dishes_list, new String[] { "dishName" },
 				new int[] { R.id.dishs_name },
 
-				dishList, R.layout.dish_list, new String[] { "dishName",
-						"price", "price2" },
+				dishList, R.layout.dish_list, new String[] { "dishName", "price", "price2" },
 				new int[] { R.id.dish_name, R.id.dish_price, R.id.dish_price2 });
 	}
 
@@ -136,10 +138,8 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 			
 		} else if (OrderState.checkTime(mInfo.getOrdertime())) {
 			OrderDish mOrderDish = new OrderDish();
-			String disTypeName = dishsNameList.get(groupPosition).get(
-					"dishName");
-			Product mProduct = (Product) ProductList.get(groupPosition)
-					.get(disTypeName).get(childPosition);
+			String disTypeName = dishsNameList.get(groupPosition).get("dishName");
+			Product mProduct = (Product) ProductList.get(groupPosition).get(disTypeName).get(childPosition);
 			mOrderDish.setDishName(mProduct.getProductName());
 			mOrderDish.setOrderNum(1);
 			mOrderDish.setOldPrice(mProduct.getPrice());
@@ -152,10 +152,8 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 
 			Log.d(TAG, "groupPosition: " + groupPosition + " childPosition:"
 					+ childPosition + " id:" + id);
-			Log.d(TAG,
-					dishList.get(groupPosition).get(childPosition)
-							.get("dishName")
-							+ " 一份");
+			Log.d(TAG, dishList.get(groupPosition).get(childPosition)
+					.get("dishName") + " 一份");
 		} else {
 			ToastHelper.showToastInBottom(this, "非订餐时段,请自行电话定餐", 0);
 		}
@@ -163,28 +161,38 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 	}
 
 	class LoadProductThread extends Thread {
-
+		boolean isEmpty;
+		
+		public LoadProductThread() {
+			isEmpty = isEmptyProudctTypeDb();
+		}
+		
 		@Override
 		public void run() {
-
-			String url = WebServiceConfig.url
-					+ WebServiceConfig.SHOP_INFO_WEB_SERVICE;
+			List<ProductType> pList;
 			int shopId = mInfo.getShopId();
-			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("shopId", shopId);
-			SoapObject proudctType = WebServiceUtil.getWebServiceResult(url,
-					WebServiceConfig.GET_PRODUCT_LIST_METHOD, params);
-			List<ProductType> pList = saveProudctType(proudctType);
+			String url = WebServiceConfig.url + WebServiceConfig.SHOP_INFO_WEB_SERVICE;
+			if(isEmpty) {								
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put("shopId", shopId);
+				SoapObject proudctType = WebServiceUtil.getWebServiceResult(url, WebServiceConfig.GET_PRODUCT_LIST_METHOD, params);
+				pList = saveProudctType(proudctType);
+			} else {
+				pList = getProductTypeDb();
+			}
 
 			for (int i = 0; i < pList.size(); i++) {
 				ProductType pType = pList.get(i);
-				Map<String, Object> params1 = new HashMap<String, Object>();
-				params1.put("shopId", shopId);
-				params1.put("productId", pType.getId());
-				SoapObject proudctSoObject = WebServiceUtil
-						.getWebServiceResult(url,
-								WebServiceConfig.GET_PRODUCT_METHOD, params1);
-				List<Product> product = saveProudct(proudctSoObject);
+				List<Product> product;
+				if(isEmpty) {
+					Map<String, Object> params1 = new HashMap<String, Object>();
+					params1.put("shopId", shopId);
+					params1.put("productId", pType.getId());
+					SoapObject proudctSoObject = WebServiceUtil.getWebServiceResult(url,WebServiceConfig.GET_PRODUCT_METHOD, params1);
+					product = saveProudct(proudctSoObject);
+				} else {
+					product = getProductsDb(pType);
+				}
 
 				// 获得菜品名称
 				Map<String, String> name = new HashMap<String, String>();
@@ -193,8 +201,7 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 
 				Map<String, List<Product>> pMap = new HashMap<String, List<Product>>();
 				pMap.put(pType.getTypeName(), product);
-				ProductList.add(pMap);
-
+				ProductList.add(pMap);				
 			}
 
 			mHandler.sendEmptyMessage(SET_ADAPTER);
@@ -209,19 +216,27 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 		 */
 		private List<ProductType> saveProudctType(SoapObject proudctType) {
 			List<ProductType> pList = new ArrayList<ProductType>();
-			int[] childList = { 0 };
-			SoapObject childs = WebServiceUtil.getChildSoapObject(proudctType,
-					childList);
-			for (int i = 0; i < childs.getPropertyCount(); i++) {
-				SoapObject child = (SoapObject) childs.getProperty(i);
-				ProductType pType = new ProductType();
-				pType.setId(WebServiceUtil.getSoapObjectInt(child, "Id"));
-				pType.setTypeName(WebServiceUtil.getSoapObjectString(child,
-						"TypeName"));
-				pType.setShopId(WebServiceUtil
-						.getSoapObjectInt(child, "ShopId"));
+			if(proudctType != null) {
+				int[] childList = { 0 };
+				SoapObject childs = WebServiceUtil.getChildSoapObject(proudctType,childList);
+				for (int i = 0; i < childs.getPropertyCount(); i++) {
+					SoapObject child = (SoapObject) childs.getProperty(i);
+					ProductType pType = new ProductType();
+					pType.setId(WebServiceUtil.getSoapObjectInt(child, "Id"));
+					pType.setTypeName(WebServiceUtil.getSoapObjectString(child, "TypeName"));
+					pType.setShopId(WebServiceUtil.getSoapObjectInt(child, "ShopId"));
 
-				pList.add(pType);
+					pList.add(pType);		
+					
+					//存储进数据库中
+					DBHelper dbHelper = new DBHelper(ShopOrderActivity.this);
+					ContentValues contentValues = new ContentValues();
+					contentValues.put("id", pType.getId());
+					contentValues.put("typename", pType.getTypeName());
+					contentValues.put("shopid", pType.getShopId());
+					dbHelper.insert(DBHelper.PRODUCT_TYPE_TABLE_NAME, contentValues);
+					dbHelper.close();
+				}
 			}
 
 			return pList;
@@ -233,28 +248,25 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 		 * @param pSoObject
 		 * @return
 		 */
-		private List<Product> saveProudct(SoapObject pSoObject) {
+		private List<Product> saveProudct(SoapObject pSoObject) {			
 			List<Product> pList = new ArrayList<Product>();
+			if(pSoObject == null) return pList;
+			
 			List<Map<String, String>> dishChildList = new ArrayList<Map<String, String>>();
 			int[] childList = { 0 };
-			SoapObject childs = WebServiceUtil.getChildSoapObject(pSoObject,
-					childList);
+			SoapObject childs = WebServiceUtil.getChildSoapObject(pSoObject, childList);
+			DBHelper dbHelper = new DBHelper(ShopOrderActivity.this);
+			
 			for (int i = 0; i < childs.getPropertyCount(); i++) {
 				SoapObject child = (SoapObject) childs.getProperty(i);
 				Product product = new Product();
 				product.setId(WebServiceUtil.getSoapObjectInt(child, "Id"));
-				product.setImgSrc(WebServiceUtil.getSoapObjectString(child,
-						"ImgSrc"));						
-				product.setProductName(WebServiceUtil.getSoapObjectString(
-						child, "ProductName"));
-				product.setSellStatus(WebServiceUtil.getSoapObjectInt(child,
-						"SellStatus"));
-				product.setShopId(WebServiceUtil.getSoapObjectInt(child,
-						"ShopId"));
-				product.setSortId(WebServiceUtil.getSoapObjectInt(child,
-						"SortId"));
-				product.setTypeId(WebServiceUtil.getSoapObjectInt(child,
-						"TypeId"));
+				product.setImgSrc(WebServiceUtil.getSoapObjectString(child,"ImgSrc"));						
+				product.setProductName(WebServiceUtil.getSoapObjectString(child, "ProductName"));
+				product.setSellStatus(WebServiceUtil.getSoapObjectInt(child,"SellStatus"));
+				product.setShopId(WebServiceUtil.getSoapObjectInt(child,"ShopId"));
+				product.setSortId(WebServiceUtil.getSoapObjectInt(child,"SortId"));
+				product.setTypeId(WebServiceUtil.getSoapObjectInt(child,"TypeId"));
 				
 				float price = WebServiceUtil.getSoapObjectFloat(child, "Price");
 				float price2;
@@ -274,12 +286,92 @@ public class ShopOrderActivity extends ExpandableListActivity implements
 				childMap.put("price", String.valueOf(product.getPrice()));
 				childMap.put("price2", String.valueOf(product.getPrice2()));
 				dishChildList.add(childMap);
+				
+				//存储进数据库中				
+				ContentValues contentValues = new ContentValues();
+				contentValues.put("id", product.getId());
+				contentValues.put("typeid", product.getTypeId());
+				contentValues.put("productname", product.getProductName());
+				contentValues.put("shopid", product.getShopId());
+				contentValues.put("imgsrc", product.getImgSrc());
+				contentValues.put("price", product.getPrice());
+				contentValues.put("price2", product.getPrice2());
+				contentValues.put("sortid", product.getSortId());
+				contentValues.put("sellstatus", product.getSellStatus());
+				dbHelper.insert(DBHelper.PRODUCTS_TABLE_NAME, contentValues);
+				dbHelper.close();
 			}
 
 			dishList.add(dishChildList);
 			return pList;
 		}
 
+	}
+	
+	private List<ProductType> getProductTypeDb() {
+		List<ProductType> pList = new ArrayList<ProductType>();
+		DBHelper dbHelper = new DBHelper(ShopOrderActivity.this);
+		Cursor cursor = dbHelper.query(DBHelper.PRODUCT_TYPE_TABLE_NAME, new String[]{"id", "typename", "shopid"}, null);
+		cursor.moveToFirst();
+		do {
+			ProductType pType = new ProductType();
+			pType.setId(cursor.getInt(cursor.getColumnIndex("id")));
+			pType.setTypeName(cursor.getString(cursor.getColumnIndex("typename")));
+			pType.setShopId(cursor.getInt(cursor.getColumnIndex("shopid")));
+			pList.add(pType);
+		} while (cursor.moveToNext()); 
+		dbHelper.close();
+		return pList;
+	}
+	
+	private List<Product> getProductsDb(ProductType pType) {
+		List<Product> pList = new ArrayList<Product>();
+		List<Map<String, String>> dishChildList = new ArrayList<Map<String, String>>();
+		DBHelper dbHelper = new DBHelper(ShopOrderActivity.this);
+		Cursor cursor = dbHelper.query("select * from " + DBHelper.PRODUCTS_TABLE_NAME 
+				+ " where typeid='"+ pType.getId() +"' and shopid='"+ pType.getShopId() +"'");
+		cursor.moveToFirst();
+		do {
+			Product product = new Product();
+			product.setId(cursor.getInt(cursor.getColumnIndex("id")));
+			product.setTypeId(cursor.getInt(cursor.getColumnIndex("typeid")));
+			product.setProductName(cursor.getString(cursor.getColumnIndex("productname")));
+			product.setShopId(cursor.getInt(cursor.getColumnIndex("shopid")));
+			product.setImgSrc(cursor.getString(cursor.getColumnIndex("imgsrc")));
+			product.setPrice(cursor.getFloat(cursor.getColumnIndex("price")));
+			product.setPrice2(cursor.getFloat(cursor.getColumnIndex("price2")));
+			product.setSortId(cursor.getInt(cursor.getColumnIndex("sortid")));
+			product.setSellStatus(cursor.getInt(cursor.getColumnIndex("sellstatus")));
+			pList.add(product);
+			
+			// 获得单个菜名和菜价
+			Map<String, String> childMap = new HashMap<String, String>();
+			childMap.put("dishName", product.getProductName());
+			childMap.put("price", String.valueOf(product.getPrice()));
+			childMap.put("price2", String.valueOf(product.getPrice2()));
+			dishChildList.add(childMap);
+			
+		} while(cursor.moveToNext());
+		dbHelper.close();
+		
+		dishList.add(dishChildList);
+		return pList;
+	}
+	
+	private boolean isEmptyProudctTypeDb() {
+		boolean isEmpty = true;
+		DBHelper dbHelper = new DBHelper(this);
+		Cursor cursor = dbHelper.query("select id from " + DBHelper.PRODUCT_TYPE_TABLE_NAME);
+		cursor.moveToFirst();
+		try {
+			if(cursor.getInt(0)>0) 
+				isEmpty = false;
+		} catch(Exception e) {
+			
+		}
+		dbHelper.close();
+		
+		return isEmpty;
 	}
 
 	public void onDismiss(DialogInterface dialog) {
